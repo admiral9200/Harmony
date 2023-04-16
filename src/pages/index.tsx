@@ -1,5 +1,8 @@
 import { AtomText } from "lucy-nxtjs";
+import { NextReadPage } from "next";
 
-export default function Home() {
+const PageIndexHome: NextReadPage = () => {
   return <AtomText>HELLO</AtomText>;
-}
+};
+PageIndexHome.Layout = "public";
+export default PageIndexHome;

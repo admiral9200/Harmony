@@ -1,2 +1,7 @@
 @import url("./fonts.css");
 @import url("./normalize.css");
+
+body {
+  display: flex;
+  min-height: 100vh;
+}
