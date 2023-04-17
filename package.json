@@ -9,17 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.12",
     "@emotion/react": "^11.10.6",
+    "@hookform/resolvers": "^3.1.0",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
+    "graphql": "^16.6.0",
     "lucy-nxtjs": "^0.0.71",
     "next": "13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-konva": "^18.2.7",
-    "typescript": "5.0.4"
+    "react-toastify": "^9.1.2",
+    "typescript": "5.0.4",
+    "yup": "^1.1.1"
   }
 }
