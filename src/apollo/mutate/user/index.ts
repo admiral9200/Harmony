@@ -16,3 +16,15 @@ export const CREATE_USER = gql`
     }
   }
 `;
+export const ACTIVATE_USER = gql`
+  mutation ActiveUser($input: InputActiveVariables) {
+    activeUser(input: $input) {
+      user {
+        email
+        id
+        name
+      }
+      message
+    }
+  }
+`;

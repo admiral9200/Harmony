@@ -11,6 +11,7 @@ import {
   AtomText,
   AtomWrapper,
 } from "lucy-nxtjs";
+import { useRouter } from "next/router";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -30,13 +31,25 @@ type ValuesForm = {
 };
 
 const LoginPage: FC = () => {
+  const router = useRouter();
   const [EXECUTE_CREATE_USER] = useMutation<IMutationFilter<"createUser">>(
     CREATE_USER,
     {
-      onError: () => {
+      onCompleted: (data) => {
+        router.push({
+          pathname: "/account/success/[id]",
+          query: {
+            id: btoa(data?.createUser?.user?.id as string),
+          },
+        });
+      },
+      onError: (error) => {
         insertAlert({
           status: "error",
-          message: "Error",
+          message: `${error.message}`,
+          options: {
+            position: "top-left",
+          },
         });
       },
     }
@@ -56,7 +69,17 @@ const LoginPage: FC = () => {
     resolver: yupResolver<any>(schema),
   });
 
-  const onSubmit = (data: ValuesForm) => console.log(data);
+  const onSubmit = ({ email, lastName, name, password }: ValuesForm) =>
+    EXECUTE_CREATE_USER({
+      variables: {
+        input: {
+          email,
+          lastName,
+          name,
+          password,
+        },
+      },
+    });
 
   return (
     <AtomWrapper
