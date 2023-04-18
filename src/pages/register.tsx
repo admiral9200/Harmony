@@ -36,7 +36,7 @@ const LoginPage: FC = () => {
     CREATE_USER,
     {
       onCompleted: (data) => {
-        router.push({
+        router.replace({
           pathname: "/account/success/[id]",
           query: {
             id: btoa(data?.createUser?.user?.id as string),
@@ -212,6 +212,15 @@ const LoginPage: FC = () => {
               `}
             />
           </AtomForm>
+          <AtomText
+            width="100%"
+            textAlign="center"
+            cursor="pointer"
+            onClick={() => router.push("/login")}
+            textDecoration="underline"
+          >
+            Do you have an account? Login
+          </AtomText>
         </AtomWrapper>
       </AtomWrapper>
       <AtomWrapper

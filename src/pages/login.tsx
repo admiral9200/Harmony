@@ -1,19 +1,70 @@
+import { MUTATE_LOGIN_USER } from "@/apollo/mutate/user";
+import { IMutationFilter } from "@/types";
+import insertAlert from "@/utils/Alert";
+import { useMutation } from "@apollo/client";
+import { css } from "@emotion/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
-  AtomButton,
+  AtomForm,
   AtomIcon,
   AtomInput,
   AtomText,
   AtomWrapper,
 } from "lucy-nxtjs";
 import { useRouter } from "next/router";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 
-type Props = {
-  children?: ReactNode;
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+});
+
+type ValuesForm = {
+  email: string;
+  password: string;
 };
 
-const LoginPage: FC<Props> = (props) => {
+const LoginPage: FC = () => {
   const router = useRouter();
+  const [EXECUTE_LOGIN_USER] = useMutation<IMutationFilter<"loginUser">>(
+    MUTATE_LOGIN_USER,
+    {
+      onError: (error) => {
+        insertAlert({
+          status: "error",
+          message: `${error.message}`,
+          options: {
+            position: "top-left",
+          },
+        });
+      },
+    }
+  );
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver<any>(schema),
+  });
+  const onSubmit = ({ email, password }: ValuesForm) => {
+    EXECUTE_LOGIN_USER({
+      variables: {
+        input: {
+          password,
+          email,
+        },
+      },
+    });
+  };
+
   return (
     <AtomWrapper
       customCSS={(css) => css`
@@ -46,52 +97,69 @@ const LoginPage: FC<Props> = (props) => {
           <AtomText fontSize="17px">
             Design your dream website with ease.
           </AtomText>
-          <AtomInput
-            label="Email"
-            type="email"
-            customWrapperCSS={(css) => css`
-              height: auto;
-            `}
-            placeholder="Enter your email"
-            customCSS={(css) =>
-              css`
-                div {
-                  background: #ffffff;
-                  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
-                }
-                height: auto;
-              `
-            }
-          />
-          <AtomInput
-            label="Password"
-            type="password"
-            customWrapperCSS={(css) => css`
-              height: auto;
-            `}
-            placeholder="Enter your password"
-            customCSS={(css) =>
-              css`
-                height: auto;
-                div {
-                  background: #ffffff;
-                  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
-                }
-              `
-            }
-          />
-          <AtomButton
-            backgroundColor="#8679ec"
-            width="100%"
-            fontSize="18px"
+
+          <AtomForm
             customCSS={(css) => css`
-              margin-top: 40px;
-              border-radius: 10px;
-              background: linear-gradient(45deg, #79ecd7 10%, #8679ec 70%);
+              height: auto;
             `}
+            onSubmit={handleSubmit(onSubmit)}
           >
-            Login
-          </AtomButton>
+            <AtomInput
+              label="Email"
+              type="email"
+              customWrapperCSS={(css) => css`
+                height: auto;
+              `}
+              placeholder="Enter your email"
+              customCSS={(css) =>
+                css`
+                  div {
+                    background: #ffffff;
+                    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+                  }
+                  height: auto;
+                `
+              }
+              onExecute={() => register("email")}
+              onError={() => errors.email?.message}
+            />
+            <AtomInput
+              label="Password"
+              type="password"
+              customWrapperCSS={(css) => css`
+                height: auto;
+              `}
+              placeholder="Enter your password"
+              customCSS={(css) =>
+                css`
+                  height: auto;
+                  div {
+                    background: #ffffff;
+                    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+                  }
+                `
+              }
+              onExecute={() => register("password")}
+              onError={() => errors.password?.message}
+            />
+
+            <AtomInput
+              type="submit"
+              value="Login"
+              css={() => css`
+                color: white;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+              `}
+              customCSS={(css) => css`
+                margin-top: 40px;
+                border-radius: 10px;
+                background: linear-gradient(45deg, #79ecd7 10%, #8679ec 70%);
+                cursor: pointer;
+              `}
+            />
+          </AtomForm>
           <AtomText
             width="100%"
             textAlign="center"

@@ -28,3 +28,16 @@ export const ACTIVATE_USER = gql`
     }
   }
 `;
+
+export const MUTATE_LOGIN_USER = gql`
+  mutation LoginUser($input: InputUserLoginVariables) {
+    loginUser(input: $input) {
+      user {
+        id
+        email
+        name
+      }
+      token
+    }
+  }
+`;
