@@ -1,7 +1,9 @@
-import { AtomText, AtomWrapper } from "lucy-nxtjs";
+import { AtomButton, AtomText, AtomWrapper } from "lucy-nxtjs";
 import { NextReadPage } from "next";
+import { useRouter } from "next/router";
 
 const PageIndexHome: NextReadPage = () => {
+  const router = useRouter();
   return (
     <AtomWrapper
       backgroundColor="#202020"
@@ -25,7 +27,10 @@ const PageIndexHome: NextReadPage = () => {
           height: auto;
         `}
       >
-        <AtomWrapper
+        <AtomButton
+          onClick={() => {
+            router.push("/editor");
+          }}
           customCSS={(css) => css`
             height: auto;
             width: 200px;
@@ -35,23 +40,22 @@ const PageIndexHome: NextReadPage = () => {
             align-items: center;
             padding: 10px 5px;
             border: 1px solid white;
-
             justify-content: center;
           `}
         >
           <AtomText
             customCSS={(css) => css`
-              width: 220px;
               border-radius: 10px;
               height: 100%;
               display: flex;
               align-items: center;
-              justify-content: flex-start;
+              justify-content: center;
               gap: 0.5em;
               font-size: 16px;
               font-weight: 600;
               align-items: center;
               justify-content: center;
+              cursor: pointer;
             `}
             color="white"
           >
@@ -117,7 +121,7 @@ const PageIndexHome: NextReadPage = () => {
             </svg>
             New design file
           </AtomText>
-        </AtomWrapper>
+        </AtomButton>
       </AtomWrapper>
       <AtomWrapper
         customCSS={(css) => css`
