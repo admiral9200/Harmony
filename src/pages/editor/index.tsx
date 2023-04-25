@@ -14,9 +14,6 @@ const PageEditor: NextOnlyPage = (props) => {
       ref={screen.ref}
       customCSS={(css) => css`
         overflow: none;
-        canvas {
-          border: 1px solid red !important;
-        }
       `}
     >
       <Stage
@@ -24,7 +21,15 @@ const PageEditor: NextOnlyPage = (props) => {
         height={screen?.dimensions.height}
       >
         <Layer>
-          <Rect width={50} height={50} fill="red" draggable />
+          <Rect
+            width={50}
+            height={50}
+            fill="red"
+            draggable
+            onClick={() => {
+              console.log("SDF");
+            }}
+          />
           <Circle
             x={200}
             y={200}
@@ -34,9 +39,9 @@ const PageEditor: NextOnlyPage = (props) => {
             fill="red"
           />
           <Text
-            fontSize={60}
+            fontSize={24}
             // fontStyle="bold"
-            text="HEYYYYYYYYYYYYYYYYYYYYYYY"
+            text="Heyt "
             wrap="char"
             draggable
             align="center"

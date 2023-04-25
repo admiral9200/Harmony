@@ -12,6 +12,13 @@ const LogoHarmony: FC<Props> = ({ color, height, width }) => (
     height={height ?? "100px"}
     width={width ?? "100px"}
     color={color ?? "black"}
+    customCSS={(css) => css`
+      svg {
+        path {
+          stroke-width: 2;
+        }
+      }
+    `}
     src="https://res.cloudinary.com/whil/image/upload/v1681690426/app/harmony/SVGNORMALIZE_xjjlpj.svg"
   />
 );

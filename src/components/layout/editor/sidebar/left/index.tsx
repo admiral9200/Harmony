@@ -3,7 +3,11 @@ import { FC } from "react";
 
 const LayoutEditorSidebarLeft: FC = () => {
   return (
-    <AtomWrapper backgroundColor="#202020">
+    <AtomWrapper
+      backgroundColor="#202020"
+      justifyContent="flex-start"
+      padding="1.3rem"
+    >
       <AtomText color="white">LayoutEditorSidebarLeft</AtomText>
     </AtomWrapper>
   );
