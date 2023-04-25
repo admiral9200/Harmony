@@ -8,7 +8,7 @@ declare module "next" {
   import { ReactNode } from "react";
   export declare type Layout = (page: ReactNode) => ReactNode;
   export declare type NextPageWithProps<p> = NextPage<p> & PropsLayout;
-  export declare type NextReadPage = NextPage & PropsLayout;
+  export declare type NextOnlyPage = NextPage & PropsLayout;
 }
 
 declare module "next/app" {

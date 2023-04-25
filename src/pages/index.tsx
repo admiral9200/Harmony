@@ -1,8 +1,8 @@
 import { AtomButton, AtomText, AtomWrapper } from "lucy-nxtjs";
-import { NextReadPage } from "next";
+import { NextOnlyPage } from "next";
 import { useRouter } from "next/router";
 
-const PageIndexHome: NextReadPage = () => {
+const PageIndexHome: NextOnlyPage = () => {
   const router = useRouter();
   return (
     <AtomWrapper

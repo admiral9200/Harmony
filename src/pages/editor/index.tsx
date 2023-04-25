@@ -1,26 +1,28 @@
-import { Circle, Layer, Rect, Stage } from "react-konva";
+import { Circle, Layer, Rect, Stage, Text } from "react-konva";
 
+import useScreen from "@/hooks/useScreen";
 import { AtomWrapper } from "lucy-nxtjs";
-import { FC, ReactNode } from "react";
+import { NextOnlyPage } from "next";
 
-type Props = {
-  children?: ReactNode;
-};
+const PageEditor: NextOnlyPage = (props) => {
+  const screen = useScreen({
+    deps: [],
+  });
 
-const PageEditor: FC<Props> = (props) => {
-  const screenwindow = screen();
   return (
     <AtomWrapper
+      ref={screen.ref}
       customCSS={(css) => css`
         overflow: none;
         canvas {
-          background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC")
-            repeat 0 0 !important;
           border: 1px solid red !important;
         }
       `}
     >
-      <Stage width={screenwindow?.width} height={screenwindow?.height}>
+      <Stage
+        width={screen?.dimensions.width}
+        height={screen?.dimensions.height}
+      >
         <Layer>
           <Rect width={50} height={50} fill="red" draggable />
           <Circle
@@ -31,20 +33,20 @@ const PageEditor: FC<Props> = (props) => {
             draggable
             fill="red"
           />
+          <Text
+            fontSize={60}
+            // fontStyle="bold"
+            text="HEYYYYYYYYYYYYYYYYYYYYYYY"
+            wrap="char"
+            draggable
+            align="center"
+          />
         </Layer>
       </Stage>
     </AtomWrapper>
   );
 };
 
-const screen = () => {
-  if (typeof window !== "undefined") {
-    const { height, width } = window.screen;
-    return {
-      height,
-      width,
-    };
-  }
-};
+PageEditor.Layout = "editor";
 
 export default PageEditor;

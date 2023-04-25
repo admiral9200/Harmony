@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
+import LayoutEditor from "./editor";
 import LayoutPublicHarmony from "./public";
-import LayoutEditor from "./public/editor";
 
 const Layouts = {
   public: LayoutPublicHarmony,
