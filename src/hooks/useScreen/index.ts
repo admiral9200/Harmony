@@ -20,6 +20,7 @@ const useScreen = <T extends HTMLDivElement>({ deps }: UseScreenProps) => {
       });
     }
   }, [...(deps ?? [])]);
+
   return {
     ref: divRef,
     dimensions,
