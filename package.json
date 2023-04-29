@@ -19,6 +19,7 @@
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "graphql": "^16.6.0",
+    "jotai": "^2.0.4",
     "konva": "^9.0.1",
     "lucy-nxtjs": "^0.0.71",
     "next": "13.3.0",
