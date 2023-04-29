@@ -1,11 +1,14 @@
 import LogoHarmony from "@/components/icons/logo";
-import { getRandomColor } from "@/utils/randomColor";
+import { keyMethodAtom } from "@/editor/core/methods";
+import { IKeyMethod } from "@/editor/core/methods/types";
+import { getRandomsColors } from "@/utils/randomColor";
+import { useAtom } from "jotai";
 import { AtomButton, AtomImage, AtomWrapper } from "lucy-nxtjs";
 import { FC } from "react";
 
 type Methods = {
   icon: string;
-  keyMethod: "MOVE" | "BOX" | "CIRCLE" | "LINE" | "IMAGE" | "TEXT" | "FRAME";
+  keyMethod: IKeyMethod;
 };
 
 const METHODS: Methods[] = [
@@ -39,7 +42,11 @@ const METHODS: Methods[] = [
   },
 ];
 
+const colors = getRandomsColors(METHODS.length);
+
 const LayoutEditorTop: FC = () => {
+  const [method, setMethod] = useAtom(keyMethodAtom);
+
   return (
     <AtomWrapper
       customCSS={(css) => css`
@@ -66,20 +73,24 @@ const LayoutEditorTop: FC = () => {
         alignItems="center"
         justifyContent="center"
       >
-        {METHODS?.map((item) => (
-          <AtomButton
-            key={item.icon}
-            customCSS={(css) => css`
-              padding: 8px;
-            `}
-            backgroundColor={getRandomColor()}
-            alignItems="center"
-            justifyContent="center"
-            isFocus
-          >
-            <AtomImage src={item.icon} width="25px" alt="" />
-          </AtomButton>
-        ))}
+        {METHODS?.map((item, index) => {
+          const isSelect = item.keyMethod === method;
+          return (
+            <AtomButton
+              key={item.icon}
+              customCSS={(css) => css`
+                padding: 8px;
+              `}
+              backgroundColor={isSelect ? colors?.[index] : "none"}
+              alignItems="center"
+              justifyContent="center"
+              isFocus={isSelect}
+              onClick={() => setMethod(item.keyMethod)}
+            >
+              <AtomImage src={item.icon} width="25px" alt="" />
+            </AtomButton>
+          );
+        })}
       </AtomWrapper>
     </AtomWrapper>
   );
