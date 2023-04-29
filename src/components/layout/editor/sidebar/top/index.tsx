@@ -1,11 +1,7 @@
 import LogoHarmony from "@/components/icons/logo";
 import { getRandomColor } from "@/utils/randomColor";
 import { AtomButton, AtomImage, AtomWrapper } from "lucy-nxtjs";
-import { FC, ReactNode } from "react";
-
-type Props = {
-  children?: ReactNode;
-};
+import { FC } from "react";
 
 type Methods = {
   icon: string;
@@ -43,7 +39,7 @@ const METHODS: Methods[] = [
   },
 ];
 
-const LayoutEditorTop: FC<Props> = (props) => {
+const LayoutEditorTop: FC = () => {
   return (
     <AtomWrapper
       customCSS={(css) => css`
@@ -59,10 +55,17 @@ const LayoutEditorTop: FC<Props> = (props) => {
         align-items: center;
         justify-content: flex-start;
         gap: 1em;
+        z-index: 999999999999999999999;
       `}
     >
-      <LogoHarmony color="white" width="40px" height="40px" />
-      <AtomWrapper flexDirection="row" width="auto" gap="1em">
+      <LogoHarmony color="white" width="45px" height="45px" />
+      <AtomWrapper
+        flexDirection="row"
+        width="auto"
+        gap="1em"
+        alignItems="center"
+        justifyContent="center"
+      >
         {METHODS?.map((item) => (
           <AtomButton
             key={item.icon}
@@ -70,6 +73,8 @@ const LayoutEditorTop: FC<Props> = (props) => {
               padding: 8px;
             `}
             backgroundColor={getRandomColor()}
+            alignItems="center"
+            justifyContent="center"
             isFocus
           >
             <AtomImage src={item.icon} width="25px" alt="" />
