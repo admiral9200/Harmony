@@ -1,8 +1,9 @@
-export type IKeyMethod =
+export type IKeyTool =
   | "MOVE"
   | "BOX"
   | "CIRCLE"
   | "LINE"
   | "IMAGE"
   | "TEXT"
-  | "FRAME";
+  | "FRAME"
+  | "DRAW";

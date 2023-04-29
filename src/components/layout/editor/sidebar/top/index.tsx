@@ -1,6 +1,6 @@
 import LogoHarmony from "@/components/icons/logo";
-import { keyMethodAtom } from "@/editor/core/methods";
-import { IKeyMethod } from "@/editor/core/methods/types";
+import { keyMethodAtom } from "@/editor/core/tools";
+import { IKeyTool } from "@/editor/core/tools/types";
 import { getRandomsColors } from "@/utils/randomColor";
 import { useAtom } from "jotai";
 import { AtomButton, AtomImage, AtomWrapper } from "lucy-nxtjs";
@@ -8,7 +8,7 @@ import { FC } from "react";
 
 type Methods = {
   icon: string;
-  keyMethod: IKeyMethod;
+  keyMethod: IKeyTool;
 };
 
 const METHODS: Methods[] = [
