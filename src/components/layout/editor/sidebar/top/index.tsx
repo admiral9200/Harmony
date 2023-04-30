@@ -1,5 +1,5 @@
 import LogoHarmony from "@/components/icons/logo";
-import { keyMethodAtom } from "@/editor/core/tools";
+import { keyToolAtom } from "@/editor/core/tools";
 import { IKeyTool } from "@/editor/core/tools/types";
 import { getRandomsColors } from "@/utils/randomColor";
 import { useAtom } from "jotai";
@@ -45,7 +45,7 @@ const METHODS: Methods[] = [
 const colors = getRandomsColors(METHODS.length);
 
 const LayoutEditorTop: FC = () => {
-  const [method, setMethod] = useAtom(keyMethodAtom);
+  const [method, setMethod] = useAtom(keyToolAtom);
 
   return (
     <AtomWrapper
