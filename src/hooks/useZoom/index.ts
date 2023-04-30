@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 import Konva from "konva";
+import { KonvaEventObject } from "konva/lib/Node";
+import { Vector2d } from "konva/lib/types";
 
 const useZoom = () => {
   const [stage, setStage] = useState({
@@ -9,38 +11,38 @@ const useZoom = () => {
     y: 0,
   });
 
-  const handleWheel = (e: Konva.KonvaEventObject<WheelEvent>) => {
-    e.evt.preventDefault();
-
+  const scaleRelativeToPoint = (
+    point: Vector2d,
+    increaseScale: boolean,
+    event: KonvaEventObject<WheelEvent>
+  ) => {
     const scaleBy = 1.13;
-    const stage = e.target?.getStage() as Konva.Stage;
+    const stage = event.target?.getStage() as Konva.Stage;
     const oldScale = stage?.scaleX?.();
 
     const mousePointTo = {
-      x:
-        (stage?.getPointerPosition?.()?.x as number) / oldScale -
-        stage.x() / oldScale,
-      y:
-        (stage?.getPointerPosition?.()?.y as number) / oldScale -
-        stage.y() / oldScale,
+      x: point.x / oldScale - stage.x() / oldScale,
+      y: point.y / oldScale - stage.y() / oldScale,
     };
-
-    const newScale = e.evt.deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy;
+    const newScale = increaseScale ? oldScale * scaleBy : oldScale / scaleBy;
 
     setStage({
       scale: newScale,
-      x:
-        ((stage?.getPointerPosition?.()?.x as number) / newScale -
-          mousePointTo.x) *
-        newScale,
-      y:
-        ((stage?.getPointerPosition?.()?.y as number) / newScale -
-          mousePointTo.y) *
-        newScale,
+      x: (point.x / newScale - mousePointTo.x) * newScale,
+      y: (point.y / newScale - mousePointTo.y) * newScale,
     });
   };
+
+  const handlwRealWheel = (event: KonvaEventObject<WheelEvent>) => {
+    event.evt.preventDefault();
+    scaleRelativeToPoint(
+      event?.target?.getStage()?.getPointerPosition() as Vector2d,
+      event.evt.deltaY < 0,
+      event
+    );
+  };
   return {
-    onWheel: handleWheel,
+    onWheel: handlwRealWheel,
     stage,
   };
 };
