@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { IKeyTool } from "../tools/types";
 
 export type IElement = {
@@ -10,3 +11,9 @@ export type IElement = {
   fill?: string;
   points?: number[];
 };
+
+export type IFCElement = IElement & {
+  draggable: boolean;
+};
+
+export type FCE = FC<IFCElement>;
