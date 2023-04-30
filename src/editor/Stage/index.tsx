@@ -1,4 +1,5 @@
 import useScreen from "@/hooks/useScreen";
+import useEditorStatement from "@/hooks/useStatement";
 import useZoom from "@/hooks/useZoom";
 import { AtomWrapper } from "lucy-nxtjs";
 import { FC, ReactNode } from "react";
@@ -18,11 +19,14 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
 
   const { onWheel, stage } = useZoom();
 
+  const { handleStageClick } = useEditorStatement();
+
   return (
     <AtomWrapper
       ref={ref}
       customCSS={(css) => css`
         overflow: none;
+        border: 2px solid red;
       `}
     >
       <Stage
@@ -31,6 +35,9 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
         onWheel={onWheel}
         scaleX={stage.scale}
         scaleY={stage.scale}
+        onClick={(event) => {
+          handleStageClick(event);
+        }}
         x={stage.x}
         y={stage.y}
       >
