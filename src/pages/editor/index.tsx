@@ -1,13 +1,14 @@
-import { Circle, Layer, Rect, Text } from "react-konva";
-
 import AtomEditorScreen from "@/editor/Stage";
+import AtomEditorMapper from "@/editor/core/elements/mapper";
 import { NextOnlyPage } from "next";
 
 const PageEditor: NextOnlyPage = () => {
   return (
     <AtomEditorScreen>
-      <Layer>
-        <Rect
+      <AtomEditorMapper />
+      {/* <Rect
+          x={242}
+          y={80}
           width={50}
           height={50}
           fill="red"
@@ -31,8 +32,7 @@ const PageEditor: NextOnlyPage = () => {
           wrap="char"
           draggable
           align="center"
-        />
-      </Layer>
+        /> */}
     </AtomEditorScreen>
   );
 };
