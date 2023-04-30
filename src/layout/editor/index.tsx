@@ -16,11 +16,11 @@ const LayoutEditor: FC<Props> = ({ children }) => {
       width="100%"
       justifyContent="flex-start"
       customCSS={(css) => css`
-        height: 100vh;
-        overflow: none;
         display: grid;
         grid-template-columns: 240px 1fr 240px;
         grid-template-rows: 1fr 1fr;
+        height: 100vh;
+        overflow: hidden;
       `}
     >
       <LayoutEditorTop />
