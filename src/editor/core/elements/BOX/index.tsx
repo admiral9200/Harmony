@@ -4,7 +4,7 @@ import { Rect, Transformer } from "react-konva";
 import { IFCElement } from "../type";
 
 const AtomEditorElementBox = (item: IFCElement) => {
-  const { draggable, onChange, onSelect, isSelected } = item;
+  const { rotate, draggable, onChange, onSelect, isSelected } = item;
   const shapeRef = useRef<Konva.Rect>();
   const trRef = useRef<Konva.Transformer>();
 
@@ -26,6 +26,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
         draggable={draggable}
         onClick={() => onSelect(item)}
         onTap={() => onSelect(item)}
+        rotation={rotate}
         onDragEnd={(e) => {
           onChange({
             ...item,
@@ -38,7 +39,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
           // and NOT its width or height
           // but in the store we have only width and height
           // to match the data better we will reset scale on transform end
-
+          const rotate = e.target.rotation();
           if (shapeRef?.current) {
             const node = shapeRef.current;
             const scaleX = node.scaleX();
@@ -52,6 +53,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
               x: node.x(),
               y: node.y(),
               // set minimal value
+              rotate,
               width: Math.max(5, node.width() * scaleX),
               height: Math.max(node.height() * scaleY),
             });
