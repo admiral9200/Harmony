@@ -19,7 +19,6 @@ const useZoom = () => {
     const scaleBy = 1.13;
     const stage = event.target?.getStage() as Konva.Stage;
     const oldScale = stage?.scaleX?.();
-
     const mousePointTo = {
       x: point.x / oldScale - stage.x() / oldScale,
       y: point.y / oldScale - stage.y() / oldScale,
