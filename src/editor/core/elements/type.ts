@@ -14,6 +14,9 @@ export type IElement = {
 
 export type IFCElement = IElement & {
   draggable: boolean;
+  onChange: (item: IElement) => void;
+  isSelected: boolean;
+  onSelect: (item: IElement) => void;
 };
 
 export type FCE = FC<IFCElement>;
