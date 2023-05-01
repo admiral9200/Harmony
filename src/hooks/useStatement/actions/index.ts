@@ -20,8 +20,26 @@ const Actions = (event: KonvaEventObject<MouseEvent>): IActions => {
         id: uuidv4(),
         x,
         y,
-        fill: getRandomColor(),
+        // fill: getRandomColor(),
         tool: "BOX",
+        height: 100,
+        width: 100,
+        style: {
+          backgroundColor: getRandomColor(),
+        },
+      };
+    },
+    TEXT: () => {
+      return {
+        id: uuidv4(),
+        x,
+        y,
+        // fill: getRandomColor(),
+        tool: "TEXT",
+        text: uuidv4().slice(0, 4),
+        style: {
+          colorText: getRandomColor(),
+        },
         height: 100,
         width: 100,
       };
