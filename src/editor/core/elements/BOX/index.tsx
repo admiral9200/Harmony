@@ -21,6 +21,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
     <>
       <Rect
         {...item}
+        fill={item.style?.backgroundColor}
         ref={shapeRef as MutableRefObject<Konva.Rect>}
         draggable={draggable}
         onClick={() => onSelect(item)}
@@ -60,6 +61,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
       {isSelected && (
         <Transformer
           ref={trRef as MutableRefObject<Konva.Transformer>}
+          keepRatio={false}
           boundBoxFunc={(oldBox, newBox) => {
             // limit resize
             if (newBox.width < 5 || newBox.height < 5) {
