@@ -5,6 +5,7 @@ import useZoom from "@/hooks/useZoom";
 import { AtomWrapper } from "lucy-nxtjs";
 import { FC, ReactNode } from "react";
 import { Stage } from "react-konva";
+import { IFCElement } from "../core/elements/type";
 
 type Props = {
   children: ReactNode;
@@ -42,7 +43,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
           handleStageClick(event);
         }}
         onDblClick={() => {
-          setElement({});
+          setElement({} as IFCElement);
         }}
         x={stage.x}
         y={stage.y}
