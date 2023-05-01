@@ -10,9 +10,12 @@ export type IElement = {
   height?: number;
   text?: string;
   points?: number[];
+  rotate?: number;
   style?: {
     backgroundColor?: string;
     colorText?: string;
+    stroke?: string;
+    strokeWidth?: number;
   };
 };
 
