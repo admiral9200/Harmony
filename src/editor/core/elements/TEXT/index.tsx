@@ -54,6 +54,7 @@ const AtomElementText = (item: IFCElement) => {
           }}
           onTransformEnd={(e) => {
             if (shapeRef?.current) {
+              const rotate = e.target.rotation();
               const node = shapeRef.current;
               const scaleX = node.scaleX();
               const scaleY = node.scaleY();
@@ -64,7 +65,7 @@ const AtomElementText = (item: IFCElement) => {
                 ...item,
                 x: node.x(),
                 y: node.y(),
-                // set minimal value
+                rotate,
                 width: Math.max(5, node.width() * scaleX),
                 height: Math.max(node.height() * scaleY),
               });
