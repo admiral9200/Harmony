@@ -1,4 +1,4 @@
-import useEditorStatement from "@/hooks/useStatement";
+import useElements from "@/hooks/useStatement";
 import { AtomText, AtomWrapper } from "lucy-nxtjs";
 import { FC, ReactNode } from "react";
 
@@ -7,7 +7,7 @@ type Props = {
 };
 
 const ElementsList: FC<Props> = (props) => {
-  const { elements } = useEditorStatement();
+  const { elements } = useElements();
   return (
     <AtomWrapper
       customCSS={(css) => css`
