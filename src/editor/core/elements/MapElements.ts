@@ -1,5 +1,6 @@
 import { IKeyTool } from "../tools/types";
 import AtomEditorElementBox from "./BOX";
+import AtomElementText from "./TEXT";
 import { IFCElement } from "./type";
 
 export type IMapperElements = {
@@ -9,6 +10,7 @@ export type IMapperElements = {
 const mapperElements = (): IMapperElements => {
   return {
     BOX: AtomEditorElementBox,
+    TEXT: AtomElementText,
   };
 };
 
