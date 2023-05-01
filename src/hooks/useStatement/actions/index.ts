@@ -1,5 +1,6 @@
 import { IElement } from "@/editor/core/elements/type";
 import { IKeyTool } from "@/editor/core/tools/types";
+import { getRandomColor } from "@/utils/randomColor";
 import { KonvaEventObject } from "konva/lib/Node";
 import { Stage } from "konva/lib/Stage";
 import { v4 as uuidv4 } from "uuid";
@@ -19,6 +20,7 @@ const Actions = (event: KonvaEventObject<MouseEvent>): IActions => {
         id: uuidv4(),
         x,
         y,
+        fill: getRandomColor(),
         tool: "BOX",
         height: 100,
         width: 100,
