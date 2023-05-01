@@ -79,7 +79,8 @@ const LayoutEditorTop: FC = () => {
             <AtomButton
               key={item.icon}
               customCSS={(css) => css`
-                padding: 8px;
+                padding: 5px;
+                border-radius: 5px;
               `}
               backgroundColor={isSelect ? colors?.[index] : "none"}
               alignItems="center"
@@ -87,7 +88,7 @@ const LayoutEditorTop: FC = () => {
               isFocus={isSelect}
               onClick={() => setMethod(item.keyMethod)}
             >
-              <AtomImage src={item.icon} width="25px" alt="" />
+              <AtomImage src={item.icon} width="22px" alt="" />
             </AtomButton>
           );
         })}
