@@ -8,8 +8,12 @@ export type IElement = {
   y: number;
   width?: number;
   height?: number;
-  fill?: string;
+  text?: string;
   points?: number[];
+  style?: {
+    backgroundColor?: string;
+    colorText?: string;
+  };
 };
 
 export type IFCElement = IElement & {
