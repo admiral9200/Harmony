@@ -8,7 +8,7 @@ const AtomEditorMapper = () => {
   const { elements, draggable } = useElements();
 
   const { element, setElement, upElement } = useElement();
-  console.log({ elements });
+  // console.log(elements);
 
   return (
     <Layer>
