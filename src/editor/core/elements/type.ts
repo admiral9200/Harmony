@@ -10,6 +10,7 @@ export type IElement = {
   height?: number;
   text?: string;
   points?: number[];
+  src?: string;
   rotate?: number;
   style?: {
     backgroundColor?: string;
