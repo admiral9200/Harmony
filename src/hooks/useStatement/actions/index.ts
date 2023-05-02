@@ -78,6 +78,24 @@ const Actions = (event: KonvaEventObject<MouseEvent>): IActions => {
         width: 400,
       };
     },
+    IMAGE: () => {
+      return {
+        id: uuidv4(),
+        x,
+        y,
+        tool: "IMAGE",
+        text: uuidv4().slice(0, 4),
+        style: {
+          stroke: getRandomColor(),
+          strokeWidth: 4,
+        },
+        src: "https://picsum.photos/200/300",
+        rotate: 0,
+        points: [0, 0, 100, 0],
+        height: 100,
+        width: 400,
+      };
+    },
   };
 };
 
