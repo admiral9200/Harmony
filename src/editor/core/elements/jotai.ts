@@ -1,7 +1,8 @@
 import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import { IElement } from "./type";
 
-const ElementsAtom = atom<IElement[]>([]);
+const ElementsAtom = atomWithStorage<IElement[]>("harmonyStorage", []);
 
 const ElementSelected = atom<IElement>({} as IElement);
 
