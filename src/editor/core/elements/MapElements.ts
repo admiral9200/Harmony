@@ -1,6 +1,7 @@
 import { IKeyTool } from "../tools/types";
 import AtomEditorElementBox from "./BOX";
 import AtomElementCircle from "./CIRCLE";
+import AtomElementImage from "./IMAGE";
 import AtomElementLine from "./LINE";
 import AtomElementText from "./TEXT";
 import { IFCElement } from "./type";
@@ -15,6 +16,7 @@ const mapperElements = (): IMapperElements => {
     TEXT: AtomElementText,
     CIRCLE: AtomElementCircle,
     LINE: AtomElementLine,
+    IMAGE: AtomElementImage,
   };
 };
 
