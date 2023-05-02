@@ -77,6 +77,7 @@ const AtomElementText = (item: IFCElement) => {
           y={y}
           width={width}
           height={height}
+          // align="center"
           fontSize={12}
           // fill={isDarkLight(`${fill}`)}
           fill={style?.colorText}
