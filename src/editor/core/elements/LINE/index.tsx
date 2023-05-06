@@ -10,7 +10,6 @@ const AtomEditorElementBox = (item: IFCElement) => {
 
   useEffect(() => {
     if (isSelected) {
-      // we need to attach transformer manually
       if (trRef.current && shapeRef.current) {
         trRef.current.nodes([shapeRef.current]);
         trRef.current?.getLayer()?.batchDraw();
@@ -23,6 +22,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
         {...item}
         fill={item.style?.stroke}
         height={item?.style?.strokeWidth}
+        // height={20}
         ref={shapeRef as MutableRefObject<Konva.Rect>}
         draggable={draggable}
         onClick={() => onSelect(item)}
@@ -35,17 +35,12 @@ const AtomEditorElementBox = (item: IFCElement) => {
             y: e.target.y(),
           });
         }}
-        onTransformEnd={(e) => {
-          // transformer is changing scale of the node
-          // and NOT its width or height
-          // but in the store we have only width and height
-          // to match the data better we will reset scale on transform end
+        onTransform={(e) => {
           const rotate = e.target.rotation();
           if (shapeRef?.current) {
             const node = shapeRef.current;
             const scaleX = node.scaleX();
-
-            // we will reset it back
+            const scaleY = node.scaleY();
             node.scaleX(1);
             node.scaleY(1);
             onChange({
@@ -54,7 +49,25 @@ const AtomEditorElementBox = (item: IFCElement) => {
               y: node.y(),
               rotate,
               width: Math.max(5, node.width() * scaleX),
-              height: item?.style?.strokeWidth,
+              height: Math.max(node.height() * scaleY),
+            });
+          }
+        }}
+        onTransformEnd={(e) => {
+          const rotate = e.target.rotation();
+          if (shapeRef?.current) {
+            const node = shapeRef.current;
+            const scaleX = node.scaleX();
+            const scaleY = node.scaleY();
+            node.scaleX(1);
+            node.scaleY(1);
+            onChange({
+              ...item,
+              x: node.x(),
+              y: node.y(),
+              rotate,
+              width: Math.max(5, node.width() * scaleX),
+              height: Math.max(node.height() * scaleY),
             });
           }
         }}
@@ -62,10 +75,15 @@ const AtomEditorElementBox = (item: IFCElement) => {
       {isSelected && (
         <Transformer
           ref={trRef as MutableRefObject<Konva.Transformer>}
-          keepRatio={false}
-          enabledAnchors={["middle-right", "middle-left"]}
+          // keepRatio={false}
+          // enabledAnchors={["middle-right", "middle-left"]}
+          // enabledAnchors={[
+          //   "top-left",
+          //   "top-right",
+          //   "bottom-left",
+          //   "bottom-right",
+          // ]}
           boundBoxFunc={(oldBox, newBox) => {
-            // limit resize
             if (newBox.width < 5 || newBox.height < 5) {
               return oldBox;
             }
