@@ -20,12 +20,15 @@ const AtomElementCircle = (item: IFCElement) => {
   return (
     <>
       <Circle
+        {...item}
         key={item.id}
         name={item.id}
         x={item.x}
         y={item.y}
+        width={item.height}
+        height={item.width}
         fill={item?.style?.backgroundColor}
-        radius={50}
+        // radius={50}
         ref={shapeRef as MutableRefObject<Konva.Circle>}
         draggable={draggable}
         onClick={() => onSelect(item)}
@@ -43,6 +46,8 @@ const AtomElementCircle = (item: IFCElement) => {
             const node = shapeRef.current;
             const scaleX = node.scaleX();
             const scaleY = node.scaleY();
+            node.scaleX(1);
+            node.scaleY(1);
 
             onChange({
               ...item,
@@ -58,7 +63,7 @@ const AtomElementCircle = (item: IFCElement) => {
       {isSelected && (
         <Transformer
           ref={trRef as MutableRefObject<Konva.Transformer>}
-          keepRatio={false}
+          keepRatio={true}
           boundBoxFunc={(oldBox, newBox) => {
             // limit resize
             if (newBox.width < 5 || newBox.height < 5) {
