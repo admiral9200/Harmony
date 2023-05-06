@@ -1,17 +1,14 @@
 import useElement from "@/hooks/useElement";
 import useScreen from "@/hooks/useScreen";
 import useElements from "@/hooks/useStatement";
-import getRelativePointerPosition from "@/hooks/useStatement/actions/position";
 import useTool from "@/hooks/useTool";
 import useZoom from "@/hooks/useZoom";
-import { getRandomColor } from "@/utils/randomColor";
-import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { AtomWrapper } from "lucy-nxtjs";
 import { FC, ReactNode, useRef } from "react";
 import { Stage } from "react-konva";
-import { v4 } from "uuid";
 import { IElement, IFCElement } from "../core/elements/type";
+import EventsStageElements from "./events";
 
 type Props = {
   children: ReactNode;
@@ -26,7 +23,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   });
 
   const { onWheel, stage } = useZoom();
-  const { isDrawing } = useTool();
+  const { isMoving, tool, setTool } = useTool();
   const { handleStageClick, setElements } = useElements();
 
   const { setElement, upElement, element } = useElement();
@@ -34,47 +31,27 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   const drawing = useRef(false);
 
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
-    if (isDrawing) {
+    if (!isMoving) {
       drawing.current = true;
-      const stage = event?.target?.getStage?.() as Konva.Stage;
-      const { x, y } = getRelativePointerPosition(stage);
-
-      const newElement: IElement = {
-        id: v4(),
-        x,
-        y,
-        tool: "DRAW",
-        rotate: 0,
-        height: 100,
-        width: 100,
-        style: {
-          stroke: getRandomColor(),
-        },
-        points: [x, y],
-      };
-      setElement(newElement);
-      setElements((prev) => [...prev, newElement]);
+      const newBox = EventsStageElements(event)?.[tool]?.start as IElement;
+      setElement(newBox);
+      setElements((prev) => [...prev, newBox]);
     }
   };
 
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
     if (!drawing.current) return;
-    if (isDrawing) {
-      const stage = e.target.getStage() as Konva.Stage;
-      const { x, y } = getRelativePointerPosition(stage);
-
-      const insertEl = {
-        ...element,
-        points: [...(element?.points as number[]), x, y],
-      };
-
-      setElement(insertEl);
-      upElement(insertEl);
+    if (!isMoving) {
+      const newBox = EventsStageElements(e, element)?.[tool]
+        ?.progress as IElement;
+      setElement(newBox);
+      upElement(newBox);
     }
   };
 
   const handleMouseUp = () => {
     drawing.current = false;
+    setTool("MOVE");
   };
 
   return (

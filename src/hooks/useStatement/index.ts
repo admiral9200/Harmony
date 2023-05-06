@@ -1,9 +1,7 @@
 import { ElementsAtom } from "@/editor/core/elements/jotai";
-import { IElement } from "@/editor/core/elements/type";
 import { useAtom } from "jotai";
 import { KonvaEventObject } from "konva/lib/Node";
 import useTool from "../useTool";
-import Actions from "./actions";
 
 const useElements = () => {
   const [elements, setElements] = useAtom(ElementsAtom);
@@ -11,9 +9,9 @@ const useElements = () => {
 
   const handleStageClick = (event: KonvaEventObject<MouseEvent>) => {
     if (isAddingElements) {
-      const newElement = Actions?.(event)?.[tool]?.() as IElement;
-      setElements((prev) => [...prev, newElement]);
-      setTool("MOVE");
+      // const newElement = Actions?.(event)?.[tool]?.() as IElement;
+      // setElements((prev) => [...prev, newElement]);
+      // setTool("MOVE");
     }
   };
 
