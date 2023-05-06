@@ -25,8 +25,10 @@ const AtomElementImage = (item: IFCElement) => {
   return (
     <>
       <KonvaImg
+        {...item}
         x={x}
         y={y}
+        width={item.width}
         image={image}
         ref={shapeRef as MutableRefObject<Konva.Image>}
         draggable={draggable}
@@ -46,6 +48,8 @@ const AtomElementImage = (item: IFCElement) => {
             const node = shapeRef.current;
             const scaleX = node.scaleX();
             const scaleY = node.scaleY();
+            node.scaleX(1);
+            node.scaleY(1);
 
             onChange({
               ...item,
