@@ -1,15 +1,19 @@
-import { useState } from "react";
-
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { Vector2d } from "konva/lib/types";
 
+const zoomAtom = atomWithStorage("harmony_zoom", {
+  scale: 1,
+  x: 0,
+  y: 0,
+});
+
 const useZoom = () => {
-  const [stage, setStage] = useState({
-    scale: 1,
-    x: 0,
-    y: 0,
-  });
+  const [stage, setStage] = useAtom(zoomAtom);
+
+  // console.log({ stage });
 
   const scaleRelativeToPoint = (
     point: Vector2d,
