@@ -16,10 +16,10 @@ const METHODS: Methods[] = [
     icon: "https://res.cloudinary.com/whil/image/upload/v1682553024/app/harmony/CURSOR_pyjccq.svg",
     keyMethod: "MOVE",
   },
-  {
-    icon: "https://res.cloudinary.com/whil/image/upload/v1682651572/app/harmony/format-square_jidxxt.svg",
-    keyMethod: "FRAME",
-  },
+  // {
+  //   icon: "https://res.cloudinary.com/whil/image/upload/v1682651572/app/harmony/format-square_jidxxt.svg",
+  //   keyMethod: "FRAME",
+  // },
   {
     icon: "https://res.cloudinary.com/whil/image/upload/v1682557163/app/harmony/BOX2_zeiaof.svg",
     keyMethod: "BOX",
@@ -39,6 +39,10 @@ const METHODS: Methods[] = [
   {
     icon: "https://res.cloudinary.com/whil/image/upload/v1682651016/app/harmony/text_xeiovb.svg",
     keyMethod: "TEXT",
+  },
+  {
+    icon: "https://res.cloudinary.com/whil/image/upload/v1683268080/app/harmony/DRAW_hwcwpt.svg",
+    keyMethod: "DRAW",
   },
 ];
 
