@@ -2,6 +2,7 @@ import useElement from "@/hooks/useElement";
 import useScreen from "@/hooks/useScreen";
 import useElements from "@/hooks/useStatement";
 import getRelativePointerPosition from "@/hooks/useStatement/actions/position";
+import useTool from "@/hooks/useTool";
 import useZoom from "@/hooks/useZoom";
 import { getRandomColor } from "@/utils/randomColor";
 import Konva from "konva";
@@ -25,64 +26,63 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   });
 
   const { onWheel, stage } = useZoom();
-
+  const { isDrawing } = useTool();
   const { handleStageClick, setElements } = useElements();
 
   const { setElement, upElement, element } = useElement();
 
-  const isDrawing = useRef(false);
+  const drawing = useRef(false);
 
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
-    isDrawing.current = true;
+    if (isDrawing) {
+      drawing.current = true;
+      const stage = event?.target?.getStage?.() as Konva.Stage;
+      const { x, y } = getRelativePointerPosition(stage);
 
-    const stage = event?.target?.getStage?.() as Konva.Stage;
-    const { x, y } = getRelativePointerPosition(stage);
-
-    const newElement: IElement = {
-      id: v4(),
-      x,
-      y,
-      tool: "DRAW",
-      rotate: 0,
-      height: 100,
-      width: 100,
-      style: {
-        stroke: getRandomColor(),
-      },
-      points: [x, y],
-    };
-    setElement(newElement);
-    setElements((prev) => [...prev, newElement]);
+      const newElement: IElement = {
+        id: v4(),
+        x,
+        y,
+        tool: "DRAW",
+        rotate: 0,
+        height: 100,
+        width: 100,
+        style: {
+          stroke: getRandomColor(),
+        },
+        points: [x, y],
+      };
+      setElement(newElement);
+      setElements((prev) => [...prev, newElement]);
+    }
   };
 
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
-    if (!isDrawing.current) {
-      return;
+    if (!drawing.current) return;
+    if (isDrawing) {
+      const stage = e.target.getStage() as Konva.Stage;
+      const { x, y } = getRelativePointerPosition(stage);
+
+      const insertEl = {
+        ...element,
+        points: [...(element?.points as number[]), x, y],
+      };
+
+      setElement(insertEl);
+      upElement(insertEl);
     }
-    const stage = e.target.getStage() as Konva.Stage;
-    const { x, y } = getRelativePointerPosition(stage);
-
-    const insertEl = {
-      ...element,
-      points: [...(element?.points as number[]), x, y],
-    };
-
-    setElement(insertEl);
-    upElement(insertEl);
   };
 
   const handleMouseUp = () => {
-    isDrawing.current = false;
+    drawing.current = false;
   };
 
   return (
     <AtomWrapper
       ref={ref}
       customCSS={(css) => css`
-        overflow: none;
         background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC")
           repeat 0 0;
-        border: 2px solid red;
       `}
     >
       <Stage

@@ -7,19 +7,20 @@ import Actions from "./actions";
 
 const useElements = () => {
   const [elements, setElements] = useAtom(ElementsAtom);
-  const { tool, isMove } = useTool();
+  const { tool, isAddingElements, isMoving, setTool } = useTool();
 
   const handleStageClick = (event: KonvaEventObject<MouseEvent>) => {
-    if (isMove) {
+    if (isAddingElements) {
       const newElement = Actions?.(event)?.[tool]?.() as IElement;
       setElements((prev) => [...prev, newElement]);
+      setTool("MOVE");
     }
   };
 
   return {
     elements,
     tool,
-    draggable: tool === "MOVE",
+    draggable: isMoving,
     setElements,
     handleStageClick,
   };

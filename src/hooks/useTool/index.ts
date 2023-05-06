@@ -1,14 +1,17 @@
 import { keyToolAtom } from "@/editor/core/tools";
+import { IKeyTool } from "@/editor/core/tools/types";
 import { useAtom } from "jotai";
 
-const keyMove = ["MOVE", "DRAW"];
+const keyMove: IKeyTool[] = ["BOX", "CIRCLE", "LINE", "IMAGE", "TEXT"];
 
 const useTool = () => {
   const [tool, setTool] = useAtom(keyToolAtom);
   return {
     tool,
     setTool,
-    isMove: !keyMove?.includes(tool),
+    isMoving: tool === "MOVE",
+    isDrawing: tool === "DRAW",
+    isAddingElements: keyMove?.includes(tool),
   };
 };
 
