@@ -10,7 +10,6 @@ const AtomEditorElementBox = (item: IFCElement) => {
 
   useEffect(() => {
     if (isSelected) {
-      // we need to attach transformer manually
       if (trRef.current && shapeRef.current) {
         trRef.current.nodes([shapeRef.current]);
         trRef.current?.getLayer()?.batchDraw();
@@ -27,6 +26,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
         onClick={() => onSelect(item)}
         onTap={() => onSelect(item)}
         rotation={rotate}
+        // cornerRadius={20} border radius
         onDragEnd={(e) => {
           onChange({
             ...item,
@@ -35,24 +35,18 @@ const AtomEditorElementBox = (item: IFCElement) => {
           });
         }}
         onTransformEnd={(e) => {
-          // transformer is changing scale of the node
-          // and NOT its width or height
-          // but in the store we have only width and height
-          // to match the data better we will reset scale on transform end
           const rotate = e.target.rotation();
           if (shapeRef?.current) {
             const node = shapeRef.current;
             const scaleX = node.scaleX();
             const scaleY = node.scaleY();
 
-            // we will reset it back
             node.scaleX(1);
             node.scaleY(1);
             onChange({
               ...item,
               x: node.x(),
               y: node.y(),
-              // set minimal value
               rotate,
               width: Math.max(5, node.width() * scaleX),
               height: Math.max(node.height() * scaleY),
@@ -65,7 +59,6 @@ const AtomEditorElementBox = (item: IFCElement) => {
           ref={trRef as MutableRefObject<Konva.Transformer>}
           keepRatio={false}
           boundBoxFunc={(oldBox, newBox) => {
-            // limit resize
             if (newBox.width < 5 || newBox.height < 5) {
               return oldBox;
             }
