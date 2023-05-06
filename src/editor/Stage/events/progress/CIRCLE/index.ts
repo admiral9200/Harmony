@@ -3,7 +3,7 @@ import getRelativePointerPosition from "@/hooks/useStatement/actions/position";
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 
-const boxElementProgress = (
+const circleElementProgress = (
   event: KonvaEventObject<MouseEvent>,
   element: IElement
 ): IElement => {
@@ -12,9 +12,13 @@ const boxElementProgress = (
 
   return {
     ...(element ?? {}),
-    width: x - element?.x,
-    height: y - element?.y,
+    width: isNegative(x - element?.x),
+    height: isNegative(y - element?.y),
   };
 };
 
-export default boxElementProgress;
+const isNegative = (value: number) => {
+  return value < 1 ? 1 : value;
+};
+
+export default circleElementProgress;

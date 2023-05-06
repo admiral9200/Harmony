@@ -23,10 +23,6 @@ const AtomElementCircle = (item: IFCElement) => {
         {...item}
         key={item.id}
         name={item.id}
-        x={item.x}
-        y={item.y}
-        width={item.height}
-        height={item.width}
         fill={item?.style?.backgroundColor}
         // radius={50}
         ref={shapeRef as MutableRefObject<Konva.Circle>}
@@ -39,6 +35,25 @@ const AtomElementCircle = (item: IFCElement) => {
             x: e.target.x(),
             y: e.target.y(),
           });
+        }}
+        onTransform={(e) => {
+          const rotate = e.target.rotation();
+          if (shapeRef?.current) {
+            const node = shapeRef.current;
+            const scaleX = node.scaleX();
+            const scaleY = node.scaleY();
+            node.scaleX(1);
+            node.scaleY(1);
+
+            onChange({
+              ...item,
+              x: node.x(),
+              y: node.y(),
+              rotate,
+              width: Math.max(5, node.width() * scaleX),
+              height: Math.max(node.height() * scaleY),
+            });
+          }
         }}
         onTransformEnd={(e) => {
           const rotate = e.target.rotation();

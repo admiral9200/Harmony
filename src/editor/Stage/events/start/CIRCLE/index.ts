@@ -5,20 +5,21 @@ import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { v4 as uuidv4 } from "uuid";
 
-const boxElementStart = (event: KonvaEventObject<MouseEvent>): IElement => {
+const circleElementStart = (event: KonvaEventObject<MouseEvent>): IElement => {
   const stage = event?.target?.getStage?.() as Konva.Stage;
   const { x, y } = getRelativePointerPosition(stage);
   return {
     id: uuidv4(),
     x,
     y,
-    tool: "BOX",
+    tool: "CIRCLE",
     rotate: 0,
-    height: 0,
-    width: 0,
+    // text: uuidv4().slice(0, 4),
     style: {
       backgroundColor: getRandomColor(),
     },
+    height: 1,
+    width: 1,
   };
 };
-export default boxElementStart;
+export default circleElementStart;
