@@ -13,8 +13,6 @@ const zoomAtom = atomWithStorage("harmony_zoom", {
 const useZoom = () => {
   const [stage, setStage] = useAtom(zoomAtom);
 
-  // console.log({ stage });
-
   const scaleRelativeToPoint = (
     point: Vector2d,
     increaseScale: boolean,
@@ -29,11 +27,15 @@ const useZoom = () => {
     };
     const newScale = increaseScale ? oldScale * scaleBy : oldScale / scaleBy;
 
-    setStage({
-      scale: newScale,
-      x: (point.x / newScale - mousePointTo.x) * newScale,
-      y: (point.y / newScale - mousePointTo.y) * newScale,
-    });
+    const isValidScale = newScale < 6 && newScale > 0.04168314407042724;
+
+    if (isValidScale) {
+      setStage({
+        scale: newScale,
+        x: (point.x / newScale - mousePointTo.x) * newScale,
+        y: (point.y / newScale - mousePointTo.y) * newScale,
+      });
+    }
   };
 
   const handlwRealWheel = (event: KonvaEventObject<WheelEvent>) => {
