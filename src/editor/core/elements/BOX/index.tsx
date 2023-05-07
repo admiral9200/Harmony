@@ -13,20 +13,35 @@ const AtomEditorElementBox = (item: IFCElement) => {
       if (trRef.current && shapeRef.current) {
         trRef.current.nodes([shapeRef.current]);
         trRef.current?.getLayer()?.batchDraw();
+        shapeRef.current?.setZIndex(item?.zIndex as number);
       }
     }
-  }, [isSelected]);
+  }, [isSelected, item]);
+
+  useEffect(() => {
+    if (shapeRef.current) {
+      shapeRef.current?.setZIndex(item?.zIndex as number);
+    }
+  }, [isSelected, item]);
+
   return (
     <>
       <Rect
         {...item}
+        {...isPartialBorderRadius(item)}
         fill={item.style?.backgroundColor}
+        shadowBlur={item?.style?.shadowBlur}
         ref={shapeRef as MutableRefObject<Konva.Rect>}
         draggable={draggable}
-        onClick={() => onSelect(item)}
-        onTap={() => onSelect(item)}
+        onClick={() => {
+          onSelect(item);
+        }}
+        onTap={() => {
+          onSelect(item);
+        }}
+        stroke={item?.style?.stroke}
+        strokeWidth={item?.style?.strokeWidth}
         rotation={rotate}
-        // cornerRadius={20} border radius
         onDragEnd={(e) => {
           onChange({
             ...item,
@@ -68,6 +83,22 @@ const AtomEditorElementBox = (item: IFCElement) => {
       )}
     </>
   );
+};
+
+const isPartialBorderRadius = (item: IFCElement) => {
+  const style = item?.style;
+  return item?.style?.isAllBorderRadius
+    ? {
+        cornerRadius: [
+          style?.borderRadiusTopLeft,
+          style?.borderRadiusTopRight,
+          style?.borderRadiusBottomRight,
+          style?.borderRadiusBottomLeft,
+        ] as number[],
+      }
+    : {
+        cornerRadius: style?.borderRadius as number,
+      };
 };
 
 export default AtomEditorElementBox;
