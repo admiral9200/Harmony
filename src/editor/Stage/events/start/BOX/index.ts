@@ -16,8 +16,15 @@ const boxElementStart = (event: KonvaEventObject<MouseEvent>): IElement => {
     rotate: 0,
     height: 0,
     width: 0,
+    zIndex: 1,
     style: {
       backgroundColor: getRandomColor(),
+      isAllBorderRadius: false,
+      borderRadius: 0,
+      borderRadiusBottomLeft: 0,
+      borderRadiusBottomRight: 0,
+      borderRadiusTopLeft: 0,
+      borderRadiusTopRight: 0,
     },
   };
 };
