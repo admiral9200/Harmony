@@ -1,6 +1,8 @@
 import LogoHarmony from "@/components/icons/logo";
+import { IElement } from "@/editor/core/elements/type";
 import { keyToolAtom } from "@/editor/core/tools";
 import { IKeyTool } from "@/editor/core/tools/types";
+import useElement from "@/hooks/useElement";
 import { getRandomsColors } from "@/utils/randomColor";
 import { useAtom } from "jotai";
 import { AtomButton, AtomImage, AtomWrapper } from "lucy-nxtjs";
@@ -50,6 +52,7 @@ const colors = getRandomsColors(METHODS.length);
 
 const LayoutEditorTop: FC = () => {
   const [method, setMethod] = useAtom(keyToolAtom);
+  const { setElement } = useElement();
 
   return (
     <AtomWrapper
@@ -90,7 +93,10 @@ const LayoutEditorTop: FC = () => {
               alignItems="center"
               justifyContent="center"
               isFocus={isSelect}
-              onClick={() => setMethod(item.keyMethod)}
+              onClick={() => {
+                setMethod(item.keyMethod);
+                setElement({} as IElement);
+              }}
             >
               <AtomImage src={item.icon} width="22px" alt="" />
             </AtomButton>
