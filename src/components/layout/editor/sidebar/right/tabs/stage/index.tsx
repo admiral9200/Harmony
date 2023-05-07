@@ -11,7 +11,6 @@ const StageSidebarRight: FC = () => {
       <AtomText color="white" fontWeight="bold" fontSize="17px">
         Stage Properties
       </AtomText>
-      {config.backgroundColor}
       <AtomInput
         type="color"
         label="Background"
