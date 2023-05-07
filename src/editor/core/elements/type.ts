@@ -12,8 +12,17 @@ export type IElement = {
   points?: number[];
   src?: string;
   rotate?: number;
+  zIndex?: number;
   style?: {
     backgroundColor?: string;
+    shadowBlur?: number;
+    borderRadius?: number;
+    isAllBorderRadius?: boolean;
+    borderRadiusTopLeft?: number;
+    zIndex?: number;
+    borderRadiusTopRight?: number;
+    borderRadiusBottomRight?: number;
+    borderRadiusBottomLeft?: number;
     colorText?: string;
     stroke?: string;
     strokeWidth?: number;
