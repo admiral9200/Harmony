@@ -7,7 +7,7 @@ import { FCE } from "./type";
 
 const AtomEditorMapper = () => {
   const { elements, draggable } = useElements();
-  const { element, setElement, upElement } = useElement();
+  const { element, upElement, allUpdate } = useElement();
   const { isMoving } = useTool();
 
   return (
@@ -25,8 +25,7 @@ const AtomEditorMapper = () => {
               upElement(data);
             }}
             onSelect={(data) => {
-              setElement(data);
-              upElement(data);
+              allUpdate(data);
             }}
           />
         );
