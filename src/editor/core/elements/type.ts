@@ -25,6 +25,7 @@ export type IFCElement = IElement & {
   onChange: (item: IElement) => void;
   isSelected: boolean;
   onSelect: (item: IElement) => void;
+  isMoving: boolean;
 };
 
 export type FCE = FC<IFCElement>;

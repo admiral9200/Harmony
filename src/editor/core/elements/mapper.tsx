@@ -1,5 +1,6 @@
 import useElement from "@/hooks/useElement";
 import useElements from "@/hooks/useStatement";
+import useTool from "@/hooks/useTool";
 import { Layer } from "react-konva";
 import { mapperElements } from "./MapElements";
 import { FCE } from "./type";
@@ -7,6 +8,7 @@ import { FCE } from "./type";
 const AtomEditorMapper = () => {
   const { elements, draggable } = useElements();
   const { element, setElement, upElement } = useElement();
+  const { isMoving } = useTool();
 
   return (
     <Layer>
@@ -17,6 +19,7 @@ const AtomEditorMapper = () => {
             {...item}
             key={item.id}
             draggable={draggable}
+            isMoving={isMoving}
             isSelected={item?.id === element?.id}
             onChange={(data) => {
               upElement(data);

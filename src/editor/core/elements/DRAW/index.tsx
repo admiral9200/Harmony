@@ -1,6 +1,6 @@
 import Konva from "konva";
 import { MutableRefObject, useEffect, useRef } from "react";
-import { Line, Text, Transformer } from "react-konva";
+import { Line, Transformer } from "react-konva";
 import { IFCElement } from "../type";
 
 const AtomElementDraw = (item: IFCElement) => {
@@ -17,29 +17,19 @@ const AtomElementDraw = (item: IFCElement) => {
     }
   }, [isSelected]);
 
-  console.log(item, " Element Line");
-
   return (
     <>
-      <Text
-        x={item.x}
-        y={item.y}
-        fontSize={10}
-        text={JSON.stringify(item?.points)}
-      />
       <Line
-        x={item.x}
-        y={item.y}
-        width={item.width}
-        height={item.height}
         points={item?.points}
+        // dash={[10]}
         stroke="#2c26df"
-        strokeWidth={1}
-        tension={0.4}
+        strokeWidth={10}
+        // tension={1}
+        globalCompositeOperation="source-over"
         lineCap="round"
         lineJoin="round"
         ref={shapeRef as MutableRefObject<Konva.Line>}
-        draggable={draggable}
+        // draggable={draggable}
         onClick={() => onSelect(item)}
         onTap={() => onSelect(item)}
         rotation={rotate}
@@ -57,8 +47,8 @@ const AtomElementDraw = (item: IFCElement) => {
             const scaleX = node.scaleX();
             const scaleY = node.scaleY();
 
-            node.scaleX(1);
-            node.scaleY(1);
+            // node.scaleX(1);
+            // node.scaleY(1);
             onChange({
               ...item,
               x: node.x(),
@@ -73,9 +63,14 @@ const AtomElementDraw = (item: IFCElement) => {
       {isSelected && (
         <Transformer
           ref={trRef as MutableRefObject<Konva.Transformer>}
-          keepRatio={false}
-          // borderStroke="green"
+          keepRatio
           ignoreStroke
+          enabledAnchors={[
+            "top-right",
+            "top-left",
+            "bottom-left",
+            "bottom-right",
+          ]}
           boundBoxFunc={(oldBox, newBox) => {
             if (newBox.width < 5 || newBox.height < 5) {
               return oldBox;
