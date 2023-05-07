@@ -18,7 +18,7 @@
     "graphql": "^16.6.0",
     "jotai": "^2.0.4",
     "konva": "^9.0.1",
-    "lucy-nxtjs": "^0.0.71",
+    "lucy-nxtjs": "^0.0.72",
     "next": "13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

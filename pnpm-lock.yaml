@@ -14,7 +14,7 @@ specifiers:
   graphql: ^16.6.0
   jotai: ^2.0.4
   konva: ^9.0.1
-  lucy-nxtjs: ^0.0.71
+  lucy-nxtjs: ^0.0.72
   next: 13.3.0
   react: 18.2.0
   react-dom: 18.2.0
@@ -35,7 +35,7 @@ dependencies:
   graphql: 16.6.0
   jotai: 2.0.4_react@18.2.0
   konva: 9.0.1
-  lucy-nxtjs: 0.0.71_knwr6emijvoljcf5hvhzsmocni
+  lucy-nxtjs: 0.0.72_knwr6emijvoljcf5hvhzsmocni
   next: 13.3.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -2272,8 +2272,8 @@ packages:
       yallist: 4.0.0
     dev: false
 
-  /lucy-nxtjs/0.0.71_knwr6emijvoljcf5hvhzsmocni:
-    resolution: {integrity: sha512-lRra+iNpm+PJqXU0GoXH6AmmrDKMSoNStY7Yl8H1chpZOxRmguJSiEehr4zaaouYGB6jaL78BKwHgYvsemqqEg==}
+  /lucy-nxtjs/0.0.72_knwr6emijvoljcf5hvhzsmocni:
+    resolution: {integrity: sha512-DyHWc4YzL8F5EjGyTfvfXnEYkdbOMG5Xeejgqh35TxEHQ4BbtGQcA2Dy6h6ttWt9njyRntrPBPD9Bz7DvqqEgg==}
     peerDependencies:
       '@emotion/react': ^11.10.5
       '@types/node': 18.11.18

@@ -37,21 +37,21 @@ const StageSidebarRight: FC = () => {
       <AtomInput
         type="checkbox"
         label="Graphic map design"
-        customCSSLabel={(css) => css`
+        customCSSLabel={() => css`
           color: white;
         `}
-        customCSS={(css) => css`
+        customCSS={() => css`
           /* height: 100px; */
           width: auto;
         `}
-        customWrapperCSS={(css) => css`
+        customWrapperCSS={() => css`
           height: auto;
         `}
         css={() => css`
           height: auto;
         `}
-        value={config.Graphicmapdesign}
-        onChange={(event) =>
+        checked={config.Graphicmapdesign}
+        onChange={() =>
           setConfig((prev) => ({
             ...prev,
             Graphicmapdesign: !prev.Graphicmapdesign,
