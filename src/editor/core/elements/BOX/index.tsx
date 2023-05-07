@@ -28,7 +28,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
     <>
       <Rect
         {...item}
-        {...isPartialBorderRadius(item)}
+        cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
         fill={item.style?.backgroundColor}
         shadowBlur={item?.style?.shadowBlur}
         ref={shapeRef as MutableRefObject<Konva.Rect>}
@@ -86,18 +86,22 @@ const AtomEditorElementBox = (item: IFCElement) => {
 };
 
 const isPartialBorderRadius = (item: IFCElement) => {
-  const style = item?.style;
   return item?.style?.isAllBorderRadius
     ? {
         cornerRadius: [
-          style?.borderRadiusTopLeft,
-          style?.borderRadiusTopRight,
-          style?.borderRadiusBottomRight,
-          style?.borderRadiusBottomLeft,
+          item?.style?.borderRadiusTopLeft,
+          item?.style?.borderRadiusTopRight,
+          item?.style?.borderRadiusBottomRight,
+          item?.style?.borderRadiusBottomLeft,
         ] as number[],
       }
     : {
-        cornerRadius: style?.borderRadius as number,
+        cornerRadius: [
+          item?.style?.borderRadius,
+          item?.style?.borderRadius,
+          item?.style?.borderRadius,
+          item?.style?.borderRadius,
+        ] as number[],
       };
 };
 

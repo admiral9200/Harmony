@@ -9,11 +9,12 @@ const boxElementProgress = (
 ): IElement => {
   const stage = event?.target?.getStage?.() as Konva.Stage;
   const { x, y } = getRelativePointerPosition(stage);
-
+  const isHeight = x - element?.x < 0 ? 1 : x - element?.x;
+  const isWidth = y - element?.y < 0 ? 1 : y - element?.y;
   return {
     ...(element ?? {}),
-    width: x - element?.x,
-    height: y - element?.y,
+    width: isHeight,
+    height: isWidth,
   };
 };
 

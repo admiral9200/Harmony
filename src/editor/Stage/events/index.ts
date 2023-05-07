@@ -21,13 +21,20 @@ type IEventElement = {
   };
 };
 
-const EventsStageElements = (
-  event: KonvaEventObject<MouseEvent>,
-  element?: IElement
-): IEventElement => {
+type Props = {
+  event: KonvaEventObject<MouseEvent>;
+  element?: IElement;
+  countElements: number;
+};
+
+const EventsStageElements = ({
+  event,
+  element,
+  countElements,
+}: Props): IEventElement => {
   return {
     BOX: {
-      start: boxElementStart(event),
+      start: boxElementStart(event, countElements),
       progress: boxElementProgress?.(event, element ?? ({} as IElement)),
     },
     DRAW: {

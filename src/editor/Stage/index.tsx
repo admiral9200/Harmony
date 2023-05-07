@@ -25,7 +25,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
 
   const { onWheel, stage } = useZoom();
   const { isMoving, tool, setTool } = useTool();
-  const { handleStageClick, setElements } = useElements();
+  const { setElements, elements } = useElements();
   const { config } = useStageConfig();
   const { setElement, upElement, element } = useElement();
 
@@ -34,7 +34,10 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
     if (!isMoving) {
       drawing.current = true;
-      const newBox = EventsStageElements(event)?.[tool]?.start as IElement;
+      const newBox = EventsStageElements({
+        event,
+        countElements: elements?.length,
+      })?.[tool]?.start as IElement;
       setElement(newBox);
       setElements((prev) => [...prev, newBox]);
     }
@@ -43,8 +46,11 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
     if (!drawing.current) return;
     if (!isMoving) {
-      const newBox = EventsStageElements(e, element)?.[tool]
-        ?.progress as IElement;
+      const newBox = EventsStageElements({
+        event: e,
+        element: element,
+        countElements: elements?.length,
+      })?.[tool]?.progress as IElement;
       setElement(newBox);
       upElement(newBox);
     }
@@ -81,9 +87,6 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
         onMouseDown={handleMouseDown}
         onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}
-        onClick={(event) => {
-          handleStageClick(event);
-        }}
         onDblClick={() => {
           setElement({} as IFCElement);
         }}

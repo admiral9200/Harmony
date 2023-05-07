@@ -4,13 +4,159 @@ import { AtomButton, AtomInput, AtomText, AtomWrapper } from "lucy-nxtjs";
 
 const LayoutSidebarRightStageTabElementBox = () => {
   const { element, allUpdate } = useElement();
-  console.log({ element });
+  // console.log({ element });
 
   return (
-    <AtomWrapper height="100%" justifyContent="flex-start">
+    <AtomWrapper
+      height="100%"
+      justifyContent="flex-start"
+      customCSS={(css) => css`
+        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: 90%;
+        padding-right: 8px;
+        ::-webkit-scrollbar {
+          width: 5px;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #ccc;
+          border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #8679ec;
+
+          box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+        }
+        display: flex;
+        justify-content: flex-start;
+      `}
+    >
       <AtomText color="white" fontWeight="bold" fontSize="17px">
         Box Properties
       </AtomText>
+      <AtomInput
+        type="number"
+        label="X"
+        customCSSLabel={(css) => css`
+          color: white;
+        `}
+        customCSS={(css) => css`
+          height: 50px;
+        `}
+        customWrapperCSS={(css) => css`
+          height: auto;
+        `}
+        css={() => css`
+          height: auto;
+          color: white;
+        `}
+        value={element?.x}
+        onChange={(event) => {
+          allUpdate({
+            ...element,
+            x: Number(event.target.value),
+          });
+        }}
+      />
+      <AtomInput
+        type="number"
+        label="Y"
+        customCSSLabel={(css) => css`
+          color: white;
+        `}
+        customCSS={(css) => css`
+          height: 50px;
+        `}
+        customWrapperCSS={(css) => css`
+          height: auto;
+        `}
+        css={() => css`
+          height: auto;
+          color: white;
+        `}
+        value={element?.y}
+        onChange={(event) => {
+          allUpdate({
+            ...element,
+            y: Number(event.target.value),
+          });
+        }}
+      />
+      <AtomInput
+        type="number"
+        label="Rotate"
+        customCSSLabel={(css) => css`
+          color: white;
+        `}
+        customCSS={(css) => css`
+          height: 50px;
+        `}
+        customWrapperCSS={(css) => css`
+          height: auto;
+        `}
+        css={() => css`
+          height: auto;
+          color: white;
+        `}
+        value={element?.rotate}
+        onChange={(event) => {
+          allUpdate({
+            ...element,
+            rotate: Number(event.target.value),
+          });
+        }}
+      />
+      <AtomInput
+        type="number"
+        label="Width"
+        customCSSLabel={(css) => css`
+          color: white;
+        `}
+        customCSS={(css) => css`
+          height: 50px;
+        `}
+        customWrapperCSS={(css) => css`
+          height: auto;
+        `}
+        css={() => css`
+          height: auto;
+          color: white;
+        `}
+        value={element?.width}
+        onChange={(event) => {
+          const isZero = event.target.value < 0 ? 1 : event.target.value;
+          allUpdate({
+            ...element,
+            width: Number(isZero),
+          });
+        }}
+      />
+      <AtomInput
+        type="number"
+        label="Height"
+        customCSSLabel={(css) => css`
+          color: white;
+        `}
+        customCSS={(css) => css`
+          height: 50px;
+        `}
+        customWrapperCSS={(css) => css`
+          height: auto;
+        `}
+        css={() => css`
+          height: auto;
+          color: white;
+        `}
+        value={element?.height}
+        onChange={(event) => {
+          const isZero = event.target.value < 0 ? 1 : event.target.value;
+          allUpdate({
+            ...element,
+            height: Number(isZero),
+          });
+        }}
+      />
       <AtomInput
         type="color"
         label="Background"
@@ -78,7 +224,7 @@ const LayoutSidebarRightStageTabElementBox = () => {
           width: 100%;
           color: white;
         `}
-        value={element?.style?.strokeWidth}
+        value={element?.style?.strokeWidth ?? "#000000"}
         onChange={(event) => {
           allUpdate({
             ...element,
@@ -104,7 +250,7 @@ const LayoutSidebarRightStageTabElementBox = () => {
           width: 100%;
           color: white;
         `}
-        value={element?.style?.shadowBlur}
+        value={element?.style?.shadowBlur ?? 0}
         onChange={(event) => {
           allUpdate({
             ...element,
@@ -156,6 +302,10 @@ const LayoutSidebarRightStageTabElementBox = () => {
                 ...element.style,
                 isAllBorderRadius: !element?.style?.isAllBorderRadius,
                 borderRadius: 0,
+                borderRadiusBottomLeft: 0,
+                borderRadiusBottomRight: 0,
+                borderRadiusTopLeft: 0,
+                borderRadiusTopRight: 0,
               },
             });
           }}
@@ -177,6 +327,7 @@ const LayoutSidebarRightStageTabElementBox = () => {
           </svg>
         </AtomButton>
       </AtomWrapper>
+
       {element?.style?.isAllBorderRadius && (
         <AtomWrapper height="auto">
           <AtomInput
