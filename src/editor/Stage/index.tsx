@@ -1,5 +1,6 @@
 import useElement from "@/hooks/useElement";
 import useScreen from "@/hooks/useScreen";
+import useStageConfig from "@/hooks/useStage";
 import useElements from "@/hooks/useStatement";
 import useTool from "@/hooks/useTool";
 import useZoom from "@/hooks/useZoom";
@@ -25,7 +26,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   const { onWheel, stage } = useZoom();
   const { isMoving, tool, setTool } = useTool();
   const { handleStageClick, setElements } = useElements();
-
+  const { config } = useStageConfig();
   const { setElement, upElement, element } = useElement();
 
   const drawing = useRef(false);
@@ -58,8 +59,17 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
     <AtomWrapper
       ref={ref}
       customCSS={(css) => css`
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC")
-          repeat 0 0;
+        ${stage.scale > 1.4428970000000028 &&
+        config.Graphicmapdesign &&
+        css`
+          background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAxSURBVHgB7dYxDQAACANBwHbFQ7BAQqd/Ab21Kanju29k9ysMgYCAgICAgICcS8fvGhWuCe+rNdorAAAAAElFTkSuQmCC");
+          z-index: 999999999;
+          background-position: 100% 100%;
+          background-attachment: fixed;
+          background-size: calc(10px * ${stage.scale});
+        `}
+
+        background-color: ${config.backgroundColor};
       `}
     >
       <Stage
