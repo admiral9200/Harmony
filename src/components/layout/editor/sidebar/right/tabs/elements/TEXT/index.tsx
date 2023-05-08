@@ -172,7 +172,7 @@ const LayoutSidebarRightStageTabElementText = () => {
         css={() => css`
           height: auto;
         `}
-        value={element?.style?.stroke}
+        value={element?.style?.colorText}
         onChange={(event) => {
           allUpdate({
             ...element,
