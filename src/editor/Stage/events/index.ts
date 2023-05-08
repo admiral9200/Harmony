@@ -42,15 +42,15 @@ const EventsStageElements = ({
       progress: drawElementProgress?.(event, element ?? ({} as IElement)),
     },
     CIRCLE: {
-      start: circleElementStart(event),
+      start: circleElementStart(event, countElements),
       progress: circleElementProgress?.(event, element ?? ({} as IElement)),
     },
     LINE: {
-      start: lineElementStart(event),
+      start: lineElementStart(event, countElements),
       progress: lineElementProgress?.(event, element ?? ({} as IElement)),
     },
     IMAGE: {
-      start: imageElementStart(event),
+      start: imageElementStart(event, countElements),
       progress: imageElementProgress(event, element ?? ({} as IElement)),
     },
     TEXT: {

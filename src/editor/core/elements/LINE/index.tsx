@@ -1,6 +1,7 @@
 import Konva from "konva";
 import { MutableRefObject, useEffect, useRef } from "react";
 import { Rect, Transformer } from "react-konva";
+import { isPartialBorderRadius } from "../BOX";
 import { IFCElement } from "../type";
 
 const AtomEditorElementBox = (item: IFCElement) => {
@@ -15,14 +16,21 @@ const AtomEditorElementBox = (item: IFCElement) => {
         trRef.current?.getLayer()?.batchDraw();
       }
     }
-  }, [isSelected]);
+  }, [isSelected, item, trRef, shapeRef]);
+
+  useEffect(() => {
+    if (trRef.current && shapeRef.current) {
+      shapeRef.current?.setZIndex(item?.zIndex as number);
+    }
+  }, [item]);
   return (
     <>
       <Rect
         {...item}
         fill={item.style?.stroke}
         height={item?.style?.strokeWidth}
-        // height={20}
+        shadowBlur={item?.style?.shadowBlur}
+        cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
         ref={shapeRef as MutableRefObject<Konva.Rect>}
         draggable={draggable}
         onClick={() => onSelect(item)}
@@ -38,6 +46,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
         onTransform={(e) => {
           const rotate = e.target.rotation();
           if (shapeRef?.current) {
+            1;
             const node = shapeRef.current;
             const scaleX = node.scaleX();
             const scaleY = node.scaleY();

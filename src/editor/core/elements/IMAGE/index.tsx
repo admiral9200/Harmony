@@ -2,6 +2,7 @@
 import Konva from "konva";
 import { MutableRefObject, useEffect, useRef } from "react";
 import { Image as KonvaImg, Transformer } from "react-konva";
+import { isPartialBorderRadius } from "../BOX";
 import { IFCElement } from "../type";
 
 const AtomElementImage = (item: IFCElement) => {
@@ -18,9 +19,16 @@ const AtomElementImage = (item: IFCElement) => {
       if (trRef.current && shapeRef.current) {
         trRef.current.nodes([shapeRef.current]);
         trRef.current?.getLayer()?.batchDraw();
+        shapeRef.current?.setZIndex(item?.zIndex as number);
       }
     }
-  }, [isSelected]);
+  }, [isSelected, item, trRef, shapeRef]);
+
+  useEffect(() => {
+    if (trRef.current && shapeRef.current) {
+      shapeRef.current?.setZIndex(item?.zIndex as number);
+    }
+  }, [item]);
 
   return (
     <>
@@ -29,12 +37,18 @@ const AtomElementImage = (item: IFCElement) => {
         x={x}
         y={y}
         width={item.width}
+        height={item?.height}
+        cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
         image={image}
+        fill={item.style?.backgroundColor}
+        shadowBlur={item?.style?.shadowBlur}
+        stroke={item?.style?.stroke}
+        strokeWidth={item?.style?.strokeWidth}
+        rotation={rotate}
         ref={shapeRef as MutableRefObject<Konva.Image>}
         draggable={draggable}
         onClick={() => onSelect(item)}
         onTap={() => onSelect(item)}
-        rotation={rotate}
         onDragEnd={(e) => {
           onChange({
             ...item,

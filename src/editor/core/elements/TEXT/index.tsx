@@ -33,7 +33,11 @@ const AtomElementText = (item: IFCElement) => {
         y={y}
         width={width}
         height={height}
-        fontSize={12}
+        fontSize={item?.style?.fontSize}
+        fontStyle={item?.style?.fontStyle}
+        textDecoration={item?.style?.textDecoration}
+        fill={style?.colorText}
+        text={item?.text ?? item?.id?.slice?.(0, 4)}
         ref={shapeRef as MutableRefObject<Konva.Text>}
         draggable={draggable}
         onClick={() => onSelect(item)}
@@ -64,8 +68,6 @@ const AtomElementText = (item: IFCElement) => {
             });
           }
         }}
-        fill={style?.colorText}
-        text="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus laborum sunt, officia, veritatis iure sapiente assumenda ipsum ducimus quasi atque est delectus neque harum ullam non ex! Nulla, temporibus eveniet?"
       />
       {isSelected && (
         <Transformer

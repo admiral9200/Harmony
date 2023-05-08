@@ -15,6 +15,9 @@ export type IElement = {
   zIndex?: number;
   style?: {
     backgroundColor?: string;
+    fontSize?: number;
+    fontStyle?: string;
+    textDecoration?: string;
     shadowBlur?: number;
     borderRadius?: number;
     isAllBorderRadius?: boolean;

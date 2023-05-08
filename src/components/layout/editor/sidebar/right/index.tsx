@@ -3,6 +3,10 @@ import useElement from "@/hooks/useElement";
 import { AtomWrapper } from "lucy-nxtjs";
 import { FC } from "react";
 import LayoutSidebarRightStageTabElementBox from "./tabs/elements/BOX";
+import LayoutSidebarRightStageTabElementCircle from "./tabs/elements/CIRCLE";
+import LayoutSidebarRightStageTabElementImage from "./tabs/elements/IMAGE";
+import LayoutSidebarRightStageTabElementLine from "./tabs/elements/LINE";
+import LayoutSidebarRightStageTabElementText from "./tabs/elements/TEXT";
 import StageSidebarRight from "./tabs/stage";
 
 type LayoutsTabs = {
@@ -11,6 +15,10 @@ type LayoutsTabs = {
 
 const layoutTabs: LayoutsTabs = {
   BOX: <LayoutSidebarRightStageTabElementBox />,
+  CIRCLE: <LayoutSidebarRightStageTabElementCircle />,
+  LINE: <LayoutSidebarRightStageTabElementLine />,
+  IMAGE: <LayoutSidebarRightStageTabElementImage />,
+  TEXT: <LayoutSidebarRightStageTabElementText />,
 };
 
 const LayoutEditorSidebarRight: FC = () => {

@@ -4,7 +4,7 @@ import { Circle, Transformer } from "react-konva";
 import { IFCElement } from "../type";
 
 const AtomElementCircle = (item: IFCElement) => {
-  const { draggable, onChange, onSelect, isSelected } = item;
+  const { draggable, onChange, rotate, onSelect, isSelected } = item;
   const shapeRef = useRef<Konva.Circle>();
   const trRef = useRef<Konva.Transformer>();
 
@@ -16,15 +16,24 @@ const AtomElementCircle = (item: IFCElement) => {
         trRef.current?.getLayer()?.batchDraw();
       }
     }
-  }, [isSelected]);
+  }, [isSelected, item, trRef, shapeRef]);
+
+  useEffect(() => {
+    if (shapeRef.current) {
+      shapeRef.current?.setZIndex(item?.zIndex as number);
+    }
+  }, [item]);
   return (
     <>
       <Circle
         {...item}
         key={item.id}
         name={item.id}
+        shadowBlur={item?.style?.shadowBlur}
+        stroke={item?.style?.stroke}
+        strokeWidth={item?.style?.strokeWidth}
+        rotation={rotate}
         fill={item?.style?.backgroundColor}
-        // radius={50}
         ref={shapeRef as MutableRefObject<Konva.Circle>}
         draggable={draggable}
         onClick={() => onSelect(item)}

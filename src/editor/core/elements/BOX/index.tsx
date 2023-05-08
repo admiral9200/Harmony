@@ -10,19 +10,19 @@ const AtomEditorElementBox = (item: IFCElement) => {
 
   useEffect(() => {
     if (isSelected) {
+      // we need to attach transformer manually
       if (trRef.current && shapeRef.current) {
         trRef.current.nodes([shapeRef.current]);
         trRef.current?.getLayer()?.batchDraw();
-        shapeRef.current?.setZIndex(item?.zIndex as number);
       }
     }
-  }, [isSelected, item]);
+  }, [isSelected, item, trRef, shapeRef]);
 
   useEffect(() => {
     if (shapeRef.current) {
       shapeRef.current?.setZIndex(item?.zIndex as number);
     }
-  }, [isSelected, item]);
+  }, [isSelected, item, trRef, shapeRef]);
 
   return (
     <>
@@ -33,15 +33,15 @@ const AtomEditorElementBox = (item: IFCElement) => {
         shadowBlur={item?.style?.shadowBlur}
         ref={shapeRef as MutableRefObject<Konva.Rect>}
         draggable={draggable}
+        stroke={item?.style?.stroke}
+        strokeWidth={item?.style?.strokeWidth}
+        rotation={rotate}
         onClick={() => {
           onSelect(item);
         }}
         onTap={() => {
           onSelect(item);
         }}
-        stroke={item?.style?.stroke}
-        strokeWidth={item?.style?.strokeWidth}
-        rotation={rotate}
         onDragEnd={(e) => {
           onChange({
             ...item,
@@ -85,7 +85,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
   );
 };
 
-const isPartialBorderRadius = (item: IFCElement) => {
+export const isPartialBorderRadius = (item: IFCElement) => {
   return item?.style?.isAllBorderRadius
     ? {
         cornerRadius: [
