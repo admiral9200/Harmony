@@ -24,4 +24,11 @@ const setElsUpAtom = atom(null, (get, set, args: IElement) => {
   set(ElementSelected, args);
 });
 
-export { ElementsAtom, ElementSelected, setElsUpAtom };
+const setElementDeleteAtom = atom(null, (get, set, args: IElement) => {
+  const reMap = get(ElementsAtom)?.filter((item) => item?.id !== args?.id);
+  console.log(reMap, "sdfasdf");
+
+  set(ElementsAtom, reMap);
+});
+
+export { ElementsAtom, ElementSelected, setElsUpAtom, setElementDeleteAtom };

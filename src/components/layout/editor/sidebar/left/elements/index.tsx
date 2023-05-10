@@ -1,3 +1,4 @@
+import useElement from "@/hooks/useElement";
 import useElements from "@/hooks/useStatement";
 import { AtomText, AtomWrapper } from "lucy-nxtjs";
 import { FC, ReactNode } from "react";
@@ -8,6 +9,7 @@ type Props = {
 
 const ElementsList: FC<Props> = (props) => {
   const { elements } = useElements();
+  const { setElement, element } = useElement();
   return (
     <AtomWrapper
       customCSS={(css) => css`
@@ -41,7 +43,13 @@ const ElementsList: FC<Props> = (props) => {
             border: 1px solid white;
             width: 100%;
             padding: 5px;
+            cursor: pointer;
+            ${element.id === item?.id &&
+            css`
+              background-color: #8679ec;
+            `}
           `}
+          onClick={() => setElement(item)}
         >
           <AtomText color="white">
             {index} {item.tool} {item.id?.slice(0, 4)}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import useElement from "@/hooks/useElement";
 import useScreen from "@/hooks/useScreen";
 import useStageConfig from "@/hooks/useStage";
@@ -6,7 +7,7 @@ import useTool from "@/hooks/useTool";
 import useZoom from "@/hooks/useZoom";
 import { KonvaEventObject } from "konva/lib/Node";
 import { AtomWrapper } from "lucy-nxtjs";
-import { FC, ReactNode, useRef } from "react";
+import { FC, ReactNode, useEffect, useRef } from "react";
 import { Stage } from "react-konva";
 import { IElement, IFCElement } from "../core/elements/type";
 import EventsStageElements from "./events";
@@ -27,7 +28,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   const { isMoving, tool, setTool } = useTool();
   const { setElements, elements } = useElements();
   const { config } = useStageConfig();
-  const { setElement, upElement, element } = useElement();
+  const { setElement, upElement, element, deleteElement } = useElement();
 
   const drawing = useRef(false);
 
@@ -60,6 +61,19 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
     drawing.current = false;
     setTool("MOVE");
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Delete") {
+        deleteElement(element);
+        setElement({} as IFCElement);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [element]);
 
   return (
     <AtomWrapper
