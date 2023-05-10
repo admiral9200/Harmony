@@ -26,11 +26,18 @@ const AtomElementText = (item: IFCElement) => {
       }
     }
   }, [isSelected]);
+
+  useEffect(() => {
+    shapeRef.current?.setZIndex(item?.zIndex as number);
+    shapeRef.current?.zIndex(item?.zIndex as number);
+    trRef.current?.zIndex(item?.zIndex as number);
+  }, [isSelected, item, trRef, shapeRef]);
   return (
     <>
       <Text
         x={x}
         y={y}
+        id={item?.id}
         width={width}
         height={height}
         fontSize={item?.style?.fontSize}

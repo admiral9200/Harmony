@@ -19,14 +19,14 @@ const AtomElementCircle = (item: IFCElement) => {
   }, [isSelected, item, trRef, shapeRef]);
 
   useEffect(() => {
-    if (shapeRef.current) {
-      shapeRef.current?.setZIndex(item?.zIndex as number);
-    }
-  }, [item]);
+    shapeRef.current?.setZIndex(item?.zIndex as number);
+    trRef.current?.setZIndex(item?.zIndex as number);
+  }, [isSelected, item, trRef, shapeRef]);
   return (
     <>
       <Circle
         {...item}
+        id={item?.id}
         key={item.id}
         name={item.id}
         shadowBlur={item?.style?.shadowBlur}

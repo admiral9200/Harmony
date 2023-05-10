@@ -12,7 +12,7 @@ export type IElement = {
   points?: number[];
   src?: string;
   rotate?: number;
-  zIndex?: number;
+  zIndex: number;
   style?: {
     backgroundColor?: string;
     fontSize?: number;

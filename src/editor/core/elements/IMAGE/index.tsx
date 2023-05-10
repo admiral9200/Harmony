@@ -25,16 +25,16 @@ const AtomElementImage = (item: IFCElement) => {
   }, [isSelected, item, trRef, shapeRef]);
 
   useEffect(() => {
-    if (trRef.current && shapeRef.current) {
-      shapeRef.current?.setZIndex(item?.zIndex as number);
-    }
-  }, [item]);
+    shapeRef.current?.setZIndex(item?.zIndex as number);
+    trRef.current?.setZIndex(item?.zIndex as number);
+  }, [isSelected, item, trRef, shapeRef]);
 
   return (
     <>
       <KonvaImg
         {...item}
         x={x}
+        id={item?.id}
         y={y}
         width={item.width}
         height={item?.height}

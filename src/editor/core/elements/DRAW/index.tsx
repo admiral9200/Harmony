@@ -17,9 +17,14 @@ const AtomElementDraw = (item: IFCElement) => {
     }
   }, [isSelected]);
 
+  useEffect(() => {
+    shapeRef.current?.setZIndex(item?.zIndex as number);
+    trRef.current?.setZIndex(item?.zIndex as number);
+  }, [isSelected, item, trRef, shapeRef]);
   return (
     <>
       <Line
+        id={item?.id}
         points={item?.points}
         // dash={[10]}
         stroke="#2c26df"

@@ -19,15 +19,15 @@ const AtomEditorElementBox = (item: IFCElement) => {
   }, [isSelected, item, trRef, shapeRef]);
 
   useEffect(() => {
-    if (shapeRef.current) {
-      shapeRef.current?.setZIndex(item?.zIndex as number);
-    }
+    shapeRef.current?.setZIndex(item?.zIndex as number);
+    trRef.current?.setZIndex(item?.zIndex as number);
   }, [isSelected, item, trRef, shapeRef]);
 
   return (
     <>
       <Rect
         {...item}
+        id={item?.id}
         cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
         fill={item.style?.backgroundColor}
         shadowBlur={item?.style?.shadowBlur}

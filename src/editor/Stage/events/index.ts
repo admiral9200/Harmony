@@ -38,7 +38,7 @@ const EventsStageElements = ({
       progress: boxElementProgress?.(event, element ?? ({} as IElement)),
     },
     DRAW: {
-      start: drawElementStart(event),
+      start: drawElementStart(event, countElements),
       progress: drawElementProgress?.(event, element ?? ({} as IElement)),
     },
     CIRCLE: {
@@ -54,7 +54,7 @@ const EventsStageElements = ({
       progress: imageElementProgress(event, element ?? ({} as IElement)),
     },
     TEXT: {
-      start: textElementStart(event),
+      start: textElementStart(event, countElements),
       progress: textElementProgress(event, element ?? ({} as IElement)),
     },
   };

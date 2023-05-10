@@ -470,12 +470,10 @@ const LayoutSidebarRightStageTabElementImage = () => {
         <AtomButton
           width="100%"
           onClick={() => {
-            if (element.zIndex) {
-              allUpdate({
-                ...element,
-                zIndex: element.zIndex + 1,
-              });
-            }
+            allUpdate({
+              ...element,
+              zIndex: element.zIndex + 1,
+            });
           }}
           backgroundColor="#79ecd7"
         >
@@ -485,12 +483,10 @@ const LayoutSidebarRightStageTabElementImage = () => {
           width="100%"
           backgroundColor="#8679ec"
           onClick={() => {
-            if (element.zIndex) {
-              allUpdate({
-                ...element,
-                zIndex: element.zIndex === 1 ? 1 : element.zIndex - 1,
-              });
-            }
+            allUpdate({
+              ...element,
+              zIndex: element.zIndex - 1,
+            });
           }}
         >
           DOWN
