@@ -21,6 +21,7 @@ const Actions = (event: KonvaEventObject<MouseEvent>): IActions => {
         x,
         y,
         // fill: getRandomColor(),
+        zIndex: 1,
         tool: "BOX",
         rotate: 0,
         height: 100,
@@ -36,6 +37,7 @@ const Actions = (event: KonvaEventObject<MouseEvent>): IActions => {
         x,
         y,
         // fill: getRandomColor(),
+        zIndex: 1,
         tool: "TEXT",
         rotate: 0,
         text: uuidv4().slice(0, 4),
@@ -52,6 +54,7 @@ const Actions = (event: KonvaEventObject<MouseEvent>): IActions => {
         x,
         y,
         tool: "CIRCLE",
+        zIndex: 1,
         rotate: 0,
         text: uuidv4().slice(0, 4),
         style: {
@@ -67,6 +70,7 @@ const Actions = (event: KonvaEventObject<MouseEvent>): IActions => {
         x,
         y,
         tool: "LINE",
+        zIndex: 1,
         text: uuidv4().slice(0, 4),
         style: {
           stroke: getRandomColor(),
@@ -84,6 +88,7 @@ const Actions = (event: KonvaEventObject<MouseEvent>): IActions => {
         x,
         y,
         tool: "IMAGE",
+        zIndex: 1,
         text: uuidv4().slice(0, 4),
         style: {
           stroke: getRandomColor(),
