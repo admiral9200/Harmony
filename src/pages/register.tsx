@@ -219,7 +219,7 @@ const LoginPage: FC = () => {
             onClick={() => router.push("/login")}
             textDecoration="underline"
           >
-            Do you have an account? Login
+            Do you have an account? Login page
           </AtomText>
         </AtomWrapper>
       </AtomWrapper>
