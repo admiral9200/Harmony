@@ -5,7 +5,7 @@ import ElementsList from "./elements";
 const LayoutEditorSidebarLeft: FC = () => {
   return (
     <AtomWrapper
-      backgroundColor="#202020"
+      backgroundColor="#0d0e0e"
       justifyContent="flex-start"
       alignItems="flex-start"
       padding="1.3rem"

@@ -1,10 +1,13 @@
 import useElement from "@/hooks/useElement";
+import useTool from "@/hooks/useTool";
 import { css } from "@emotion/react";
 import { AtomButton, AtomInput, AtomText, AtomWrapper } from "lucy-nxtjs";
 
 const LayoutSidebarRightStageTabElementText = () => {
   const { element, allUpdate } = useElement();
   // console.log({ element });
+
+  const { tool, isMoving, setTool } = useTool();
 
   return (
     <AtomWrapper
@@ -317,7 +320,11 @@ const LayoutSidebarRightStageTabElementText = () => {
           }
         `}
         value={element?.text ?? element?.id?.slice?.(0, 4)}
+        onClick={() => {
+          setTool("WRITING");
+        }}
         onChange={(event) => {
+          setTool("WRITING");
           allUpdate({
             ...element,
             text: event.target.value,

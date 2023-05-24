@@ -38,8 +38,6 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   const isCopy = useRef(false);
   const isDraggingCopy = useRef(false);
 
-  console.log({ isMoving });
-
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
     if (!isMoving) {
       drawing.current = true;
@@ -99,26 +97,26 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       event.stopImmediatePropagation();
-      console.log(event.key);
 
       const KEY = event.key?.toUpperCase();
-
-      if (KEY === "DELETE") {
-        deleteElement(element);
-        setElement({} as IFCElement);
-      }
-      if (KEY === "ALT") {
-        isCopy.current = true;
-      }
-      if (KEY === "F") {
-        setTool("BOX");
-        setElement({} as IFCElement);
-      }
-      if (KEY === "CONTROL") {
-        setTool("MOVE");
-      }
-      if (KEY === "T") {
-        setTool("TEXT");
+      if (!isMoving) {
+        if (KEY === "DELETE") {
+          deleteElement(element);
+          setElement({} as IFCElement);
+        }
+        if (KEY === "ALT") {
+          isCopy.current = true;
+        }
+        if (KEY === "F") {
+          setTool("BOX");
+          setElement({} as IFCElement);
+        }
+        if (KEY === "CONTROL") {
+          setTool("MOVE");
+        }
+        if (KEY === "T") {
+          setTool("TEXT");
+        }
       }
       // if (event.key === "Alt" && element?.id) {
       //   const stage = stageDataRef?.current?.getStage?.() as Konva.Stage;

@@ -59,7 +59,7 @@ const LayoutEditorTop: FC = () => {
       customCSS={(css) => css`
         grid-column: 1 / 4;
         grid-row: 1;
-        background-color: #292929;
+        background-color: #0d0e0e;
         height: auto;
         padding: 1rem;
         border-bottom: 1px solid white;

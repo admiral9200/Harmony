@@ -13,11 +13,11 @@ const AtomEditorMapper = () => {
   return (
     <Layer>
       {elements?.map((item) => {
-        const Component = mapperElements?.()?.[item.tool] as FCE;
+        const Component = mapperElements?.()?.[item?.tool] as FCE;
         return (
           <Component
             {...item}
-            key={item.id}
+            key={item?.id}
             draggable={draggable}
             isMoving={isMoving}
             isSelected={item?.id === element?.id}
