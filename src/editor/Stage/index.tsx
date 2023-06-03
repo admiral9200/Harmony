@@ -39,7 +39,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   const isDraggingCopy = useRef(false);
 
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
-    if (!isMoving) {
+    if (!isMoving && tool !== "WRITING") {
       drawing.current = true;
       const newBox = EventsStageElements({
         event,
@@ -60,12 +60,11 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
       isDraggingCopy.current = true;
       isCopy.current = false;
     }
-    console.log("CLICK COPY");
   };
 
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
     if (!drawing.current) return;
-    if (!isMoving) {
+    if (!isMoving && tool !== "WRITING") {
       const newBox = EventsStageElements({
         event: e,
         element: element,
@@ -99,24 +98,23 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
       event.stopImmediatePropagation();
 
       const KEY = event.key?.toUpperCase();
-      if (!isMoving) {
-        if (KEY === "DELETE") {
-          deleteElement(element);
-          setElement({} as IFCElement);
-        }
-        if (KEY === "ALT") {
-          isCopy.current = true;
-        }
-        if (KEY === "F") {
-          setTool("BOX");
-          setElement({} as IFCElement);
-        }
-        if (KEY === "CONTROL") {
-          setTool("MOVE");
-        }
-        if (KEY === "T") {
-          setTool("TEXT");
-        }
+
+      if (KEY === "DELETE") {
+        deleteElement(element);
+        setElement({} as IFCElement);
+      }
+      if (KEY === "ALT") {
+        isCopy.current = true;
+      }
+      if (KEY === "F") {
+        setTool("BOX");
+        setElement({} as IFCElement);
+      }
+      if (KEY === "CONTROL") {
+        setTool("MOVE");
+      }
+      if (KEY === "T") {
+        setTool("TEXT");
       }
       // if (event.key === "Alt" && element?.id) {
       //   const stage = stageDataRef?.current?.getStage?.() as Konva.Stage;
