@@ -8,6 +8,7 @@ import { IFCElement } from "../type";
 const AtomElementImage = (item: IFCElement) => {
   const { x, y } = item;
   const image = new Image();
+
   image.src = item.src as string;
 
   const { rotate, draggable, onChange, onSelect, isSelected } = item;
