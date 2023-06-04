@@ -50,8 +50,6 @@ const useZoom = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const KEY = event.key?.toUpperCase();
 
-      console.log(KEY);
-
       if (KEY === "SHIFT") {
         setScrollEvent("SCROOLL_HORIZONTAL");
       }
