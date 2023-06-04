@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
+import { Stage } from "konva/lib/Stage";
+import { Vector2d } from "konva/lib/types";
 import { useEffect, useState } from "react";
 
 const zoomAtom = atomWithStorage("harmony_zoom", {
@@ -33,16 +34,27 @@ const useZoom = () => {
     }
     if (scrollEvent === "SCROOLL_ZOOM") {
       const scaleBy = 1.1;
-      const stage = event.target?.getStage() as Konva.Stage;
+      const stage = event.target.getStage() as Stage;
       const oldScale = stage.scaleX();
+      const pointerPosition = stage.getPointerPosition() as Vector2d;
 
       const newScale =
         event.evt.deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy;
+
       const isValidScale = newScale < 6 && newScale > 0.04168314407042724;
-      setStage((prev) => ({
-        ...prev,
-        scale: isValidScale ? newScale : prev.scale,
-      }));
+      const mousePointTo = {
+        x: pointerPosition.x / oldScale - stage.x() / oldScale,
+        y: pointerPosition.y / oldScale - stage.y() / oldScale,
+      };
+
+      if (isValidScale) {
+        setStage((prev) => ({
+          ...prev,
+          scale: isValidScale ? newScale : prev.scale,
+          x: (pointerPosition.x / newScale - mousePointTo.x) * newScale,
+          y: (pointerPosition.y / newScale - mousePointTo.y) * newScale,
+        }));
+      }
     }
   };
 
