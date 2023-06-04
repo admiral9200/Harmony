@@ -9,7 +9,8 @@ const useTool = () => {
   return {
     tool,
     setTool,
-    isMoving: tool === "MOVE" || tool === "WRITING",
+    isMoving: tool === "MOVE",
+    isCreatingElement: tool !== "MOVE" && tool !== "WRITING",
     isDrawing: tool === "DRAW",
     isAddingElements: keyMove?.includes(tool),
   };

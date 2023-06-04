@@ -18,7 +18,7 @@ const imageElementStart = (
     tool: "IMAGE",
     style: {
       stroke: getRandomColor(),
-      strokeWidth: 4,
+      strokeWidth: 0,
     },
     zIndex: count + 1,
     src: "https://picsum.photos/200/300",
