@@ -89,7 +89,7 @@ const LayoutEditorTop: FC = () => {
                 padding: 5px;
                 border-radius: 5px;
               `}
-              backgroundColor={isSelect ? colors?.[index] : "none"}
+              backgroundColor={isSelect ? colors?.[index] : colors?.[index]}
               alignItems="center"
               justifyContent="center"
               isFocus={isSelect}
