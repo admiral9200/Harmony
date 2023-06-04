@@ -65,9 +65,6 @@ const useZoom = () => {
       if (KEY === "SHIFT") {
         setScrollEvent("SCROOLL_HORIZONTAL");
       }
-      if (KEY === "ALT") {
-        setScrollEvent("SCROOLL_VERTICAL");
-      }
       if (KEY === "CONTROL") {
         setScrollEvent("SCROOLL_ZOOM");
       }
