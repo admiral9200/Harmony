@@ -1,6 +1,12 @@
 import useElement from "@/hooks/useElement";
 import { css } from "@emotion/react";
-import { AtomButton, AtomInput, AtomText, AtomWrapper } from "lucy-nxtjs";
+import {
+  AtomButton,
+  AtomImage,
+  AtomInput,
+  AtomText,
+  AtomWrapper,
+} from "lucy-nxtjs";
 
 const LayoutSidebarRightStageTabElementImage = () => {
   const { element, allUpdate } = useElement();
@@ -183,6 +189,17 @@ const LayoutSidebarRightStageTabElementImage = () => {
           });
         }}
       />
+
+      <AtomImage
+        src={element?.src as string}
+        alt=""
+        customCSS={() => css`
+          img {
+            border-radius: 5px;
+          }
+          padding: 0px 5px;
+        `}
+      />
       <AtomInput
         type="file"
         label="URL Image"
@@ -201,11 +218,19 @@ const LayoutSidebarRightStageTabElementImage = () => {
         // value={element?.style?.stroke}
         onChange={(event) => {
           const reader = new FileReader();
+
           reader.onload = function (data) {
-            allUpdate({
-              ...element,
-              src: data?.target?.result as string,
-            });
+            const image = new Image();
+
+            image.src = data?.target?.result as string;
+            image.onload = () => {
+              allUpdate({
+                ...element,
+                height: image.naturalHeight,
+                width: image.naturalWidth,
+                src: data?.target?.result as string,
+              });
+            };
           };
           reader.readAsDataURL(event.target.files[0]);
         }}
