@@ -16,7 +16,7 @@ const LayoutEditorSidebarLeft: FC = () => {
         fontSize="17px"
         margin="0px 0px 15px 0px"
       >
-        Pages
+        Elements
       </AtomText>
       <ElementsList />
     </AtomWrapper>
