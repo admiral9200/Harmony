@@ -38,8 +38,8 @@ const AtomElementText = (item: IFCElement) => {
         x={x}
         y={y}
         id={item?.id}
-        // width={width}
-        // height={0}
+        width={width}
+        height={height}
         fontSize={item?.style?.fontSize}
         fontStyle={item?.style?.fontStyle}
         textDecoration={item?.style?.textDecoration}
