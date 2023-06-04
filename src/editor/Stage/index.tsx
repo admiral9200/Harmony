@@ -9,7 +9,7 @@ import useZoom from "@/hooks/useZoom";
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { AtomWrapper } from "lucy-nxtjs";
-import { FC, ReactNode, useEffect, useRef } from "react";
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { Stage } from "react-konva";
 import { v4 } from "uuid";
 import { IElement, IFCElement } from "../core/elements/type";
@@ -28,18 +28,16 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   });
   const stageDataRef = useRef<Konva.Stage>(null);
   const { onWheel, stage } = useZoom();
-  const { isMoving, tool, setTool } = useTool();
+  const { isCreatingElement, tool, setTool } = useTool();
   const { setElements, elements } = useElements();
   const { config } = useStageConfig();
   const { setElement, upElement, element, deleteElement } = useElement();
 
   const drawing = useRef(false);
-
-  const isCopy = useRef(false);
-  const isDraggingCopy = useRef(false);
+  const [isCopyElement, setIsCopyElement] = useState(false);
 
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
-    if (!isMoving && tool !== "WRITING") {
+    if (isCreatingElement) {
       drawing.current = true;
       const newBox = EventsStageElements({
         event,
@@ -48,23 +46,19 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
       setElement(newBox);
       setElements((prev) => [...prev, newBox]);
     }
-    if (isCopy.current && element?.id) {
-      const stage = event.target?.getStage?.() as Konva.Stage;
-      const { x, y } = getRelativePointerPosition(stage);
+    if (isCopyElement && element?.id) {
       const newElemetCopy = {
         ...element,
         id: v4(),
       };
       setElement(newElemetCopy);
       setElements((prev) => [...prev, newElemetCopy]);
-      isDraggingCopy.current = true;
-      isCopy.current = false;
     }
   };
 
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
     if (!drawing.current) return;
-    if (!isMoving && tool !== "WRITING") {
+    if (isCreatingElement) {
       const newBox = EventsStageElements({
         event: e,
         element: element,
@@ -73,7 +67,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
       setElement(newBox);
       upElement(newBox);
     }
-    if (isDraggingCopy.current && element?.id) {
+    if (isCopyElement && element?.id) {
       const stage = e.target?.getStage?.() as Konva.Stage;
       const { x, y } = getRelativePointerPosition(stage);
       const newElemetCopy = {
@@ -88,15 +82,12 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
 
   const handleMouseUp = () => {
     drawing.current = false;
-    isCopy.current = false;
-    isDraggingCopy.current = false;
+    setIsCopyElement(false);
     setTool("MOVE");
   };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      event.stopImmediatePropagation();
-
       const KEY = event.key?.toUpperCase();
 
       if (KEY === "DELETE") {
@@ -104,7 +95,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
         setElement({} as IFCElement);
       }
       if (KEY === "ALT") {
-        isCopy.current = true;
+        setIsCopyElement(true);
       }
       if (KEY === "F") {
         setTool("BOX");
@@ -116,20 +107,17 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
       if (KEY === "T") {
         setTool("TEXT");
       }
-      // if (event.key === "Alt" && element?.id) {
-      //   const stage = stageDataRef?.current?.getStage?.() as Konva.Stage;
-      //   const { x, y } = getRelativePointerPosition(stage);
-      //   const newElemetCopy = {
-      //     ...element,
-      //     id: v4(),
-      //     x,
-      //     y,
-      //   };
-      //   setElement(newElemetCopy);
-      //   setElements((prev) => [...prev, newElemetCopy]);
-      // }
     };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      const KEY = event.key?.toUpperCase();
+      if (KEY === "ALT") {
+        setIsCopyElement(false);
+      }
+    };
+
     document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
