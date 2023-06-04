@@ -28,7 +28,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
   });
   const stageDataRef = useRef<Konva.Stage>(null);
   const { onWheel, stage } = useZoom();
-  const { isCreatingElement, tool, setTool } = useTool();
+  const { isCreatingElement, tool, setTool, disableKeyBoard } = useTool();
   const { setElements, elements } = useElements();
   const { config } = useStageConfig();
   const { setElement, upElement, element, deleteElement } = useElement();
@@ -90,22 +90,24 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const KEY = event.key?.toUpperCase();
 
-      if (KEY === "DELETE") {
-        deleteElement(element);
-        setElement({} as IFCElement);
-      }
-      if (KEY === "ALT") {
-        setIsCopyElement(true);
-      }
-      if (KEY === "F") {
-        setTool("BOX");
-        setElement({} as IFCElement);
-      }
-      if (KEY === "CONTROL") {
-        setTool("MOVE");
-      }
-      if (KEY === "T") {
-        setTool("TEXT");
+      if (disableKeyBoard) {
+        if (KEY === "DELETE") {
+          deleteElement(element);
+          setElement({} as IFCElement);
+        }
+        if (KEY === "ALT") {
+          setIsCopyElement(true);
+        }
+        if (KEY === "F") {
+          setTool("BOX");
+          setElement({} as IFCElement);
+        }
+        if (KEY === "CONTROL") {
+          setTool("MOVE");
+        }
+        if (KEY === "T") {
+          setTool("TEXT");
+        }
       }
     };
 
@@ -122,7 +124,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [element]);
+  }, [element, disableKeyBoard]);
 
   return (
     <AtomWrapper

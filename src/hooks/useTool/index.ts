@@ -11,6 +11,7 @@ const useTool = () => {
     setTool,
     isMoving: tool === "MOVE",
     isCreatingElement: tool !== "MOVE" && tool !== "WRITING",
+    disableKeyBoard: tool !== "WRITING",
     isDrawing: tool === "DRAW",
     isAddingElements: keyMove?.includes(tool),
   };
