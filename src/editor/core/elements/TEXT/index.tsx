@@ -38,8 +38,8 @@ const AtomElementText = (item: IFCElement) => {
         x={x}
         y={y}
         id={item?.id}
-        width={width}
-        height={height}
+        // width={width}
+        // height={0}
         fontSize={item?.style?.fontSize}
         fontStyle={item?.style?.fontStyle}
         textDecoration={item?.style?.textDecoration}
@@ -49,7 +49,6 @@ const AtomElementText = (item: IFCElement) => {
         draggable={draggable}
         onClick={() => onSelect(item)}
         onTap={() => onSelect(item)}
-        zIndex={2}
         onDragEnd={(e) => {
           onChange({
             ...item,
