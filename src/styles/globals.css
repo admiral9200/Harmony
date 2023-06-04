@@ -5,3 +5,8 @@ body {
   display: flex;
   height: 100vh;
 }
+
+html,
+body {
+  touch-action: manipulation;
+}
