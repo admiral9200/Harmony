@@ -13,7 +13,7 @@ const LayoutEditorSidebarLeft: FC = () => {
       <AtomText
         color="white"
         fontWeight="bold"
-        fontSize="17px"
+        fontSize="16px"
         margin="0px 0px 15px 0px"
       >
         Elements
