@@ -106,12 +106,25 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
           setTool("CIRCLE");
           setElement({} as IFCElement);
         }
+        if (KEY === "O") {
+          setTool("CIRCLE");
+          setElement({} as IFCElement);
+        }
+        if (KEY === "L") {
+          setTool("LINE");
+          setElement({} as IFCElement);
+        }
+        if (KEY === "V") {
+          setTool("MOVE");
+          setElement({} as IFCElement);
+        }
+        if (KEY === "I") {
+          setTool("IMAGE");
+          setElement({} as IFCElement);
+        }
         if (KEY === "F") {
           setTool("BOX");
           setElement({} as IFCElement);
-        }
-        if (KEY === "CONTROL") {
-          setTool("MOVE");
         }
         if (KEY === "T") {
           setElement({} as IFCElement);

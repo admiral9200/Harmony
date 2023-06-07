@@ -60,7 +60,7 @@ const Modal: FC = () => {
                 setMounted(false);
               }}
               isFocus
-              backgroundColor="#0072FF"
+              backgroundColor="#0496ff"
             >
               Ok I understoond
             </AtomButton>

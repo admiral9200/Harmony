@@ -1,6 +1,6 @@
 import useElement from "@/hooks/useElement";
 import useElements from "@/hooks/useStatement";
-import { AtomText, AtomWrapper } from "lucy-nxtjs";
+import { AtomText, AtomWrapper, isDarkLight } from "lucy-nxtjs";
 import { FC, ReactNode } from "react";
 
 type Props = {
@@ -47,13 +47,14 @@ const ElementsList: FC<Props> = (props) => {
             user-select: none !important;
             ${element.id === item?.id &&
             css`
-              background-color: #8679ec;
+              /* border: 1px solid #0496ff; */
+              background-color: #0496ff;
             `}
           `}
           onClick={() => setElement(item)}
         >
           <AtomText
-            color="white"
+            color={element?.id === item?.id ? isDarkLight("#0496ff") : "white"}
             cursor="pointer"
             customCSS={(css) => css`
               user-select: none;

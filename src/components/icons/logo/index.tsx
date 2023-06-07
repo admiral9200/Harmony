@@ -14,8 +14,9 @@ const LogoHarmony: FC<Props> = ({ color, height, width }) => (
     color={color ?? "black"}
     customCSS={(css) => css`
       svg {
+        stroke-width: 1;
         path {
-          stroke-width: 2;
+          stroke-width: 1;
         }
       }
     `}
