@@ -1,6 +1,5 @@
 import { IElement } from "@/editor/core/elements/type";
 import getRelativePointerPosition from "@/hooks/useStatement/actions/position";
-import { getRandomColor } from "@/utils/randomColor";
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { v4 as uuidv4 } from "uuid";
@@ -16,9 +15,9 @@ const lineElementStart = (
     x,
     y,
     tool: "LINE",
-    text: uuidv4().slice(0, 4),
+    text: "",
     style: {
-      stroke: getRandomColor(),
+      stroke: "#000",
       strokeWidth: 4,
     },
     zIndex: count + 1,

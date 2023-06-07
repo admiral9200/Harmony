@@ -6,9 +6,9 @@ import type { AppPropsWithLayout } from "next/app";
 import Head from "next/head";
 import { useEffect } from "react";
 
+import { Provider } from "jotai";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
@@ -35,15 +35,20 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     };
   }, []);
   return (
-    <ApolloProvider client={client}>
-      <Head>
-        <meta name="viewport" content="width=device-width, user-scalable=no" />
-      </Head>
-      <ToastContainer />
-      <LayoutFC {...Component}>
-        <Component {...pageProps} />
-      </LayoutFC>
-    </ApolloProvider>
+    <Provider>
+      <ApolloProvider client={client}>
+        <Head>
+          <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no"
+          />
+        </Head>
+        <ToastContainer />
+        <LayoutFC {...Component}>
+          <Component {...pageProps} />
+        </LayoutFC>
+      </ApolloProvider>
+    </Provider>
   );
 };
 export default App;

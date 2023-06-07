@@ -26,15 +26,12 @@ const AtomElementDraw = (item: IFCElement) => {
       <Line
         id={item?.id}
         points={item?.points}
-        // dash={[10]}
-        stroke="#2c26df"
+        stroke={item?.style?.stroke}
         strokeWidth={10}
-        // tension={1}
         globalCompositeOperation="source-over"
         lineCap="round"
         lineJoin="round"
         ref={shapeRef as MutableRefObject<Konva.Line>}
-        // draggable={draggable}
         onClick={() => onSelect(item)}
         onTap={() => onSelect(item)}
         rotation={rotate}
@@ -52,8 +49,6 @@ const AtomElementDraw = (item: IFCElement) => {
             const scaleX = node.scaleX();
             const scaleY = node.scaleY();
 
-            // node.scaleX(1);
-            // node.scaleY(1);
             onChange({
               ...item,
               x: node.x(),

@@ -44,6 +44,7 @@ const ElementsList: FC<Props> = (props) => {
             width: 100%;
             padding: 5px;
             cursor: pointer;
+            user-select: none !important;
             ${element.id === item?.id &&
             css`
               background-color: #8679ec;
@@ -51,7 +52,13 @@ const ElementsList: FC<Props> = (props) => {
           `}
           onClick={() => setElement(item)}
         >
-          <AtomText color="white">
+          <AtomText
+            color="white"
+            cursor="pointer"
+            customCSS={(css) => css`
+              user-select: none;
+            `}
+          >
             {index} {item.tool} {item.id?.slice(0, 4)}
           </AtomText>
         </AtomWrapper>

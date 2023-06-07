@@ -1,3 +1,4 @@
+"use client";
 import useElement from "@/hooks/useElement";
 import useElements from "@/hooks/useStatement";
 import useTool from "@/hooks/useTool";

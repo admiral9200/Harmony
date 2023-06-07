@@ -26,8 +26,6 @@ const setElsUpAtom = atom(null, (get, set, args: IElement) => {
 
 const setElementDeleteAtom = atom(null, (get, set, args: IElement) => {
   const reMap = get(ElementsAtom)?.filter((item) => item?.id !== args?.id);
-  console.log(reMap, "sdfasdf");
-
   set(ElementsAtom, reMap);
 });
 

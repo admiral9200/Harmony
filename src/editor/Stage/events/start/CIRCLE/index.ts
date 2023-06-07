@@ -1,6 +1,5 @@
 import { IElement } from "@/editor/core/elements/type";
 import getRelativePointerPosition from "@/hooks/useStatement/actions/position";
-import { getRandomColor } from "@/utils/randomColor";
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { v4 as uuidv4 } from "uuid";
@@ -22,7 +21,7 @@ const circleElementStart = (
     // text: uuidv4().slice(0, 4),
     zIndex: count + 1,
     style: {
-      backgroundColor: getRandomColor(),
+      backgroundColor: "#ffffff",
       stroke: "#000",
     },
   };

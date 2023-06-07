@@ -13,7 +13,7 @@ const circleElementProgress = (
   return {
     ...(element ?? {}),
     width: isNegative(x - element?.x),
-    height: isNegative(y - element?.y),
+    height: isNegative(x - element?.x),
   };
 };
 

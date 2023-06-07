@@ -1,6 +1,5 @@
 import { IElement } from "@/editor/core/elements/type";
 import getRelativePointerPosition from "@/hooks/useStatement/actions/position";
-import { getRandomColor } from "@/utils/randomColor";
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { v4 as uuidv4 } from "uuid";
@@ -19,7 +18,7 @@ const textElementStart = (
     rotate: 0,
     text: uuidv4().slice(0, 4),
     style: {
-      colorText: getRandomColor(),
+      colorText: "#000",
       fontStyle: "normal",
       fontSize: 12,
     },

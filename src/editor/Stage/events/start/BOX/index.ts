@@ -1,6 +1,5 @@
 import { IElement } from "@/editor/core/elements/type";
 import getRelativePointerPosition from "@/hooks/useStatement/actions/position";
-import { getRandomColor } from "@/utils/randomColor";
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { v4 as uuidv4 } from "uuid";
@@ -21,7 +20,7 @@ const boxElementStart = (
     width: 1,
     zIndex: count + 1,
     style: {
-      backgroundColor: getRandomColor(),
+      backgroundColor: "#ffffff",
       isAllBorderRadius: false,
       borderRadius: 0,
       borderRadiusBottomLeft: 0,

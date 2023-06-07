@@ -4,7 +4,6 @@ import { AtomButton, AtomInput, AtomText, AtomWrapper } from "lucy-nxtjs";
 
 const LayoutSidebarRightStageTabElementCircle = () => {
   const { element, allUpdate } = useElement();
-  // console.log({ element });
 
   return (
     <AtomWrapper
@@ -86,7 +85,7 @@ const LayoutSidebarRightStageTabElementCircle = () => {
 
       <AtomInput
         type="number"
-        label="Width"
+        label="Width And Height"
         customCSSLabel={(css) => css`
           color: white;
         `}
@@ -110,33 +109,8 @@ const LayoutSidebarRightStageTabElementCircle = () => {
         }}
       />
       <AtomInput
-        type="number"
-        label="Height"
-        customCSSLabel={(css) => css`
-          color: white;
-        `}
-        customCSS={(css) => css`
-          height: 50px;
-        `}
-        customWrapperCSS={(css) => css`
-          height: auto;
-        `}
-        css={() => css`
-          height: auto;
-          color: white;
-        `}
-        value={element?.height}
-        onChange={(event) => {
-          const isZero = event.target.value < 0 ? 1 : event.target.value;
-          allUpdate({
-            ...element,
-            height: Number(isZero),
-          });
-        }}
-      />
-      <AtomInput
         type="color"
-        label="Background"
+        label="Background Color"
         customCSSLabel={(css) => css`
           color: white;
         `}

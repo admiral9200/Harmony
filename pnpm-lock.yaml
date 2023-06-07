@@ -33,8 +33,8 @@ dependencies:
     specifier: ^9.0.1
     version: 9.0.1
   lucy-nxtjs:
-    specifier: ^0.0.72
-    version: 0.0.72(@emotion/react@11.10.6)(@emotion/styled@11.11.0)(@types/node@18.15.11)(@types/react-dom@18.0.11)(@types/react@18.0.35)(jotai@2.0.4)(js-cookie@3.0.5)(react-dom@18.2.0)(react@18.2.0)(swr@2.1.5)
+    specifier: ^0.0.73
+    version: 0.0.73(@emotion/react@11.10.6)(@emotion/styled@11.11.0)(@types/node@18.15.11)(@types/react-dom@18.0.11)(@types/react@18.0.35)(jotai@2.0.4)(js-cookie@3.0.5)(react-dom@18.2.0)(react@18.2.0)(swr@2.1.5)
   next:
     specifier: 13.3.0
     version: 13.3.0(react-dom@18.2.0)(react@18.2.0)
@@ -1570,7 +1570,7 @@ packages:
       imurmurhash: 0.1.4
       is-glob: 4.0.3
       is-path-inside: 3.0.3
-      js-sdsl: 4.4.0
+      js-sdsl: 4.4.1
       js-yaml: 4.1.0
       json-stable-stringify-without-jsonify: 1.0.1
       levn: 0.4.1
@@ -1620,7 +1620,7 @@ packages:
       imurmurhash: 0.1.4
       is-glob: 4.0.3
       is-path-inside: 3.0.3
-      js-sdsl: 4.4.0
+      js-sdsl: 4.4.1
       js-yaml: 4.1.0
       json-stable-stringify-without-jsonify: 1.0.1
       levn: 0.4.1
@@ -2298,8 +2298,8 @@ packages:
     engines: {node: '>=14'}
     dev: false
 
-  /js-sdsl@4.4.0:
-    resolution: {integrity: sha512-FfVSdx6pJ41Oa+CF7RDaFmTnCaFhua+SNYQX74riGOpl96x+2jQCqEfQ2bnXu/5DPCqlRuiqyvTJM0Qjz26IVg==}
+  /js-sdsl@4.4.1:
+    resolution: {integrity: sha512-6Gsx8R0RucyePbWqPssR8DyfuXmLBooYN5cZFZKjHGnQuaf7pEzhtpceagJxVu4LqhYY5EYA7nko3FmeHZ1KbA==}
     dev: false
 
   /js-tokens@4.0.0:
@@ -2399,8 +2399,8 @@ packages:
       yallist: 4.0.0
     dev: false
 
-  /lucy-nxtjs@0.0.72(@emotion/react@11.10.6)(@emotion/styled@11.11.0)(@types/node@18.15.11)(@types/react-dom@18.0.11)(@types/react@18.0.35)(jotai@2.0.4)(js-cookie@3.0.5)(react-dom@18.2.0)(react@18.2.0)(swr@2.1.5):
-    resolution: {integrity: sha512-DyHWc4YzL8F5EjGyTfvfXnEYkdbOMG5Xeejgqh35TxEHQ4BbtGQcA2Dy6h6ttWt9njyRntrPBPD9Bz7DvqqEgg==}
+  /lucy-nxtjs@0.0.73(@emotion/react@11.10.6)(@emotion/styled@11.11.0)(@types/node@18.15.11)(@types/react-dom@18.0.11)(@types/react@18.0.35)(jotai@2.0.4)(js-cookie@3.0.5)(react-dom@18.2.0)(react@18.2.0)(swr@2.1.5):
+    resolution: {integrity: sha512-WFTLHOd/ETyvwyGq9OO92iqt2miazCn65rT8eRknNVZh3kDY+ycLBT3TB+GQ6xd/rn5JrxlNJrXTH5WgfRcA1w==}
     peerDependencies:
       '@emotion/react': ^11.10.5
       '@emotion/styled': ^11.10.5

@@ -1,16 +1,15 @@
 import Konva from "konva";
 import { MutableRefObject, useEffect, useRef } from "react";
-import { Circle, Transformer } from "react-konva";
+import { Rect, Transformer } from "react-konva";
 import { IFCElement } from "../type";
 
 const AtomElementCircle = (item: IFCElement) => {
   const { draggable, onChange, rotate, onSelect, isSelected } = item;
-  const shapeRef = useRef<Konva.Circle>();
+  const shapeRef = useRef<Konva.Rect>();
   const trRef = useRef<Konva.Transformer>();
 
   useEffect(() => {
     if (isSelected) {
-      // we need to attach transformer manually
       if (trRef.current && shapeRef.current) {
         trRef.current.nodes([shapeRef.current]);
         trRef.current?.getLayer()?.batchDraw();
@@ -22,19 +21,25 @@ const AtomElementCircle = (item: IFCElement) => {
     shapeRef.current?.setZIndex(item?.zIndex as number);
     trRef.current?.setZIndex(item?.zIndex as number);
   }, [isSelected, item, trRef, shapeRef]);
+
+  const borderRadius = Number(item?.width) + Number(item?.height) / 2;
+
   return (
     <>
-      <Circle
+      <Rect
         {...item}
         id={item?.id}
         key={item.id}
         name={item.id}
+        width={item?.width}
+        height={item?.width}
+        cornerRadius={borderRadius}
         shadowBlur={item?.style?.shadowBlur}
         stroke={item?.style?.stroke}
         strokeWidth={item?.style?.strokeWidth}
         rotation={rotate}
         fill={item?.style?.backgroundColor}
-        ref={shapeRef as MutableRefObject<Konva.Circle>}
+        ref={shapeRef as MutableRefObject<Konva.Rect>}
         draggable={draggable}
         onClick={() => onSelect(item)}
         onTap={() => onSelect(item)}
@@ -46,25 +51,6 @@ const AtomElementCircle = (item: IFCElement) => {
           });
         }}
         onTransform={(e) => {
-          const rotate = e.target.rotation();
-          if (shapeRef?.current) {
-            const node = shapeRef.current;
-            const scaleX = node.scaleX();
-            const scaleY = node.scaleY();
-            node.scaleX(1);
-            node.scaleY(1);
-
-            onChange({
-              ...item,
-              x: node.x(),
-              y: node.y(),
-              rotate,
-              width: Math.max(5, node.width() * scaleX),
-              height: Math.max(node.height() * scaleY),
-            });
-          }
-        }}
-        onTransformEnd={(e) => {
           const rotate = e.target.rotation();
           if (shapeRef?.current) {
             const node = shapeRef.current;
