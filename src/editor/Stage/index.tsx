@@ -168,6 +168,8 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
           ref={stageDataRef}
           width={width}
           height={height}
+          // width={794}
+          // height={1123}
           onWheel={onWheel}
           scaleX={stage.scale}
           scaleY={stage.scale}

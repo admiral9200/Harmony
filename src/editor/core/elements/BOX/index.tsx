@@ -25,6 +25,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
 
   return (
     <>
+      {/* <Text x={item.x} y={item.y} text={`x: ${item.x} , y:${item.y}`} /> */}
       <Rect
         {...item}
         id={item?.id}
