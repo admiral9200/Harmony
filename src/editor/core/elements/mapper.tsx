@@ -2,7 +2,7 @@
 import useElement from "@/hooks/useElement";
 import useElements from "@/hooks/useStatement";
 import useTool from "@/hooks/useTool";
-import { Layer } from "react-konva";
+import { Layer, Rect } from "react-konva";
 import { mapperElements } from "./MapElements";
 import { FCE } from "./type";
 
@@ -12,7 +12,13 @@ const AtomEditorMapper = () => {
   const { isMoving } = useTool();
 
   return (
-    <Layer>
+    <Layer
+      width={1057}
+      height={1496}
+      visible={true}
+      // draggable
+    >
+      <Rect width={1057} height={1496} x={0} y={0} fill="white" dashEnabled />
       {elements?.map((item) => {
         const Component = mapperElements?.()?.[item?.tool] as FCE;
         return (
