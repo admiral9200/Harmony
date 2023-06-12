@@ -22,3 +22,9 @@ Change position shape of the element. for example box white is the last and yell
 Draw anything in the editor.
 
 ![1686594668491](image/README/1686594668491.png)
+
+I have plans to migrate harmony to a language native such C# for more flexibility and provide a best experience. But I'm developemnt harmony with reactjs because there aren't support for integrate in other projects.
+
+And provide a support to differents methods of export such images, pdfs, .xls or web designs.
+
+![1686595127480](image/README/1686595127480.png)
