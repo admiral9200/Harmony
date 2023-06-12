@@ -12,6 +12,13 @@ The main view with all elements. draw, create web designs or export to pdf.
 
 ![1686593981857](image/README/1686593981857.png)
 
-Select a element and configure their style.
+Select a element and configure their style. width, height, border radius, stroke
 
 ![1686594234783](image/README/1686594234783.png)
+
+Change position shape of the element. for example box white is the last and yellow box is the first.
+![1686594455526](image/README/1686594455526.png)
+
+Draw anything in the editor.
+
+![1686594668491](image/README/1686594668491.png)
