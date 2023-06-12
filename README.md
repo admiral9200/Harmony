@@ -28,3 +28,7 @@ I have plans to migrate harmony to a language native such C# for more flexibilit
 And provide a support to differents methods of export such images, pdfs, .xls or web designs.
 
 ![1686595127480](image/README/1686595127480.png)
+
+Thank you so much!
+
+![1686595809691](image/README/1686595809691.png)
