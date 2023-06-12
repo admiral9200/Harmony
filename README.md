@@ -11,3 +11,7 @@ If you need create elements more quickly. you can use the keyboard shortcuts for
 The main view with all elements. draw, create web designs or export to pdf.
 
 ![1686593981857](image/README/1686593981857.png)
+
+Select a element and configure their style.
+
+![1686594234783](image/README/1686594234783.png)
