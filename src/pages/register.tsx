@@ -12,7 +12,7 @@ import {
   AtomWrapper,
 } from "lucy-nxtjs";
 import { useRouter } from "next/router";
-import { FC, useRef } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -81,7 +81,6 @@ const LoginPage: FC = () => {
       },
     });
 
-  const ref = useRef();
   return (
     <AtomWrapper
       customCSS={(css) => css`
@@ -90,7 +89,6 @@ const LoginPage: FC = () => {
         grid-template-columns: 1fr 1fr;
       `}
     >
-      <canvas ref={ref}></canvas>
       <AtomWrapper
         customCSS={(css) => css`
           padding: 40px;
