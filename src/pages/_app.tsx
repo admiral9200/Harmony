@@ -38,7 +38,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     <Provider>
       <ApolloProvider client={client}>
         <Head>
-          <title>Harmony Editor</title>
+          <title>Harmony Web Editor Design</title>
           {/* {props.icon && (
       <link rel="icon" type="image/png" href={props.icon ?? `/favicon.png`} />
     )} */}
@@ -54,41 +54,41 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           <link rel="manifest" href="/manifest.json" />
           <meta
             name="description"
-            content="a web integration of figma with react.js"
+            content="Harmony offers an innovative solution for React projects that require image editing, PDF creation, and dynamic web design capabilities, similar to popular tools like Figma, Adobe XD, and Adobe Photoshop"
           />
-          <meta name="title" content="Harmony Editor" />
+          <meta name="title" content="Harmony Web Editor Design" />
           <meta
             name="description"
-            content="a web integration of figma with react.js"
+            content="Harmony offers an innovative solution for React projects that require image editing, PDF creation, and dynamic web design capabilities, similar to popular tools like Figma, Adobe XD, and Adobe Photoshop"
           />
           <meta name="googlebot" content="index,follow" />
 
           <meta property="og:locale" content="ES" />
           <meta property="og:type" content="article" />
-          <meta property="og:title" content="Harmony Editor" />
+          <meta property="og:title" content="Harmony Web Editor Design" />
           <meta
             property="og:description"
-            content="a web integration of figma with react.js"
+            content="Harmony offers an innovative solution for React projects that require image editing, PDF creation, and dynamic web design capabilities, similar to popular tools like Figma, Adobe XD, and Adobe Photoshop"
           />
           <meta property="og:url" content="https://harmony.whil.online/" />
-          <meta property="og:site_name" content="Harmony Editor" />
-          <meta property="og:image" content="/coverseo.png" />
+          <meta property="og:site_name" content="Harmony Web Editor Design" />
+          <meta property="og:image" content="/coverseo2.png" />
 
-          <meta property="og:image:secure_url" content="/coverseo.png" />
+          <meta property="og:image:secure_url" content="/coverseo2.png" />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
-          <meta property="og:image:alt" content="Harmony Editor" />
+          <meta property="og:image:alt" content="Harmony Web Editor Design" />
 
           <meta name="twitter:card" content="summary_large_image" />
           <meta
             name="twitter:description"
-            content="a web integration of figma with react.js"
+            content="Harmony offers an innovative solution for React projects that require image editing, PDF creation, and dynamic web design capabilities, similar to popular tools like Figma, Adobe XD, and Adobe Photoshop"
           />
-          <meta name="twitter:title" content="Harmony Editor" />
-          <meta name="twitter:image" content="/coverseo.png" />
+          <meta name="twitter:title" content="Harmony Web Editor Design" />
+          <meta name="twitter:image" content="/coverseo2.png" />
 
-          <meta property="og:image" itemProp="image" content="/coverseo.png" />
-          <meta property="og:image:secure_url" content="/coverseo.png" />
+          <meta property="og:image" itemProp="image" content="/coverseo2.png" />
+          <meta property="og:image:secure_url" content="/coverseo2.png" />
           <meta property="og:image:type" content="image/png" />
           <meta property="og:image:width" content="300" />
           <meta property="og:image:height" content="300" />
