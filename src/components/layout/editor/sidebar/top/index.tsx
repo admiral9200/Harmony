@@ -1,11 +1,11 @@
+import icons from "@/assets";
 import AtomModalControls from "@/components/atoms/AtomModalControls";
-import LogoHarmony from "@/components/icons/logo";
-import { IElement } from "@/editor/core/elements/type";
 import { keyToolAtom } from "@/editor/core/tools";
 import { IKeyTool } from "@/editor/core/tools/types";
 import useElement from "@/hooks/useElement";
+import { AtomIcon } from "@whil/ui";
 import { useAtom } from "jotai";
-import { AtomButton, AtomImage, AtomText, AtomWrapper } from "lucy-nxtjs";
+import { AtomButton, AtomWrapper } from "lucy-nxtjs";
 import { FC } from "react";
 
 type Methods = {
@@ -15,7 +15,7 @@ type Methods = {
 
 const METHODS: Methods[] = [
   {
-    icon: "https://res.cloudinary.com/whil/image/upload/v1682553024/app/harmony/CURSOR_pyjccq.svg",
+    icon: icons.cursor,
     keyMethod: "MOVE",
   },
   // {
@@ -23,27 +23,27 @@ const METHODS: Methods[] = [
   //   keyMethod: "FRAME",
   // },
   {
-    icon: "https://res.cloudinary.com/whil/image/upload/v1682557163/app/harmony/BOX2_zeiaof.svg",
+    icon: icons.box,
     keyMethod: "BOX",
   },
   {
-    icon: "https://res.cloudinary.com/whil/image/upload/v1682555039/app/harmony/CIRCLE_cldn7a.svg",
+    icon: icons.circle,
     keyMethod: "CIRCLE",
   },
   {
-    icon: "https://res.cloudinary.com/whil/image/upload/v1682648930/app/harmony/arrow-right_si9i3q.svg",
+    icon: icons.line,
     keyMethod: "LINE",
   },
   {
-    icon: "https://res.cloudinary.com/whil/image/upload/v1682650955/app/harmony/gallery_tzrhyx.svg",
+    icon: icons.image,
     keyMethod: "IMAGE",
   },
   {
-    icon: "https://res.cloudinary.com/whil/image/upload/v1682651016/app/harmony/text_xeiovb.svg",
+    icon: icons.text,
     keyMethod: "TEXT",
   },
   {
-    icon: "https://res.cloudinary.com/whil/image/upload/v1683268080/app/harmony/DRAW_hwcwpt.svg",
+    icon: icons.peentool,
     keyMethod: "DRAW",
   },
 ];
@@ -59,7 +59,7 @@ const LayoutEditorTop: FC = () => {
         grid-row: 1;
         background-color: #0d0e0e;
         height: auto;
-        padding: 1rem;
+        /* padding: 1rem; */
         border-bottom: 1px solid white;
         display: flex;
         flex-direction: row;
@@ -70,36 +70,25 @@ const LayoutEditorTop: FC = () => {
         z-index: 999999999999999999999;
       `}
     >
-      <LogoHarmony color="white" width="50px" height="50px" />
-      <AtomText fontSize="17px" fontWeight="bold" color="white">
-        Harmony Editor
-      </AtomText>
       <AtomWrapper
         flexDirection="row"
         width="auto"
-        gap="1em"
         alignItems="center"
         justifyContent="center"
       >
         {METHODS?.map((item) => {
-          const isSelect = item.keyMethod === method;
           return (
             <AtomButton
-              key={item.icon}
-              customCSS={(css) => css`
-                padding: 5px;
-                border-radius: 5px;
-              `}
-              backgroundColor={isSelect ? "#0496ff" : "none"}
-              alignItems="center"
-              justifyContent="center"
-              isFocus={isSelect}
-              onClick={() => {
-                setMethod(item.keyMethod);
-                setElement({} as IElement);
-              }}
+              key={item?.keyMethod}
+              borderRadius="0px"
+              backgroundColor="transparent"
             >
-              <AtomImage src={item.icon} width="22px" alt="" />
+              <AtomIcon
+                src={item?.icon}
+                color="white"
+                width="15px"
+                height="15px"
+              />
             </AtomButton>
           );
         })}
