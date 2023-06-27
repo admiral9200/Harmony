@@ -1,4 +1,5 @@
-import { AtomButton, AtomModal, AtomText, AtomWrapper } from "lucy-nxtjs";
+import { css } from "@emotion/react";
+import { AtomButton, AtomModal, AtomText, AtomWrapper } from "@whil/ui";
 import { FC, useState } from "react";
 
 const controls = [
@@ -56,7 +57,7 @@ const AtomModalControls: FC = () => {
       <AtomModal
         isShow={mounted}
         onCloseShow={() => {}}
-        customCSS={(css) => css`
+        customCSS={() => css`
           background-color: #fff;
           height: auto;
           width: 460px;
@@ -67,6 +68,7 @@ const AtomModalControls: FC = () => {
       >
         <AtomWrapper
           height="100%"
+          flexDirection="column"
           justifyContent="space-between"
           customCSS={(css) => css`
             flex: 1;
@@ -78,6 +80,7 @@ const AtomModalControls: FC = () => {
             Harmony Editor Controls
           </AtomText>
           <AtomWrapper
+            flexDirection="column"
             customCSS={(css) => css`
               background-color: black;
               height: 1px;
@@ -88,11 +91,12 @@ const AtomModalControls: FC = () => {
           <AtomText>
             You can use the keyboard for an easier experience!
           </AtomText>
-          <AtomWrapper>
+          <AtomWrapper flexDirection="column">
             {controls.map((item) => (
-              <AtomWrapper key={item.label}>
-                <AtomText fontWeight="bold">KEY {item.label}</AtomText>
-                <AtomText>{item.value}</AtomText>
+              <AtomWrapper key={item.label} gap="0.4em" flexDirection="row">
+                <AtomText>
+                  <strong>{item.label}</strong> {item.value}
+                </AtomText>
               </AtomWrapper>
             ))}
           </AtomWrapper>
@@ -106,8 +110,14 @@ const AtomModalControls: FC = () => {
               onClick={() => {
                 setMounted(false);
               }}
-              isFocus
               backgroundColor="#0496ff"
+              padding="0.7em"
+              customCSS={(css) => css`
+                border-radius: 0em;
+                border: 0px;
+                border-radius: 5px;
+                cursor: pointer;
+              `}
             >
               Ok
             </AtomButton>
@@ -115,14 +125,16 @@ const AtomModalControls: FC = () => {
         </AtomWrapper>
       </AtomModal>
       <AtomButton
-        isFocus
+        padding="0.7em"
         backgroundColor="#0496ff"
         onClick={() => {
           setMounted(true);
         }}
         customCSS={(css) => css`
-          padding: 5px;
-          border-radius: 5px;
+          border-radius: 0em;
+          border: 0px;
+          border-radius: 0px;
+          cursor: pointer;
         `}
       >
         <svg

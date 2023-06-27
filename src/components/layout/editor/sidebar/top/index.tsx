@@ -1,11 +1,11 @@
 import icons from "@/assets";
 import AtomModalControls from "@/components/atoms/AtomModalControls";
+import { IElement } from "@/editor/core/elements/type";
 import { keyToolAtom } from "@/editor/core/tools";
 import { IKeyTool } from "@/editor/core/tools/types";
 import useElement from "@/hooks/useElement";
-import { AtomIcon } from "@whil/ui";
+import { AtomButton, AtomIcon, AtomText, AtomWrapper } from "@whil/ui";
 import { useAtom } from "jotai";
-import { AtomButton, AtomWrapper } from "lucy-nxtjs";
 import { FC } from "react";
 
 type Methods = {
@@ -59,42 +59,67 @@ const LayoutEditorTop: FC = () => {
         grid-row: 1;
         background-color: #0d0e0e;
         height: auto;
-        /* padding: 1rem; */
         border-bottom: 1px solid white;
         display: flex;
         flex-direction: row;
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: space-between;
         gap: 1em;
         z-index: 999999999999999999999;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
       `}
     >
       <AtomWrapper
         flexDirection="row"
         width="auto"
         alignItems="center"
-        justifyContent="center"
+        justifyContent="flex-start"
       >
         {METHODS?.map((item) => {
+          const isSelected = item?.keyMethod === method;
           return (
             <AtomButton
               key={item?.keyMethod}
               borderRadius="0px"
-              backgroundColor="transparent"
+              padding="0.7em"
+              border="0px"
+              backgroundColor={isSelected ? "#0496ff" : "transparent"}
+              onClick={() => {
+                setMethod(item.keyMethod);
+                setElement({} as IElement);
+              }}
+              cursor="pointer"
             >
               <AtomIcon
                 src={item?.icon}
-                color="white"
-                width="15px"
-                height="15px"
+                color="default"
+                height="25px"
+                width="20px"
+                customCSS={(css) => css`
+                  svg {
+                    path {
+                      stroke: #ffffff;
+                    }
+                    line {
+                      stroke: #ffffff;
+                    }
+                  }
+                `}
               />
             </AtomButton>
           );
         })}
       </AtomWrapper>
+      <AtomWrapper alignItems="center" justifyContent="center">
+        <AtomText color="white" fontWeight={"bold"}>
+          Harmony
+        </AtomText>
+      </AtomWrapper>
       <AtomWrapper
-        width="100%"
+        width="auto"
         alignItems="center"
         flexDirection="row"
         justifyContent="flex-end"
@@ -108,8 +133,10 @@ const LayoutEditorTop: FC = () => {
             window.open("https://github.com/Whil117/Harmony", "_blank");
           }}
           customCSS={(css) => css`
-            padding: 5px;
-            border-radius: 5px;
+            border-radius: 0em;
+            border: 0px;
+            border-radius: 0px;
+            cursor: pointer;
           `}
         >
           <svg
