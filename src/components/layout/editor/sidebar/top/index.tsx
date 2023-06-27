@@ -59,7 +59,7 @@ const LayoutEditorTop: FC = () => {
         grid-row: 1;
         background-color: #0d0e0e;
         height: auto;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
         display: flex;
         flex-direction: row;
         display: flex;
