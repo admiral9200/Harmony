@@ -4,9 +4,12 @@
 body {
   display: flex;
   height: 100vh;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 html,
 body {
+  box-sizing: border-box;
   touch-action: manipulation;
 }

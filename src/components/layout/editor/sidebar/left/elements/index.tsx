@@ -1,66 +1,129 @@
+import icons from "@/assets";
+import { IKeyTool } from "@/editor/core/tools/types";
 import useElement from "@/hooks/useElement";
 import useElements from "@/hooks/useStatement";
-import { AtomText, AtomWrapper, isDarkLight } from "lucy-nxtjs";
-import { FC, ReactNode } from "react";
+import themeColors from "@/themes";
+import { AtomIcon, AtomText, AtomWrapper, isDarkLight } from "@whil/ui";
+import { FC, ReactNode, useMemo } from "react";
 
 type Props = {
   children?: ReactNode;
 };
 
-const ElementsList: FC<Props> = (props) => {
+type IElementsIcons = {
+  [key in IKeyTool]?: string;
+};
+
+const ElementsIcons: IElementsIcons = {
+  BOX: icons.box,
+  CIRCLE: icons.circle,
+  IMAGE: icons.image,
+  TEXT: icons.text,
+  LINE: icons.line,
+  MOVE: icons.cursor,
+  DRAW: icons.peentool,
+};
+
+const ElementsList: FC<Props> = () => {
   const { elements } = useElements();
   const { setElement, element } = useElement();
+
+  const { getColor } = useMemo(() => {
+    const getColor = (id: string) => {
+      return element?.id === id
+        ? isDarkLight(` ${themeColors.primary}`)
+        : "white";
+    };
+
+    return { getColor };
+  }, [element]);
   return (
     <AtomWrapper
       customCSS={(css) => css`
+        height: calc(100vh - 24.4em);
         overflow: hidden;
         overflow-x: hidden;
-        overflow-y: scroll;
-        height: 90%;
-        padding-right: 8px;
-        ::-webkit-scrollbar {
-          width: 5px;
-        }
-        ::-webkit-scrollbar-thumb {
-          background: #ccc;
-          border-radius: 99px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-          background: #8679ec;
 
-          box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+        &:hover {
+          overflow-y: scroll;
+
+          ::-webkit-scrollbar {
+            width: 6px;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: #ffffff67;
+            border-radius: 99px;
+          }
+          ::-webkit-scrollbar-thumb:hover {
+            background: ${themeColors.white};
+            box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+          }
         }
+
         display: flex;
         justify-content: flex-start;
-        gap: 10px;
       `}
+      width="100%"
+      flexDirection="column"
     >
       {elements?.map((item, index) => (
         <AtomWrapper
           key={item.id}
+          padding="0.35em 0.7em"
           height="auto"
           customCSS={(css) => css`
-            border: 1px solid white;
             width: 100%;
-            padding: 5px;
+            border: 1px solid ${themeColors.dark};
             cursor: pointer;
             user-select: none !important;
+            opacity: 0.6;
             ${element.id === item?.id &&
             css`
-              /* border: 1px solid #0496ff; */
-              background-color: #0496ff;
+              border: 1px solid ${themeColors.primary};
+              background-color: ${themeColors.primary};
+              opacity: 1;
             `}
+            &:hover {
+              border: 1px solid ${themeColors.primary};
+              opacity: 1;
+            }
           `}
+          flexDirection="row"
+          alignItems="center"
+          gap="5px"
           onClick={() => setElement(item)}
         >
+          <AtomIcon
+            src={ElementsIcons?.[item?.tool]}
+            color="default"
+            height="20px"
+            width="20px"
+            customCSS={(css) => css`
+              svg {
+                path {
+                  stroke: #ffffff;
+                }
+                line {
+                  stroke: #ffffff;
+                }
+              }
+            `}
+          />
+          <AtomText color={getColor(item?.id as string)} cursor="pointer">
+            {index + 1}
+          </AtomText>
           <AtomText
-            color={element?.id === item?.id ? isDarkLight("#0496ff") : "white"}
+            color={getColor(item?.id as string)}
             cursor="pointer"
             customCSS={(css) => css`
               user-select: none;
+              &::first-letter {
+                text-transform: uppercase;
+              }
+              text-transform: lowercase;
             `}
           >
-            {index} {item.tool} {item.id?.slice(0, 4)}
+            {item.tool}
           </AtomText>
         </AtomWrapper>
       ))}

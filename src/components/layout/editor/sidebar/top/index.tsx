@@ -4,6 +4,7 @@ import { IElement } from "@/editor/core/elements/type";
 import { keyToolAtom } from "@/editor/core/tools";
 import { IKeyTool } from "@/editor/core/tools/types";
 import useElement from "@/hooks/useElement";
+import themeColors from "@/themes";
 import { AtomButton, AtomIcon, AtomText, AtomWrapper } from "@whil/ui";
 import { useAtom } from "jotai";
 import { FC } from "react";
@@ -54,10 +55,11 @@ const LayoutEditorTop: FC = () => {
 
   return (
     <AtomWrapper
+      padding="0em 0.4em"
       customCSS={(css) => css`
         grid-column: 1 / 4;
         grid-row: 1;
-        background-color: #0d0e0e;
+        background-color: ${themeColors.dark};
         height: auto;
         border-bottom: 1px solid rgba(255, 255, 255, 0.25);
         display: flex;
@@ -128,7 +130,7 @@ const LayoutEditorTop: FC = () => {
         <AtomModalControls />
         <AtomButton
           isFocus
-          backgroundColor="#0e0e0e"
+          backgroundColor={`${themeColors.dark}`}
           onClick={() => {
             window.open("https://github.com/Whil117/Harmony", "_blank");
           }}

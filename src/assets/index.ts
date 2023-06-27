@@ -48,6 +48,11 @@ const icons = {
 </defs>
 </svg>
   `,
+  check: `
+  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+<path d="M5.96875 11.25L2.40625 7.6875L3.29688 6.79688L5.96875 9.46875L11.7031 3.73438L12.5938 4.625L5.96875 11.25Z" fill="white"/>
+</svg>
+  `,
 };
 
 export default icons;
