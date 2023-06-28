@@ -5,6 +5,7 @@ body {
   display: flex;
   height: 100vh;
   min-height: 100vh;
+  cursor: url("/cursors/default.png"), auto;
   box-sizing: border-box;
 }
 
@@ -12,4 +13,11 @@ html,
 body {
   box-sizing: border-box;
   touch-action: manipulation;
+}
+
+.CursorPointer {
+  cursor: url("/cursors/pointer.png"), pointer;
+}
+.CursorDefault {
+  cursor: url("/cursors/default.png"), auto;
 }

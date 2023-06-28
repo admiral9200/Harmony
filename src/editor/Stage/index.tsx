@@ -150,6 +150,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
       <Modal />
       <AtomWrapper
         ref={ref}
+        className="CursorDefault"
         customCSS={(css) => css`
           ${stage.scale > 1.4428970000000028 &&
           config.Graphicmapdesign &&
@@ -160,6 +161,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
             background-attachment: fixed;
             background-size: calc(10px * ${stage.scale});
           `}
+          cursor: url("/cursoderd.png"), auto !important;
 
           background-color: ${config.backgroundColor};
         `}
@@ -168,8 +170,6 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
           ref={stageDataRef}
           width={width}
           height={height}
-          // width={794}
-          // height={1123}
           onWheel={onWheel}
           scaleX={stage.scale}
           scaleY={stage.scale}
