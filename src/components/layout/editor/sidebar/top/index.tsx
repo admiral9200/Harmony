@@ -93,7 +93,7 @@ const LayoutEditorTop: FC = () => {
                 setMethod(item.keyMethod);
                 setElement({} as IElement);
               }}
-              cursor="pointer"
+              className="CursorPointer"
             >
               <AtomIcon
                 src={item?.icon}

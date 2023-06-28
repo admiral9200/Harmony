@@ -27,7 +27,6 @@ const ElementsIcons: IElementsIcons = {
 const ElementsList: FC<Props> = () => {
   const { elements } = useElements();
   const { setElement, element } = useElement();
-
   const { getColor } = useMemo(() => {
     const getColor = (id: string) => {
       return element?.id === id
@@ -71,12 +70,12 @@ const ElementsList: FC<Props> = () => {
           key={item.id}
           padding="0.35em 0.7em"
           height="auto"
+          className="CursorPointer"
           customCSS={(css) => css`
             width: 100%;
             border: 1px solid ${themeColors.dark};
-            cursor: pointer;
             user-select: none !important;
-            opacity: 0.6;
+            opacity: 0.8;
             ${element.id === item?.id &&
             css`
               border: 1px solid ${themeColors.primary};

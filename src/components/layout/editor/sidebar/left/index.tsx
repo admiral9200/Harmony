@@ -84,10 +84,11 @@ const LayoutEditorSidebarLeft: FC = () => {
               key={item}
               height="auto"
               padding="0.35em 0.7em"
+              className="CursorPointer"
               customCSS={(css) => css`
                 width: 100%;
                 border: 1px solid ${themeColors.dark};
-                cursor: pointer;
+
                 user-select: none !important;
 
                 &:hover {
@@ -97,7 +98,6 @@ const LayoutEditorSidebarLeft: FC = () => {
               flexDirection="row"
               alignItems="center"
               gap="5px"
-              // onClick={() => setElement(item)}
             >
               <AtomIcon
                 src={icons.check}
@@ -117,7 +117,6 @@ const LayoutEditorSidebarLeft: FC = () => {
               />
               <AtomText
                 color={themeColors.white}
-                cursor="pointer"
                 customCSS={(css) => css`
                   user-select: none;
                   &::first-letter {
