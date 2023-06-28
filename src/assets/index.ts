@@ -1,22 +1,20 @@
 const icons = {
-  cursor: `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" viewBox="0 0 13 16" fill="none">
-<path d="M1.31445 2.10041C1.31445 1.23591 2.32497 0.749631 3.01812 1.28025L12.528 8.56269C13.3217 9.17019 12.8855 10.4219 11.8806 10.4219H7.05808C6.70271 10.4219 6.36775 10.5812 6.14749 10.8556L3.19827 14.5269C2.5776 15.3 1.31445 14.8677 1.31445 13.8827V2.10041ZM11.8799 9.38286L2.37001 2.10041V13.8827L5.31923 10.2113C5.52669 9.95311 5.79082 9.74445 6.09183 9.60097C6.39284 9.4575 6.72294 9.38293 7.05738 9.38286H11.8799Z" fill="white"/>
+  cursor: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M17.2637 13.0216L14.53 13.9368C13.7715 14.1893 13.1868 14.7731 12.934 15.5305L12.0175 18.2602C11.2432 20.6112 7.92483 20.5639 7.19802 18.2129L4.11668 8.30375C3.51621 6.33139 5.33341 4.51684 7.27703 5.11644L17.2163 8.19328C19.5707 8.9349 19.6023 12.2485 17.2637 13.0216Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
-  box: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-<g clip-path="url(#clip0_427_20)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.6669 1.86693H2.33359C2.20983 1.86693 2.09113 1.91609 2.00361 2.00361C1.91609 2.09113 1.86693 2.20983 1.86693 2.33359V11.6669C1.86693 11.7907 1.91609 11.9094 2.00361 11.9969C2.09113 12.0844 2.20983 12.1336 2.33359 12.1336H11.6669C11.7907 12.1336 11.9094 12.0844 11.9969 11.9969C12.0844 11.9094 12.1336 11.7907 12.1336 11.6669V2.33359C12.1336 2.20983 12.0844 2.09113 11.9969 2.00361C11.9094 1.91609 11.7907 1.86693 11.6669 1.86693ZM2.33359 0.933594C1.96229 0.933594 1.6062 1.08109 1.34364 1.34364C1.08109 1.6062 0.933594 1.96229 0.933594 2.33359V11.6669C0.933594 12.0382 1.08109 12.3943 1.34364 12.6569C1.6062 12.9194 1.96229 13.0669 2.33359 13.0669H11.6669C12.0382 13.0669 12.3943 12.9194 12.6569 12.6569C12.9194 12.3943 13.0669 12.0382 13.0669 11.6669V2.33359C13.0669 1.96229 12.9194 1.6062 12.6569 1.34364C12.3943 1.08109 12.0382 0.933594 11.6669 0.933594H2.33359Z" fill="white"/>
-</g>
-<defs>
-<clipPath id="clip0_427_20">
-<rect width="14" height="14" fill="white"/>
-</clipPath>
-</defs>
+  box: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
-  circle: `
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-<path d="M9 2C7.61553 2 6.26215 2.41054 5.11101 3.17971C3.95987 3.94888 3.06266 5.04213 2.53285 6.32122C2.00303 7.6003 1.86441 9.00776 2.13451 10.3656C2.4046 11.7235 3.07129 12.9708 4.05026 13.9497C5.02922 14.9287 6.2765 15.5954 7.63437 15.8655C8.99224 16.1356 10.3997 15.997 11.6788 15.4672C12.9579 14.9373 14.0511 14.0401 14.8203 12.889C15.5895 11.7378 16 10.3845 16 9C15.998 7.14409 15.2599 5.36475 13.9476 4.05242C12.6353 2.74009 10.8559 2.00196 9 2ZM9 14.9231C7.82853 14.9231 6.68336 14.5757 5.70932 13.9249C4.73527 13.274 3.9761 12.349 3.52779 11.2667C3.07949 10.1844 2.96219 8.99343 3.19074 7.84446C3.41928 6.6955 3.9834 5.64011 4.81175 4.81175C5.64011 3.98339 6.6955 3.41928 7.84447 3.19073C8.99343 2.96219 10.1844 3.07949 11.2667 3.52779C12.349 3.97609 13.274 4.73527 13.9249 5.70931C14.5757 6.68336 14.9231 7.82853 14.9231 9C14.9213 10.5703 14.2967 12.0759 13.1863 13.1863C12.0759 14.2967 10.5704 14.9213 9 14.9231Z" fill="white"/>
+  frame: `
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M10.5 19.9V4.1C10.5 2.6 9.86 2 8.27 2H4.23C2.64 2 2 2.6 2 4.1V19.9C2 21.4 2.64 22 4.23 22H8.27C9.86 22 10.5 21.4 10.5 19.9Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 10.9V4.1C22 2.6 21.36 2 19.77 2H15.73C14.14 2 13.5 2.6 13.5 4.1V10.9C13.5 12.4 14.14 13 15.73 13H19.77C21.36 13 22 12.4 22 10.9Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 19.9V18.1C22 16.6 21.36 16 19.77 16H15.73C14.14 16 13.5 16.6 13.5 18.1V19.9C13.5 21.4 14.14 22 15.73 22H19.77C21.36 22 22 21.4 22 19.9Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
   `,
+  circle: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> `,
   line: `
   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
 <line x1="0.646447" y1="13.6464" x2="13.6464" y2="0.646446" stroke="white"/>
@@ -29,30 +27,25 @@ const icons = {
 <path d="M9 9.05585L6.16687 6.28674C5.98659 6.11024 5.74428 6.00782 5.48947 6.00043C5.23465 5.99304 4.98657 6.08122 4.79594 6.24695L1 9.5519M6.5 12L10.3544 8.22563C10.5306 8.05268 10.7666 7.9505 11.0158 7.93918C11.2651 7.92785 11.5097 8.0082 11.7016 8.16443L14 10.0415" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
   `,
-  text: `
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
-<path d="M7.5 12.5V2.5M11.875 3.75V2.5H3.125V3.75M8.75 12.5H6.25" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-  `,
-  peentool: `
-  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-<g clip-path="url(#clip0_427_60)">
-<path d="M7 11.0833L11.0833 7L12.8333 8.75L8.75 12.8333L7 11.0833Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M1.16699 1.16699L9.62533 3.20866L10.5003 7.58366L7.58366 10.5003L3.20866 9.62533L1.16699 1.16699ZM1.16699 1.16699L5.59216 5.59216" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M6.41667 7.58333C7.061 7.58333 7.58333 7.061 7.58333 6.41667C7.58333 5.77233 7.061 5.25 6.41667 5.25C5.77233 5.25 5.25 5.77233 5.25 6.41667C5.25 7.061 5.77233 7.58333 6.41667 7.58333Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_427_60">
-<rect width="14" height="14" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-  `,
-  check: `
-  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
-<path d="M5.96875 11.25L2.40625 7.6875L3.29688 6.79688L5.96875 9.46875L11.7031 3.73438L12.5938 4.625L5.96875 11.25Z" fill="white"/>
-</svg>
-  `,
+  text: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M2.66992 7.17003V5.35003C2.66992 4.20003 3.59992 3.28003 4.73992 3.28003H19.2599C20.4099 3.28003 21.3299 4.21003 21.3299 5.35003V7.17003" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 20.7201V4.11011" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.06006 20.72H15.9401" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+  peentool: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M3 9C4.10457 9 5 8.10457 5 7C5 5.89543 4.10457 5 3 5C1.89543 5 1 5.89543 1 7C1 8.10457 1.89543 9 3 9Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M21 9C22.1046 9 23 8.10457 23 7C23 5.89543 22.1046 5 21 5C19.8954 5 19 5.89543 19 7C19 8.10457 19.8954 9 21 9Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19 7H15" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9 7H5" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.5 16.5V18.5C7.5 19.11 7.13 19.64 6.61 19.86C6.42 19.95 6.22 20 6 20H4C3.17 20 2.5 19.33 2.5 18.5V16.5C2.5 15.67 3.17 15 4 15H6C6.83 15 7.5 15.67 7.5 16.5Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M21.5 16.5V18.5C21.5 19.33 20.83 20 20 20H18C17.78 20 17.58 19.95 17.39 19.86C16.87 19.64 16.5 19.11 16.5 18.5V16.5C16.5 15.67 17.17 15 18 15H20C20.83 15 21.5 15.67 21.5 16.5Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15 5.5V8.5C15 9.32 14.32 10 13.5 10H10.5C9.68 10 9 9.32 9 8.5V5.5C9 4.68 9.68 4 10.5 4H13.5C14.32 4 15 4.68 15 5.5Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15 7.72998C17.37 8.92998 19 11.51 19 14.5C19 14.67 18.99 14.83 18.97 15" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.03 15C5.01 14.83 5 14.67 5 14.5C5 11.51 6.63 8.92998 9 7.72998" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+  check: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M5 12L9.32824 17L18 7" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
 };
 
 export default icons;
