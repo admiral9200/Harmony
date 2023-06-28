@@ -1,4 +1,5 @@
 import useElement from "@/hooks/useElement";
+import themeColors from "@/themes";
 import { css } from "@emotion/react";
 import { AtomButton, AtomInput, AtomText, AtomWrapper } from "lucy-nxtjs";
 
@@ -8,29 +9,45 @@ const LayoutSidebarRightStageTabElementBox = () => {
 
   return (
     <AtomWrapper
-      height="100%"
-      justifyContent="flex-start"
+      padding="0.5em 0.7em"
       customCSS={(css) => css`
+        height: calc(100vh - 4.4em);
         overflow: hidden;
         overflow-x: hidden;
         overflow-y: scroll;
-        height: 90%;
-        padding-right: 8px;
+
         ::-webkit-scrollbar {
-          width: 5px;
+          width: 6px;
         }
         ::-webkit-scrollbar-thumb {
-          background: #ccc;
+          background: transparent;
           border-radius: 99px;
         }
         ::-webkit-scrollbar-thumb:hover {
-          background: #8679ec;
-
-          box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+          background: transparent;
+          box-shadow: 0 0 2px 1px transparent;
         }
+        &:hover {
+          overflow-y: scroll;
+
+          ::-webkit-scrollbar {
+            width: 6px;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: #ffffff67;
+            border-radius: 99px;
+          }
+          ::-webkit-scrollbar-thumb:hover {
+            background: ${themeColors.white};
+            box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+          }
+        }
+
         display: flex;
         justify-content: flex-start;
       `}
+      width="100%"
+      flexDirection="column"
     >
       <AtomText color="white" fontWeight="bold" fontSize="17px">
         Box Properties
