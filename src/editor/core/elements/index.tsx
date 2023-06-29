@@ -20,9 +20,13 @@ const AtomEditorMapper = () => {
     };
   }, [isMoving, element, elements]);
 
+  const mapped = useMemo(() => {
+    return Object.values(elements);
+  }, [elements]);
+
   return (
     <Layer>
-      {Object.values(elements)?.map((item) => {
+      {mapped?.map((item) => {
         const Component = mapperElements?.[item?.tool] as FCE;
         return (
           <Component
