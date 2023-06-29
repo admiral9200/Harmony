@@ -1,10 +1,10 @@
-import useStageConfig from "@/hooks/useStage";
-import useElements from "@/hooks/useStatement";
+import { useStage } from "@/editor/core/hooks";
+import useElements from "@/editor/core/hooks/elements/hook";
 import { AtomInput, AtomText, AtomWrapper } from "@whil/ui";
 import { FC } from "react";
 
 const StageSidebarRight: FC = () => {
-  const { setConfig, config } = useStageConfig();
+  const { config, handleConfig } = useStage();
   const { elements } = useElements();
 
   return (
@@ -44,10 +44,9 @@ const StageSidebarRight: FC = () => {
             `}
             value={config.backgroundColor}
             onChange={(event) =>
-              setConfig((prev) => ({
-                ...prev,
+              handleConfig({
                 backgroundColor: event.target.value,
-              }))
+              })
             }
           />
           <AtomText
