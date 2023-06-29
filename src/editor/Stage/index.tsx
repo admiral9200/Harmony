@@ -34,7 +34,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
             background-attachment: fixed;
             background-size: calc(10px * ${stage.scale});
           `}
-          cursor: url("/cursoderd.png"), auto !important;
+          cursor: url("/cursors/default.png"), auto !important;
 
           background-color: ${config.backgroundColor};
         `}
