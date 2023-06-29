@@ -1,5 +1,5 @@
 import AtomEditorScreen from "@/editor/Stage";
-import AtomEditorMapper from "@/editor/core/elements/mapper";
+import AtomEditorMapper from "@/editor/core/elements";
 import { NextOnlyPage } from "next";
 
 const PageEditor: NextOnlyPage = () => {

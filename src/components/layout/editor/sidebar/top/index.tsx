@@ -1,12 +1,9 @@
 import icons from "@/assets";
 import AtomModalControls from "@/components/atoms/AtomModalControls";
-import { IElement } from "@/editor/core/elements/type";
-import { keyToolAtom } from "@/editor/core/tools";
-import { IKeyTool } from "@/editor/core/tools/types";
-import useElement from "@/hooks/useElement";
+import { useElement, useTool } from "@/editor/core/hooks";
+import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomButton, AtomIcon, AtomText, AtomWrapper } from "@whil/ui";
-import { useAtom } from "jotai";
 import { FC } from "react";
 
 type Methods = {
@@ -50,8 +47,8 @@ const METHODS: Methods[] = [
 ];
 
 const LayoutEditorTop: FC = () => {
-  const [method, setMethod] = useAtom(keyToolAtom);
-  const { setElement } = useElement();
+  const { tool, setTool } = useTool();
+  const { handleEmptyElement } = useElement();
 
   return (
     <AtomWrapper
@@ -81,7 +78,7 @@ const LayoutEditorTop: FC = () => {
         justifyContent="flex-start"
       >
         {METHODS?.map((item) => {
-          const isSelected = item?.keyMethod === method;
+          const isSelected = item?.keyMethod === tool;
           return (
             <AtomButton
               key={item?.keyMethod}
@@ -90,8 +87,8 @@ const LayoutEditorTop: FC = () => {
               border="0px"
               backgroundColor={isSelected ? "#0496ff" : "transparent"}
               onClick={() => {
-                setMethod(item.keyMethod);
-                setElement({} as IElement);
+                setTool(item.keyMethod);
+                handleEmptyElement();
               }}
               className="CursorPointer"
             >

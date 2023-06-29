@@ -1,10 +1,10 @@
 import icons from "@/assets";
-import { IKeyTool } from "@/editor/core/tools/types";
-import useElement from "@/hooks/useElement";
-import useElements from "@/hooks/useStatement";
+import { useElement } from "@/editor/core/hooks";
+import useElements from "@/editor/core/hooks/elements/hook";
+import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomIcon, AtomText, AtomWrapper, isDarkLight } from "@whil/ui";
-import { FC, ReactNode, useMemo } from "react";
+import { FC, ReactNode, useCallback, useMemo } from "react";
 
 type Props = {
   children?: ReactNode;
@@ -26,7 +26,7 @@ const ElementsIcons: IElementsIcons = {
 
 const ElementsList: FC<Props> = () => {
   const { elements } = useElements();
-  const { setElement, element } = useElement();
+  const { handleChangeElement, element } = useElement();
   const { getColor } = useMemo(() => {
     const getColor = (id: string) => {
       return element?.id === id
@@ -36,6 +36,8 @@ const ElementsList: FC<Props> = () => {
 
     return { getColor };
   }, [element]);
+
+  const elementsMemo = useCallback(() => Object.values(elements), [elements]);
   return (
     <AtomWrapper
       customCSS={(css) => css`
@@ -65,7 +67,7 @@ const ElementsList: FC<Props> = () => {
       width="100%"
       flexDirection="column"
     >
-      {elements?.map((item, index) => (
+      {elementsMemo()?.map((item, index) => (
         <AtomWrapper
           key={item.id}
           padding="0.35em 0.7em"
@@ -90,7 +92,7 @@ const ElementsList: FC<Props> = () => {
           flexDirection="row"
           alignItems="center"
           gap="5px"
-          onClick={() => setElement(item)}
+          onClick={() => handleChangeElement(item)}
         >
           <AtomIcon
             src={ElementsIcons?.[item?.tool]}
