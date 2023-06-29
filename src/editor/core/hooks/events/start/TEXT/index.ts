@@ -16,6 +16,7 @@ const textElementStart = (
     y,
     tool: "TEXT",
     rotate: 0,
+    visible: true,
     text: uuidv4().slice(0, 4),
     style: {
       colorText: "#000",

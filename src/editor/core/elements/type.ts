@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IKeyTool } from "../tools/types";
+import { IKeyTool } from "../hooks/tool/types";
 
 export type IElement = {
   id: string;
@@ -9,6 +9,7 @@ export type IElement = {
   width?: number;
   height?: number;
   text?: string;
+  visible: boolean;
   points?: number[];
   src?: string;
   rotate?: number;

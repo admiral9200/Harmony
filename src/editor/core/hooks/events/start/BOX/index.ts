@@ -15,6 +15,7 @@ const boxElementStart = (
     x,
     y,
     tool: "BOX",
+    visible: true,
     rotate: 0,
     height: 1,
     width: 1,

@@ -15,6 +15,7 @@ const lineElementStart = (
     x,
     y,
     tool: "LINE",
+    visible: true,
     text: "",
     style: {
       stroke: "#000",

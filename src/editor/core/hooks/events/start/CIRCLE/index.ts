@@ -14,6 +14,7 @@ const circleElementStart = (
     id: uuidv4(),
     x,
     y,
+    visible: true,
     tool: "CIRCLE",
     rotate: 0,
     height: 1,

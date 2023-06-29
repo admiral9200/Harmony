@@ -15,6 +15,7 @@ const drawElementStart = (
     x,
     y,
     tool: "DRAW",
+    visible: true,
     rotate: 0,
     height: 100,
     zIndex: count + 1,

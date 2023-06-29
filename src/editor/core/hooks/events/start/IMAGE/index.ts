@@ -14,6 +14,7 @@ const imageElementStart = (
     id: uuidv4(),
     x,
     y,
+    visible: true,
     tool: "IMAGE",
     style: {
       backgroundColor: "#ffffff",
