@@ -3,9 +3,10 @@ import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
-import { useElement } from "..";
 import stagePosition from "../../helpers/stage/position";
+import useElement from "../element/hook";
 import useElements from "../elements/hook";
+import usePipe from "../pipe/hook";
 import useTool from "../tool/hook";
 import eventElements from "./event";
 import { IEndEvent, IStageEvents, IStartEvent } from "./types";
@@ -13,7 +14,8 @@ import { IEndEvent, IStageEvents, IStartEvent } from "./types";
 const useEvent = () => {
   const { isCreatingElement, tool, setTool, disableKeyBoard } = useTool();
   const { elements, handleSetElements } = useElements();
-  const { element, handleEmptyElement, handleSetElement } = useElement();
+  const { pipeline, handleEmptyElement, handleSetElement } = usePipe();
+  const { element, handleSetElement: handleSetEl } = useElement();
 
   const drawing = useRef(false);
   const [eventsKeyboard, setEventsKeyboard] =
@@ -30,7 +32,6 @@ const useEvent = () => {
       );
 
       handleSetElement(createdElement);
-      handleSetElements(createdElement);
     }
 
     if (eventsKeyboard === "STAGE_COPY_ELEMENT" && element?.id) {
@@ -39,7 +40,6 @@ const useEvent = () => {
         id: v4(),
       };
       handleSetElement(newElement);
-      handleSetElements(newElement);
     }
   };
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
@@ -48,20 +48,18 @@ const useEvent = () => {
       const updateProgressElement = eventElements?.[tool]
         ?.progress as IEndEvent;
 
-      const newElement = updateProgressElement(e, element);
-      handleSetElement(newElement);
-      handleSetElements(newElement);
+      const updateElement = updateProgressElement(e, pipeline);
+      handleSetElement(updateElement);
     }
-    if (eventsKeyboard === "STAGE_COPY_ELEMENT" && element?.id) {
+    if (eventsKeyboard === "STAGE_COPY_ELEMENT" && pipeline?.id) {
       const stage = e.target?.getStage?.() as Konva.Stage;
       const { x, y } = stagePosition(stage);
-      const newElemetCopy = {
-        ...element,
+      const updateElement = {
+        ...pipeline,
         x,
         y,
       };
-      handleSetElement(newElemetCopy);
-      handleSetElements(newElemetCopy);
+      handleSetEl(updateElement);
     }
   };
 
@@ -69,6 +67,11 @@ const useEvent = () => {
     drawing.current = false;
     setEventsKeyboard("STAGE_WATCHING");
     setTool("MOVE");
+    handleSetElements(pipeline);
+    if (element?.id) {
+      handleSetElements(element);
+    }
+    handleEmptyElement();
   };
 
   useEffect(() => {
@@ -124,7 +127,7 @@ const useEvent = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [element, disableKeyBoard]);
+  }, [pipeline, disableKeyBoard]);
 
   return {
     handleMouseDown,
