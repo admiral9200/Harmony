@@ -11,7 +11,7 @@ export type IMapperElements = {
   [key in IKeyTool]?: (props: IFCElement) => JSX.Element;
 };
 
-const mapperElements = {
+const MapEls: IMapperElements = {
   BOX: AtomEditorElementBox,
   TEXT: AtomElementText,
   CIRCLE: AtomElementCircle,
@@ -20,4 +20,4 @@ const mapperElements = {
   DRAW: AtomElementDraw,
 };
 
-export { mapperElements };
+export { MapEls };
