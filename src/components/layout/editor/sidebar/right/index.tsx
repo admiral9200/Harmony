@@ -1,8 +1,9 @@
 import useElement from "@/editor/core/hooks/element/hook";
-import { IKeyTool } from "@/editor/core/tools/types";
+import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomWrapper } from "@whil/ui";
 import { FC } from "react";
+import StageSidebarRight from "./tabs/stage";
 
 type LayoutsTabs = {
   [key in IKeyTool]?: JSX.Element;
@@ -31,6 +32,7 @@ const LayoutEditorSidebarRight: FC = () => {
         border-left: 1px solid rgba(255, 255, 255, 0.25);
       `}
     >
+      <StageSidebarRight />
       {/* {element?.id ? layoutTabs?.[element?.tool] : <StageSidebarRight />} */}
     </AtomWrapper>
   );
