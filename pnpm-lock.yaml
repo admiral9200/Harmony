@@ -56,6 +56,9 @@ dependencies:
   react-konva:
     specifier: ^18.2.7
     version: 18.2.7(konva@9.0.1)(react-dom@18.2.0)(react@18.2.0)
+  react-konva-utils:
+    specifier: ^1.0.4
+    version: 1.0.4(konva@9.0.1)(react-dom@18.2.0)(react@18.2.0)
   react-toastify:
     specifier: ^9.1.2
     version: 9.1.2(react-dom@18.2.0)(react@18.2.0)
@@ -3057,6 +3060,20 @@ packages:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
 
+  /react-konva-utils@1.0.4(konva@9.0.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-K1J1K9MoVNGFrUxYt+dn7TUVqpppW3Y0fRcf42Ws1wzTQ2Od4qicCom9jnGxLiwh8zyhYaHAUn3hztgfTyYF7g==}
+    peerDependencies:
+      konva: ^8.3.5 || ^9.0.0
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      konva: 9.0.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-konva: 18.2.7(konva@9.0.1)(react-dom@18.2.0)(react@18.2.0)
+      use-image: 1.1.1(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
   /react-konva@18.2.7(konva@9.0.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Q52ghaIR+2g3x14V5aIyt7VWNqPnWRotILo0Nj4YWVbNQisozrTJJ3/w68qb5Ar2fsYo7yXb4T6Nt4yZcGd2yg==}
     peerDependencies:
@@ -3599,6 +3616,16 @@ packages:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
       punycode: 2.3.0
+    dev: false
+
+  /use-image@1.1.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-n4YO2k8AJG/BcDtxmBx8Aa+47kxY5m335dJiCQA5tTeVU4XdhrhqR6wT0WISRXwdMEOv5CSjqekDZkEMiiWaYQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /use-sync-external-store@1.2.0(react@18.2.0):
