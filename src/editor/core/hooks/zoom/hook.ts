@@ -18,6 +18,7 @@ const useZoom = () => {
       if (scrollEvent === "SCROOLL_VERTICAL") {
         setZoom((prevScrollPosition) => ({
           ...prevScrollPosition,
+          evt: event.evt,
           y: -event.evt.deltaY + prevScrollPosition.y,
         }));
       }
@@ -25,6 +26,7 @@ const useZoom = () => {
       if (scrollEvent === "SCROOLL_HORIZONTAL") {
         setZoom((prevScrollPosition) => ({
           ...prevScrollPosition,
+          evt: event.evt,
           x: -event.evt.deltaY + prevScrollPosition.x,
         }));
       }
@@ -46,6 +48,7 @@ const useZoom = () => {
         if (isValidScale) {
           setZoom((prev) => ({
             ...prev,
+            evt: event.evt,
             scale: isValidScale ? newScale : prev.scale,
             x: (pointerPosition.x / newScale - mousePointTo.x) * newScale,
             y: (pointerPosition.y / newScale - mousePointTo.y) * newScale,
