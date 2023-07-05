@@ -6,6 +6,7 @@ import { memo, useMemo } from "react";
 import { Layer } from "react-konva";
 import { useElement, useTool } from "../hooks";
 import useElements from "../hooks/elements/hook";
+import { IKeyTool } from "../hooks/tool/types";
 import { MapEls } from "./mp_el";
 import AtomPipeComponent from "./pipe";
 import { FCE, IElement } from "./type";
@@ -31,7 +32,7 @@ const AtomEditorMapper = memo(() => {
     <>
       <Layer>
         {mapped?.map((item) => {
-          const Component = MapEls?.[item?.tool] as FCE;
+          const Component = MapEls?.[`${item?.tool}` as IKeyTool] as FCE;
           return (
             <Component
               {...item}
