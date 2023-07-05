@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { IElement } from "../../elements/type";
+import { IElement, IParamsElement } from "../../elements/type";
 
-const pipeElement = atom<IElement>({} as IElement);
+const pipeElement = atom<IElement | IParamsElement>({} as IElement);
 
 export default pipeElement;

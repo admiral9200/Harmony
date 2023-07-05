@@ -1,5 +1,6 @@
 import { atom } from "jotai";
-import { IElement } from "../../elements/type";
+import { IElement, IParamsElement } from "../../elements/type";
 
-const elementSelectedAtom = atom<IElement>({} as IElement);
+const elementSelectedAtom = atom<IElement | IParamsElement>({});
+
 export default elementSelectedAtom;

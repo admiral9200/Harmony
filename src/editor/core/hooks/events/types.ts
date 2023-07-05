@@ -1,15 +1,15 @@
 import { KonvaEventObject } from "konva/lib/Node";
-import { IElement } from "../../elements/type";
+import { IElement, IParamsElement } from "../../elements/type";
 import { IKeyTool } from "../tool/types";
 
 export type IStartEvent = (
   event: KonvaEventObject<MouseEvent>,
   count: number
-) => IElement;
+) => IElement | IParamsElement;
 
 export type IEndEvent = (
   event: KonvaEventObject<MouseEvent>,
-  element: IElement
+  element: IElement | IParamsElement
 ) => IElement;
 
 export type IEventElement = {
