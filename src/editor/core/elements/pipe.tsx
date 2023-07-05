@@ -6,6 +6,7 @@ import { Portal } from "react-konva-utils";
 import { useTool } from "../hooks";
 import useElements from "../hooks/elements/hook";
 import usePipe from "../hooks/pipe/hook";
+import { IKeyTool } from "../hooks/tool/types";
 import { MapEls } from "./mp_el";
 import { FCE } from "./type";
 
@@ -21,7 +22,7 @@ const AtomPipeComponent = memo(() => {
         <Layer>
           <Portal selector=".top-layer" enabled={true}>
             {[pipeline]?.map((item) => {
-              const Component = MapEls?.[item?.tool] as FCE;
+              const Component = MapEls?.[`${item?.tool}` as IKeyTool] as FCE;
               return (
                 <Component
                   {...item}
