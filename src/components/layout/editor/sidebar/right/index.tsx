@@ -3,18 +3,19 @@ import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomWrapper } from "@whil/ui";
 import { FC } from "react";
+import SidebarRightBox from "./tabs/elements/BOX/sidebar-box";
 import StageSidebarRight from "./tabs/stage";
 
 type LayoutsTabs = {
   [key in IKeyTool]?: JSX.Element;
 };
-// const layoutTabs: LayoutsTabs = {
-//   BOX: <LayoutSidebarRightStageTabElementBox />,
-//   CIRCLE: <LayoutSidebarRightStageTabElementCircle />,
-//   LINE: <LayoutSidebarRightStageTabElementLine />,
-//   IMAGE: <LayoutSidebarRightStageTabElementImage />,
-//   TEXT: <LayoutSidebarRightStageTabElementText />,
-// };
+const layoutTabs: LayoutsTabs = {
+  BOX: <SidebarRightBox />,
+  // CIRCLE: <LayoutSidebarRightStageTabElementCircle />,
+  // LINE: <LayoutSidebarRightStageTabElementLine />,
+  // IMAGE: <LayoutSidebarRightStageTabElementImage />,
+  // TEXT: <LayoutSidebarRightStageTabElementText />,
+};
 
 const LayoutEditorSidebarRight: FC = () => {
   const { element } = useElement();
@@ -32,8 +33,11 @@ const LayoutEditorSidebarRight: FC = () => {
         border-left: 1px solid rgba(255, 255, 255, 0.25);
       `}
     >
-      <StageSidebarRight />
-      {/* {element?.id ? layoutTabs?.[element?.tool] : <StageSidebarRight />} */}
+      {element?.id ? (
+        layoutTabs?.[`${element?.tool}` as IKeyTool]
+      ) : (
+        <StageSidebarRight />
+      )}
     </AtomWrapper>
   );
 };
