@@ -17,6 +17,7 @@ const AtomEditorMapper = memo(() => {
 
   const onChange = useMemo(() => {
     return (element: IElement) => {
+      if (!element.id) return;
       handleSetElement(element);
       handleSetElements(element);
     };
