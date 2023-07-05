@@ -16,19 +16,21 @@ const useZoom = () => {
   const handlwRealWheel = useMemo(() => {
     return (event: KonvaEventObject<WheelEvent>) => {
       if (scrollEvent === "SCROOLL_VERTICAL") {
-        setZoom((prevScrollPosition) => ({
-          ...prevScrollPosition,
-          evt: event.evt,
-          y: -event.evt.deltaY + prevScrollPosition.y,
-        }));
+        setZoom((prevScrollPosition) => {
+          return Object.assign({}, prevScrollPosition, {
+            evt: event.evt,
+            y: -event.evt.deltaY + prevScrollPosition.y,
+          });
+        });
       }
 
       if (scrollEvent === "SCROOLL_HORIZONTAL") {
-        setZoom((prevScrollPosition) => ({
-          ...prevScrollPosition,
-          evt: event.evt,
-          x: -event.evt.deltaY + prevScrollPosition.x,
-        }));
+        setZoom((prevScrollPosition) => {
+          return Object.assign({}, prevScrollPosition, {
+            evt: event.evt,
+            x: -event.evt.deltaY + prevScrollPosition.x,
+          });
+        });
       }
       if (scrollEvent === "SCROOLL_ZOOM") {
         const scaleBy = 1.1;
@@ -46,13 +48,14 @@ const useZoom = () => {
         };
 
         if (isValidScale) {
-          setZoom((prev) => ({
-            ...prev,
-            evt: event.evt,
-            scale: isValidScale ? newScale : prev.scale,
-            x: (pointerPosition.x / newScale - mousePointTo.x) * newScale,
-            y: (pointerPosition.y / newScale - mousePointTo.y) * newScale,
-          }));
+          setZoom((prev) => {
+            return Object.assign({}, prev, {
+              evt: event.evt,
+              scale: isValidScale ? newScale : prev.scale,
+              x: (pointerPosition.x / newScale - mousePointTo.x) * newScale,
+              y: (pointerPosition.y / newScale - mousePointTo.y) * newScale,
+            });
+          });
         }
       }
     };

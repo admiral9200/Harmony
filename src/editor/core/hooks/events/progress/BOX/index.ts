@@ -11,11 +11,10 @@ const boxElementProgress = (
   const { x, y } = stagePosition(stage);
   const isHeight = x - element?.x < 0 ? 1 : x - element?.x;
   const isWidth = y - element?.y < 0 ? 1 : y - element?.y;
-  return {
-    ...(element ?? {}),
+  return Object.assign({}, element, {
     width: isHeight,
     height: isWidth,
-  };
+  });
 };
 
 export default boxElementProgress;

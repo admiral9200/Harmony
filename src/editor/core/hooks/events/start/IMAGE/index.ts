@@ -23,8 +23,8 @@ const imageElementStart = (
     zIndex: count + 1,
     src: "https://picsum.photos/200/300",
     rotate: 0,
-    height: 1,
-    width: 1,
+    height: 100,
+    width: 100,
   };
 };
 export default imageElementStart;

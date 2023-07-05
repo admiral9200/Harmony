@@ -17,8 +17,8 @@ const circleElementStart = (
     visible: true,
     tool: "CIRCLE",
     rotate: 0,
-    height: 1,
-    width: 1,
+    height: 100,
+    width: 100,
     // text: uuidv4().slice(0, 4),
     zIndex: count + 1,
     style: {

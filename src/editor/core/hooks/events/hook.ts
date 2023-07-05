@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import stagePosition from "../../helpers/stage/position";
 import useElement from "../element/hook";
@@ -17,13 +17,13 @@ const useEvent = () => {
   const { pipeline, handleEmptyElement, handleSetElement } = usePipe();
   const { element, handleSetElement: handleSetEl } = useElement();
 
-  const drawing = useRef(false);
+  const [drawing, setDraw] = useState(false);
   const [eventsKeyboard, setEventsKeyboard] =
     useState<IStageEvents>("STAGE_COPY_ELEMENT");
 
   const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
     if (isCreatingElement) {
-      drawing.current = true;
+      setDraw(true);
       const createStartElement = eventElements?.[tool]?.start as IStartEvent;
 
       const createdElement = createStartElement(
@@ -35,15 +35,13 @@ const useEvent = () => {
     }
 
     if (eventsKeyboard === "STAGE_COPY_ELEMENT" && element?.id) {
-      const newElement = {
-        ...element,
-        id: v4(),
-      };
+      const newElement = Object.assign({}, element, { id: v4() });
+
       handleSetElement(newElement);
     }
   };
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
-    if (!drawing.current) return;
+    if (!drawing) return;
     if (isCreatingElement) {
       const updateProgressElement = eventElements?.[tool]
         ?.progress as IEndEvent;
@@ -54,24 +52,29 @@ const useEvent = () => {
     if (eventsKeyboard === "STAGE_COPY_ELEMENT" && pipeline?.id) {
       const stage = e.target?.getStage?.() as Konva.Stage;
       const { x, y } = stagePosition(stage);
-      const updateElement = {
-        ...pipeline,
-        x,
-        y,
-      };
+
+      const updateElement = Object.assign({}, pipeline, { x, y });
       handleSetEl(updateElement);
     }
   };
 
   const handleMouseUp = () => {
-    drawing.current = false;
-    setEventsKeyboard("STAGE_WATCHING");
-    setTool("MOVE");
-    handleSetElements(pipeline);
+    if (eventsKeyboard === "STAGE_COPY_ELEMENT") {
+      setEventsKeyboard("STAGE_WATCHING");
+    }
+    if (drawing) {
+      setDraw(false);
+    }
+    if (tool !== "MOVE") {
+      setTool("MOVE");
+    }
+    if (pipeline?.id) {
+      handleSetElements(pipeline);
+      handleEmptyElement();
+    }
     if (element?.id) {
       handleSetElements(element);
     }
-    handleEmptyElement();
   };
 
   useEffect(() => {

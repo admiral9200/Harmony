@@ -8,13 +8,12 @@ const circleElementProgress = (
   element: IElement
 ): IElement => {
   const stage = event?.target?.getStage?.() as Konva.Stage;
-  const { x, y } = stagePosition(stage);
+  const { x } = stagePosition(stage);
 
-  return {
-    ...(element ?? {}),
+  return Object.assign({}, element, {
     width: isNegative(x - element?.x),
     height: isNegative(x - element?.x),
-  };
+  });
 };
 
 const isNegative = (value: number) => {

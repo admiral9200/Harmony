@@ -10,11 +10,10 @@ const textElementProgress = (
   const stage = event?.target?.getStage?.() as Konva.Stage;
   const { x, y } = stagePosition(stage);
 
-  return {
-    ...(element ?? {}),
+  return Object.assign({}, element, {
     width: x - element?.x,
     height: y - element?.y,
-  };
+  });
 };
 
 export default textElementProgress;

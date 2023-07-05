@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAtom } from "jotai";
 import { useCallback } from "react";
-import { IElement } from "../../elements/type";
+import { IElement, IParamsElement } from "../../elements/type";
 import useTool from "../tool/hook";
 import elementsAtom from "./jotai";
 
@@ -10,16 +10,16 @@ const useElements = () => {
 
   const { tool, isMoving } = useTool();
 
-  const handleSetElements = useCallback((element: IElement) => {
-    if (element?.id) {
-      setElements((prev) => {
-        return {
-          ...prev,
-          [element?.id]: element,
-        };
-      });
-    }
-  }, []);
+  const handleSetElements = useCallback(
+    (element: IElement | IParamsElement) => {
+      if (element?.id) {
+        setElements((prev) => {
+          return Object.assign({}, prev, { [`${element?.id}`]: element });
+        });
+      }
+    },
+    []
+  );
 
   return {
     elements,

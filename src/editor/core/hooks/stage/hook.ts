@@ -7,10 +7,7 @@ const useStage = () => {
 
   const handleConfig = (params: IStageConfig) => {
     setConfig((prev) => {
-      return {
-        ...prev,
-        ...params,
-      };
+      return Object.assign({}, prev, params);
     });
   };
 

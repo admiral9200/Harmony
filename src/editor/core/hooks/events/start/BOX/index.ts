@@ -17,8 +17,8 @@ const boxElementStart = (
     tool: "BOX",
     visible: true,
     rotate: 0,
-    height: 1,
-    width: 1,
+    height: 100,
+    width: 100,
     zIndex: count + 1,
     style: {
       backgroundColor: "#ffffff",

@@ -1,24 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAtom } from "jotai";
 import { useMemo } from "react";
-import { IElement } from "../../elements/type";
+import { IElement, IParamsElement } from "../../elements/type";
 import pipeElement from "./jotai";
 
 const usePipe = () => {
   const [pipeline, setElement] = useAtom(pipeElement);
 
   const handleChangeElement = useMemo(() => {
-    return (params?: IElement) => {
+    return (params: IElement) => {
       setElement((prev) => {
-        return {
-          ...prev,
-          ...params,
-        };
+        return Object.assign({}, prev, params);
       });
     };
   }, []);
   const handleSetElement = useMemo(() => {
-    return (element: IElement) => {
+    return (element: IElement | IParamsElement) => {
       setElement(element);
     };
   }, []);
