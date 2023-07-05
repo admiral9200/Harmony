@@ -10,6 +10,7 @@ export type IElement = {
   height?: number;
   text?: string;
   visible: boolean;
+  resolution?: "portrait" | "landscape";
   points?: number[];
   src?: string;
   rotate?: number;
@@ -32,6 +33,8 @@ export type IElement = {
     strokeWidth?: number;
   };
 };
+
+export type IParamsElement = Partial<IElement>;
 
 export type IFCElement = IElement & {
   draggable: boolean;
