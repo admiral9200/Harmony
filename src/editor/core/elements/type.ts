@@ -36,7 +36,7 @@ export type IElement = {
 
 export type IParamsElement = Partial<IElement>;
 
-export type IFCElement = IElement & {
+export type IFCElement = IParamsElement & {
   draggable: boolean;
   onChange: (item: IElement) => void;
   isSelected: boolean;
