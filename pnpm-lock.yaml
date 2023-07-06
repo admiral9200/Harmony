@@ -15,8 +15,8 @@ dependencies:
     specifier: ^3.1.0
     version: 3.1.0(react-hook-form@7.43.9)
   '@whil/ui':
-    specifier: ^0.0.5
-    version: 0.0.5(@emotion/react@11.10.6)(@emotion/styled@11.11.0)(@types/node@18.15.11)(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.0.6
+    version: 0.0.6(@emotion/react@11.10.6)(@emotion/styled@11.11.0)(@types/node@18.15.11)(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)
   canvas:
     specifier: 2.11.2
     version: 2.11.2
@@ -766,8 +766,8 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: false
 
-  /@whil/ui@0.0.5(@emotion/react@11.10.6)(@emotion/styled@11.11.0)(@types/node@18.15.11)(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-mn/IdE80ikynrAOQ5OiZ6Iw/N7VireKDkhHgHE51JhQqirUmJge8FFBFo9VfvEjO+eWnqo1Wzb/5AbBR7V6SKg==}
+  /@whil/ui@0.0.6(@emotion/react@11.10.6)(@emotion/styled@11.11.0)(@types/node@18.15.11)(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-kAniCArczZhva7F5hSwdLfsYg2tHkJARZnsKc6MUaZ1iwCElIobFr38s2lITNPstY0UNuAfJmJFfDgqTkl3lYg==}
     peerDependencies:
       '@emotion/react': ^11.10.5
       '@emotion/styled': ^11.10.5
