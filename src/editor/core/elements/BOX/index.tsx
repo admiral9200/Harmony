@@ -1,7 +1,7 @@
 import Konva from "konva";
 import { MutableRefObject, useEffect, useRef } from "react";
 import { Rect, Transformer } from "react-konva";
-import { IFCElement } from "../type";
+import { IFCElement, IStyleElement } from "../type";
 
 const AtomEditorElementBox = (item: IFCElement) => {
   const { rotate, draggable, onChange, onSelect, isSelected } = item;
@@ -10,7 +10,6 @@ const AtomEditorElementBox = (item: IFCElement) => {
 
   useEffect(() => {
     if (isSelected) {
-      // we need to attach transformer manually
       if (trRef.current && shapeRef.current) {
         trRef.current.nodes([shapeRef.current]);
         trRef.current?.getLayer()?.batchDraw();
@@ -25,7 +24,6 @@ const AtomEditorElementBox = (item: IFCElement) => {
 
   return (
     <>
-      {/* <Text x={item.x} y={item.y} text={`x: ${item.x} , y:${item.y}`} /> */}
       <Rect
         {...item}
         id={item?.id}
@@ -56,7 +54,6 @@ const AtomEditorElementBox = (item: IFCElement) => {
             const node = shapeRef.current;
             const scaleX = node.scaleX();
             const scaleY = node.scaleY();
-
             node.scaleX(1);
             node.scaleY(1);
             onChange({
@@ -87,21 +84,29 @@ const AtomEditorElementBox = (item: IFCElement) => {
 };
 
 export const isPartialBorderRadius = (item: IFCElement) => {
+  const {
+    borderRadiusTopLeft,
+    borderRadiusTopRight,
+    borderRadiusBottomRight,
+    borderRadiusBottomLeft,
+    borderRadius,
+  } = item?.style as IStyleElement;
+
   return item?.style?.isAllBorderRadius
     ? {
         cornerRadius: [
-          item?.style?.borderRadiusTopLeft,
-          item?.style?.borderRadiusTopRight,
-          item?.style?.borderRadiusBottomRight,
-          item?.style?.borderRadiusBottomLeft,
+          borderRadiusTopLeft,
+          borderRadiusTopRight,
+          borderRadiusBottomRight,
+          borderRadiusBottomLeft,
         ] as number[],
       }
     : {
         cornerRadius: [
-          item?.style?.borderRadius,
-          item?.style?.borderRadius,
-          item?.style?.borderRadius,
-          item?.style?.borderRadius,
+          borderRadius,
+          borderRadius,
+          borderRadius,
+          borderRadius,
         ] as number[],
       };
 };

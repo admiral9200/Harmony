@@ -1,6 +1,24 @@
 import { FC } from "react";
 import { IKeyTool } from "../hooks/tool/types";
 
+export type IStyleElement = {
+  backgroundColor?: string;
+  fontSize?: number;
+  fontStyle?: string;
+  textDecoration?: string;
+  shadowBlur?: number;
+  borderRadius?: number;
+  isAllBorderRadius?: boolean;
+  borderRadiusTopLeft?: number;
+  zIndex?: number;
+  borderRadiusTopRight?: number;
+  borderRadiusBottomRight?: number;
+  borderRadiusBottomLeft?: number;
+  colorText?: string;
+  stroke?: string;
+  strokeWidth?: number;
+};
+
 export type IElement = {
   id: string;
   tool: IKeyTool;
@@ -15,32 +33,18 @@ export type IElement = {
   src?: string;
   rotate?: number;
   zIndex: number;
-  style?: {
-    backgroundColor?: string;
-    fontSize?: number;
-    fontStyle?: string;
-    textDecoration?: string;
-    shadowBlur?: number;
-    borderRadius?: number;
-    isAllBorderRadius?: boolean;
-    borderRadiusTopLeft?: number;
-    zIndex?: number;
-    borderRadiusTopRight?: number;
-    borderRadiusBottomRight?: number;
-    borderRadiusBottomLeft?: number;
-    colorText?: string;
-    stroke?: string;
-    strokeWidth?: number;
-  };
+  style?: IStyleElement;
 };
 
 export type IParamsElement = Partial<IElement>;
 
+export type IPELMT = IParamsElement | IElement;
+
 export type IFCElement = IParamsElement & {
   draggable: boolean;
-  onChange: (item: IElement) => void;
+  onChange: (item: IPELMT) => void;
   isSelected: boolean;
-  onSelect: (item: IElement) => void;
+  onSelect: (item: IPELMT) => void;
   isMoving: boolean;
 };
 
