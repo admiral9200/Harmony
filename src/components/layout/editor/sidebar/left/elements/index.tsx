@@ -95,7 +95,7 @@ const ElementsList: FC<Props> = () => {
           onClick={() => handleChangeElement(item)}
         >
           <AtomIcon
-            src={ElementsIcons?.[item?.tool]}
+            src={ElementsIcons?.[`${item?.tool}` as IKeyTool]}
             color="default"
             height="20px"
             width="20px"
