@@ -4,9 +4,11 @@ import themeColors from "@/themes";
 import { AtomText, AtomWrapper } from "@whil/ui";
 import { FC } from "react";
 import SidebarRightBox from "./tabs/elements/BOX/sidebar-box";
+import SidebarIMG from "./tabs/elements/IMG/sidebar-img";
 import SidebarExportFC from "./tabs/elements/global/export/export";
 import SidebarFillFC from "./tabs/elements/global/fill/fill";
 import SidebarResolutionsFC from "./tabs/elements/global/resolution/resolution";
+import SidebarStrokeFC from "./tabs/elements/global/stroke/stroke";
 import StageSidebarRight from "./tabs/stage";
 
 type LayoutsTabs = {
@@ -14,6 +16,7 @@ type LayoutsTabs = {
 };
 const layoutTabs: LayoutsTabs = {
   BOX: <SidebarRightBox />,
+  IMAGE: <SidebarIMG />,
   // CIRCLE: <LayoutSidebarRightStageTabElementCircle />,
   // LINE: <LayoutSidebarRightStageTabElementLine />,
   // IMAGE: <LayoutSidebarRightStageTabElementImage />,
@@ -59,6 +62,14 @@ const LayoutEditorSidebarRight: FC = () => {
             `}
           ></AtomWrapper>
           <SidebarFillFC />
+          <AtomWrapper
+            width="100%"
+            height="auto"
+            customCSS={(css) => css`
+              border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+            `}
+          ></AtomWrapper>
+          <SidebarStrokeFC />
           <AtomWrapper
             width="100%"
             height="auto"
