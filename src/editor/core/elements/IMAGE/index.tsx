@@ -9,7 +9,9 @@ const AtomElementImage = (item: IFCElement) => {
   const { x, y } = item;
   const image = new Image();
 
-  image.src = item.src as string;
+  image.src = item?.src?.includes("https")
+    ? (item.src as string)
+    : "https://picsum.photos/200/300";
 
   const { rotate, draggable, onChange, onSelect, isSelected } = item;
   const shapeRef = useRef<Konva.Image>();
