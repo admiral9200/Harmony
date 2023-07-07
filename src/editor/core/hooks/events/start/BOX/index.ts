@@ -21,6 +21,8 @@ const boxElementStart = (
     width: 100,
     zIndex: count + 1,
     style: {
+      stroke: "#000000",
+      strokeWidth: 0,
       backgroundColor: "#ffffff",
       isAllBorderRadius: false,
       borderRadius: 0,

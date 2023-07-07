@@ -9,7 +9,7 @@ import useElements from "../hooks/elements/hook";
 import { IKeyTool } from "../hooks/tool/types";
 import { MapEls } from "./mp_el";
 import AtomPipeComponent from "./pipe";
-import { FCE, IElement } from "./type";
+import { FCE, IElement, IParamsElement } from "./type";
 
 const AtomEditorMapper = memo(() => {
   const { elements, draggable, handleSetElements } = useElements();
@@ -17,7 +17,7 @@ const AtomEditorMapper = memo(() => {
   const { isMoving } = useTool();
 
   const onChange = useMemo(() => {
-    return (element: IElement) => {
+    return (element: IElement | IParamsElement) => {
       if (!element.id) return;
       handleSetElement(element);
       handleSetElements(element);

@@ -22,6 +22,8 @@ const drawElementStart = (
     width: 100,
     style: {
       stroke: "#000",
+      strokeWidth: 1,
+      backgroundColor: "#ffffff",
     },
     points: [x, y],
   };

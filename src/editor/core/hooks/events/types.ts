@@ -1,5 +1,5 @@
 import { KonvaEventObject } from "konva/lib/Node";
-import { IElement, IParamsElement } from "../../elements/type";
+import { IElement, IPELMT, IParamsElement } from "../../elements/type";
 import { IKeyTool } from "../tool/types";
 
 export type IStartEvent = (
@@ -9,8 +9,8 @@ export type IStartEvent = (
 
 export type IEndEvent = (
   event: KonvaEventObject<MouseEvent>,
-  element: IElement | IParamsElement
-) => IElement;
+  element: IPELMT
+) => IPELMT;
 
 export type IEventElement = {
   [key in IKeyTool]?: {
