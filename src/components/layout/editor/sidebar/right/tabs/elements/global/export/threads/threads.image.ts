@@ -15,6 +15,9 @@ const ThreadImg = (element: IElement | Partial<IElement>) => {
   } = element?.style as IStyleElement;
 
   const image = new Image();
+
+  console.log(element.src, " element.src");
+
   image.src = element.src as string;
   image.crossOrigin = "Anonymous";
 
@@ -25,6 +28,7 @@ const ThreadImg = (element: IElement | Partial<IElement>) => {
     height: element?.height,
     image,
     fill: backgroundColor,
+    rotation: 0,
     // stroke: stroke,
     // rotation: element?.rotate,
     // strokeWidth: strokeWidth,

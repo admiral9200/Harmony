@@ -21,7 +21,7 @@ const ThreadBox = (element: IElement | Partial<IElement>) => {
     height: element?.height,
     fill: backgroundColor,
     stroke: stroke,
-    rotation: element?.rotate,
+    rotation: 0,
     strokeWidth: strokeWidth,
     cornerRadius: isAllBorderRadius
       ? Array(4).fill(borderRadius)
