@@ -79,7 +79,7 @@ const LayoutEditorSidebarLeft: FC = () => {
           width="100%"
           flexDirection="column"
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map((item) => (
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map((item, index) => (
             <AtomWrapper
               key={item}
               height="auto"
@@ -97,24 +97,28 @@ const LayoutEditorSidebarLeft: FC = () => {
               `}
               flexDirection="row"
               alignItems="center"
-              gap="5px"
+              gap="6px"
             >
-              <AtomIcon
-                src={icons.check}
-                color="default"
-                height="20px"
-                width="20px"
-                customCSS={(css) => css`
-                  svg {
-                    path {
-                      stroke: #ffffff;
-                    }
-                    line {
-                      stroke: #ffffff;
-                    }
-                  }
-                `}
-              />
+              <AtomWrapper height="20px" width="20px">
+                {index === 0 && (
+                  <AtomIcon
+                    src={icons.check}
+                    height="20px"
+                    width="20px"
+                    color="default"
+                    customCSS={(css) => css`
+                      svg {
+                        path {
+                          stroke: #ffffff;
+                        }
+                        line {
+                          stroke: #ffffff;
+                        }
+                      }
+                    `}
+                  />
+                )}
+              </AtomWrapper>
               <AtomText
                 color={themeColors.white}
                 customCSS={(css) => css`
