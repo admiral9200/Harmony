@@ -29,7 +29,7 @@ const useEvent = () => {
     isSelected,
   } = useSelection();
 
-  const [selectedElementsLength, setSelectedElements] = useState(0);
+  const [elementsIds, setElementsIds] = useState<string[]>([]);
 
   const updateSelectionRect = () => {
     const node = selectionRectRef.current;
@@ -77,10 +77,16 @@ const useEvent = () => {
       handleSetElement(createdElement);
     }
 
-    if (eventsKeyboard === "STAGE_COPY_ELEMENT" && element?.id) {
+    if (eventsKeyboard === "STAGE_COPY_ELEMENT" && element?.id && !isSelected) {
       const newElement = Object.assign({}, element, { id: v4() });
 
       handleSetElement(newElement);
+    }
+
+    if (eventsKeyboard === "STAGE_COPY_ELEMENT" && isSelected) {
+      for (const item of elementsIds) {
+        handleSetElements(Object.assign({}, elements[item], { id: v4() }));
+      }
     }
   };
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
@@ -139,6 +145,9 @@ const useEvent = () => {
             return elementNode;
           }
         }
+      );
+      setElementsIds(
+        elementsSelected?.map((item) => `${item?.attrs?.id}`) as string[]
       );
 
       setSelected(Boolean(Number(elementsSelected?.length)));

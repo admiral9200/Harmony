@@ -4,6 +4,7 @@ import { Image } from "konva/lib/shapes/Image";
 import { Line } from "konva/lib/shapes/Line";
 import { Rect } from "konva/lib/shapes/Rect";
 import { Text } from "konva/lib/shapes/Text";
+import ThreadLine from "./thread-line";
 import ThreadText from "./thread-txt";
 import ThreadBox from "./threads-box";
 import ThreadCircle from "./threads-circle";
@@ -22,6 +23,7 @@ const threads: IThreads = {
   CIRCLE: ThreadCircle,
   DRAW: ThreadDraw,
   TEXT: ThreadText,
+  LINE: ThreadLine,
 };
 
 export default threads;
