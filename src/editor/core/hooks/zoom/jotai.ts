@@ -7,4 +7,9 @@ const harmonyZoomAtom = atomWithStorage("harmony_zoom", {
   y: 0,
 });
 
+export const harmony_StrokeWidthSelection = atomWithStorage(
+  "harmony_stroke_width",
+  2
+);
+
 export default harmonyZoomAtom;

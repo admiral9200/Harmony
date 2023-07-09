@@ -87,6 +87,7 @@ const useZoom = () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
   return {
     onWheel: handlwRealWheel,
     zoom,
