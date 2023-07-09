@@ -2,9 +2,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { memo, useMemo } from "react";
-import { Layer } from "react-konva";
-import { useElement, useTool } from "../hooks";
+import Konva from "konva";
+import { MutableRefObject, memo, useEffect, useMemo } from "react";
+import { Layer, Rect, Transformer } from "react-konva";
+import { useElement, useSelection, useTool } from "../hooks";
 import useElements from "../hooks/elements/hook";
 import { IKeyTool } from "../hooks/tool/types";
 import { MapEls } from "./mp_el";
@@ -15,6 +16,15 @@ const AtomEditorMapper = memo(() => {
   const { elements, draggable, handleSetElements } = useElements();
   const { element, handleSetElement } = useElement();
   const { isMoving } = useTool();
+
+  const {
+    selectionRectRef,
+    trRef,
+    selectionRef,
+    setSelectionRefs,
+    layerRef,
+    setSelected,
+  } = useSelection();
 
   const onChange = useMemo(() => {
     return (element: IElement | IParamsElement) => {
@@ -28,9 +38,18 @@ const AtomEditorMapper = memo(() => {
     return Object.values(elements);
   }, [elements]);
 
+  useEffect(() => {
+    setSelectionRefs({
+      rectRef: selectionRectRef,
+      trRef,
+      selection: selectionRef,
+      layerRef,
+    });
+  }, []);
+
   return (
     <>
-      <Layer>
+      <Layer ref={layerRef as MutableRefObject<Konva.Layer>}>
         {mapped?.map((item) => {
           const Component = MapEls?.[`${item?.tool}` as IKeyTool] as FCE;
           return (
@@ -41,10 +60,30 @@ const AtomEditorMapper = memo(() => {
               isMoving={isMoving}
               isSelected={item?.id === element?.id}
               onChange={onChange}
-              onSelect={onChange}
+              onSelect={() => {
+                setSelected(false);
+                trRef?.current?.nodes?.([]);
+                onChange(item);
+              }}
             />
           );
         })}
+        <Transformer
+          ref={trRef as MutableRefObject<Konva.Transformer>}
+          boundBoxFunc={(oldBox, newBox) => {
+            if (newBox.width < 5 || newBox.height < 5) {
+              return oldBox;
+            }
+            return newBox;
+          }}
+        />
+        <Rect
+          id="select-rect-default"
+          fill="#8A9BA7"
+          stroke="#0D99FF"
+          strokeWidth={1}
+          ref={selectionRectRef as MutableRefObject<Konva.Rect>}
+        />
       </Layer>
       <AtomPipeComponent />
     </>
