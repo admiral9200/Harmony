@@ -16,8 +16,6 @@ const ThreadImg = (element: IElement | Partial<IElement>) => {
 
   const image = new Image();
 
-  console.log(element.src, " element.src");
-
   image.src = element.src as string;
   image.crossOrigin = "Anonymous";
 
