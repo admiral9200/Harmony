@@ -1,10 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Modal from "@/components/atoms/AtomModal";
-import Konva from "konva";
 import { AtomWrapper } from "lucy-nxtjs";
-import { FC, ReactNode, useRef } from "react";
+import { FC, ReactNode } from "react";
 import { Stage } from "react-konva";
-import { useElement, useEvent, useStage, useZoom } from "../core/hooks";
+import {
+  useElement,
+  useEvent,
+  useSelection,
+  useStage,
+  useZoom,
+} from "../core/hooks";
 import useScreen from "../core/hooks/screen";
 
 type Props = {
@@ -13,11 +18,16 @@ type Props = {
 
 const AtomEditorScreen: FC<Props> = ({ children }) => {
   const { ref, width, height } = useScreen();
-  const stageDataRef = useRef<Konva.Stage>(null);
   const { onWheel, zoom: stage } = useZoom();
-  const { handleMouseDown, handleMouseUp, handleMouseMove } = useEvent();
+  const { handleMouseDown, handleMouseUp, handleMouseMove, stageDataRef } =
+    useEvent();
   const { config } = useStage();
   const { handleEmptyElement } = useElement();
+  const {
+    setSelected,
+    selectionRefsState: { trRef },
+  } = useSelection();
+
   return (
     <>
       <Modal />
@@ -51,6 +61,8 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
           onMouseup={handleMouseUp}
           onDblClick={() => {
             handleEmptyElement();
+            setSelected(false);
+            trRef.current.nodes([]);
           }}
           x={stage.x}
           y={stage.y}
