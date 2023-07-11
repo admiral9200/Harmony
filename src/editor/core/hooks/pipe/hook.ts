@@ -18,6 +18,7 @@ const usePipe = () => {
   const handleEmptyElement = useCallback(() => {
     setElement({} as IElement);
   }, []);
+
   return {
     pipeline,
     handleChangeElement,
