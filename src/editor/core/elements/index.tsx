@@ -1,10 +1,10 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-
 import Konva from "konva";
 import { MutableRefObject, memo, useCallback, useEffect, useMemo } from "react";
 import { Layer, Rect, Transformer } from "react-konva";
+import { Portal } from "react-konva-utils";
 import { useElement, useSelection, useTool } from "../hooks";
 import useElements from "../hooks/elements/hook";
 import { IKeyTool } from "../hooks/tool/types";
@@ -69,22 +69,26 @@ const AtomEditorMapper = memo(() => {
             />
           );
         })}
-        <Transformer
-          ref={trRef as MutableRefObject<Konva.Transformer>}
-          boundBoxFunc={(oldBox, newBox) => {
-            if (newBox.width < 5 || newBox.height < 5) {
-              return oldBox;
-            }
-            return newBox;
-          }}
-        />
-        <Rect
-          id="select-rect-default"
-          fill="#8A9BA7"
-          stroke="#0D99FF"
-          strokeWidth={1}
-          ref={selectionRectRef as MutableRefObject<Konva.Rect>}
-        />
+      </Layer>
+      <Layer>
+        <Portal selector=".top-layer" enabled={true}>
+          <Transformer
+            ref={trRef as MutableRefObject<Konva.Transformer>}
+            boundBoxFunc={(oldBox, newBox) => {
+              if (newBox.width < 5 || newBox.height < 5) {
+                return oldBox;
+              }
+              return newBox;
+            }}
+          />
+          <Rect
+            id="select-rect-default"
+            fill="#8A9BA7"
+            stroke="#0D99FF"
+            strokeWidth={1}
+            ref={selectionRectRef as MutableRefObject<Konva.Rect>}
+          />
+        </Portal>
       </Layer>
       <AtomPipeComponent />
     </>
