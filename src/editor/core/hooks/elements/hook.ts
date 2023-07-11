@@ -2,12 +2,13 @@
 import { useAtom } from "jotai";
 import { useCallback } from "react";
 import { IElement, IParamsElement } from "../../elements/type";
+import useElement from "../element/hook";
 import useTool from "../tool/hook";
 import elementsAtom from "./jotai";
 
 const useElements = () => {
   const [elements, setElements] = useAtom(elementsAtom);
-
+  const { element } = useElement();
   const { tool, isMoving } = useTool();
 
   const handleSetElements = useCallback(
@@ -22,7 +23,20 @@ const useElements = () => {
   );
 
   const handleDeleteElement = useCallback((id: string) => {
-    delete elements[id];
+    setElements((prev) => {
+      delete prev[id];
+      const data = Object.assign({}, prev);
+      return data;
+    });
+  }, []);
+  const handleDeleteManyElements = useCallback((ids: string[]) => {
+    setElements((prev) => {
+      for (const iterator of ids) {
+        delete prev[iterator];
+      }
+      const data = Object.assign({}, prev);
+      return data;
+    });
   }, []);
 
   return {
@@ -31,6 +45,7 @@ const useElements = () => {
     draggable: isMoving,
     handleSetElements: handleSetElements,
     handleDeleteElement,
+    handleDeleteManyElements,
   };
 };
 
