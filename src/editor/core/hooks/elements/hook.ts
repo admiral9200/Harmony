@@ -21,11 +21,16 @@ const useElements = () => {
     []
   );
 
+  const handleDeleteElement = useCallback((id: string) => {
+    delete elements[id];
+  }, []);
+
   return {
     elements,
     tool,
     draggable: isMoving,
     handleSetElements: handleSetElements,
+    handleDeleteElement,
   };
 };
 

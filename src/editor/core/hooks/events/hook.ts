@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
 import stagePosition from "../../helpers/stage/position";
 import useElement from "../element/hook";
@@ -31,7 +31,7 @@ const useEvent = () => {
 
   const [elementsIds, setElementsIds] = useState<string[]>([]);
 
-  const updateSelectionRect = () => {
+  const updateSelectionRect = useCallback(() => {
     const node = selectionRectRef.current;
     if (node) {
       node.setAttrs({
@@ -44,88 +44,99 @@ const useEvent = () => {
       });
       node.getLayer().batchDraw();
     }
-  };
+  }, [selectionRectRef]);
 
-  const handleMouseDown = (event: KonvaEventObject<MouseEvent>) => {
-    if (
-      !isCreatingElement &&
-      eventsKeyboard === "STAGE_WATCHING" &&
-      !drawing &&
-      !element?.id &&
-      !pipeline?.id &&
-      !isSelected
-    ) {
-      const stage = event.target?.getStage?.() as Konva.Stage;
-      const { x, y } = stagePosition(stage);
-      selection.current.visible = true;
-      selection.current.x1 = Number(x);
-      selection.current.y1 = Number(y);
-      selection.current.x2 = Number(x);
-      selection.current.y2 = Number(y);
-      updateSelectionRect();
-    }
-
-    if (isCreatingElement) {
-      setDraw(true);
-      const createStartElement = eventElements?.[tool]?.start as IStartEvent;
-
-      const createdElement = createStartElement(
-        event,
-        Object.keys(elements).length
-      );
-
-      handleSetElement(createdElement);
-    }
-
-    if (eventsKeyboard === "STAGE_COPY_ELEMENT" && element?.id && !isSelected) {
-      const newElement = Object.assign({}, element, { id: v4() });
-
-      handleSetElement(newElement);
-    }
-
-    if (eventsKeyboard === "STAGE_COPY_ELEMENT" && isSelected) {
-      for (const item of elementsIds) {
-        handleSetElements(Object.assign({}, elements[item], { id: v4() }));
+  const handleMouseDown = useCallback(
+    (event: KonvaEventObject<MouseEvent>) => {
+      if (
+        !isCreatingElement &&
+        eventsKeyboard === "STAGE_WATCHING" &&
+        !drawing &&
+        !element?.id &&
+        !pipeline?.id &&
+        !isSelected
+      ) {
+        const stage = event.target?.getStage?.() as Konva.Stage;
+        const { x, y } = stagePosition(stage);
+        selection.current.visible = true;
+        selection.current.x1 = Number(x);
+        selection.current.y1 = Number(y);
+        selection.current.x2 = Number(x);
+        selection.current.y2 = Number(y);
+        updateSelectionRect();
       }
-    }
-  };
-  const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
-    if (
-      !isCreatingElement &&
-      eventsKeyboard === "STAGE_WATCHING" &&
-      !drawing &&
-      !element?.id &&
-      !pipeline?.id &&
-      !isSelected
-    ) {
-      if (!selection.current.visible) {
-        return;
+
+      if (isCreatingElement) {
+        setDraw(true);
+        const createStartElement = eventElements?.[tool]?.start as IStartEvent;
+
+        const createdElement = createStartElement(
+          event,
+          Object.keys(elements).length
+        );
+
+        handleSetElement(createdElement);
       }
-      const stage = e.target?.getStage?.() as Konva.Stage;
-      const { x, y } = stagePosition(stage);
-      selection.current.x2 = Number(x);
-      selection.current.y2 = Number(y);
-      updateSelectionRect();
-    }
 
-    if (!drawing) return;
-    if (isCreatingElement) {
-      const updateProgressElement = eventElements?.[tool]
-        ?.progress as IEndEvent;
+      if (
+        eventsKeyboard === "STAGE_COPY_ELEMENT" &&
+        element?.id &&
+        !isSelected
+      ) {
+        const newElement = Object.assign({}, element, { id: v4() });
 
-      const updateElement = updateProgressElement(e, pipeline);
-      handleSetElement(updateElement);
-    }
-    if (eventsKeyboard === "STAGE_COPY_ELEMENT" && pipeline?.id) {
-      const stage = e.target?.getStage?.() as Konva.Stage;
-      const { x, y } = stagePosition(stage);
+        handleSetElement(newElement);
+      }
 
-      const updateElement = Object.assign({}, pipeline, { x, y });
-      handleSetEl(updateElement);
-    }
-  };
+      if (eventsKeyboard === "STAGE_COPY_ELEMENT" && isSelected) {
+        for (const item of elementsIds) {
+          handleSetElements(Object.assign({}, elements[item], { id: v4() }));
+        }
+      }
+    },
+    [isCreatingElement, eventsKeyboard, drawing, element, pipeline, isSelected]
+  );
 
-  const handleMouseUp = () => {
+  const handleMouseMove = useCallback(
+    (e: KonvaEventObject<MouseEvent>) => {
+      if (
+        !isCreatingElement &&
+        eventsKeyboard === "STAGE_WATCHING" &&
+        !drawing &&
+        !element?.id &&
+        !pipeline?.id &&
+        !isSelected
+      ) {
+        if (!selection.current.visible) {
+          return;
+        }
+        const stage = e.target?.getStage?.() as Konva.Stage;
+        const { x, y } = stagePosition(stage);
+        selection.current.x2 = Number(x);
+        selection.current.y2 = Number(y);
+        updateSelectionRect();
+      }
+
+      if (!drawing) return;
+      if (isCreatingElement) {
+        const updateProgressElement = eventElements?.[tool]
+          ?.progress as IEndEvent;
+
+        const updateElement = updateProgressElement(e, pipeline);
+        handleSetElement(updateElement);
+      }
+      if (eventsKeyboard === "STAGE_COPY_ELEMENT" && pipeline?.id) {
+        const stage = e.target?.getStage?.() as Konva.Stage;
+        const { x, y } = stagePosition(stage);
+
+        const updateElement = Object.assign({}, pipeline, { x, y });
+        handleSetEl(updateElement);
+      }
+    },
+    [isCreatingElement, eventsKeyboard, drawing, element, pipeline, isSelected]
+  );
+
+  const handleMouseUp = useCallback(() => {
     if (selection.current.visible) {
       selection.current.visible = false;
       const { x1, x2, y1, y2 } = selection.current;
@@ -174,7 +185,7 @@ const useEvent = () => {
     if (element?.id) {
       handleSetElements(element);
     }
-  };
+  }, [selection, layerRef, eventsKeyboard, drawing, tool, pipeline, element]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -228,6 +239,7 @@ const useEvent = () => {
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
     };
   }, [pipeline, disableKeyBoard]);
 

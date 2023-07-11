@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { KonvaEventObject } from "konva/lib/Node";
 import { Stage } from "konva/lib/Stage";
 import { Vector2d } from "konva/lib/types";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import harmonyZoomAtom from "./jotai";
 import { IScrollEvent } from "./types";
 
@@ -13,8 +13,8 @@ const useZoom = () => {
   const [scrollEvent, setScrollEvent] =
     useState<IScrollEvent>("SCROOLL_VERTICAL");
 
-  const handlwRealWheel = useMemo(() => {
-    return (event: KonvaEventObject<WheelEvent>) => {
+  const handlwRealWheel = useCallback(
+    (event: KonvaEventObject<WheelEvent>) => {
       if (scrollEvent === "SCROOLL_VERTICAL") {
         setZoom((prevScrollPosition) => {
           return Object.assign({}, prevScrollPosition, {
@@ -58,8 +58,9 @@ const useZoom = () => {
           });
         }
       }
-    };
-  }, [scrollEvent]);
+    },
+    [scrollEvent]
+  );
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -85,6 +86,7 @@ const useZoom = () => {
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
     };
   }, []);
 

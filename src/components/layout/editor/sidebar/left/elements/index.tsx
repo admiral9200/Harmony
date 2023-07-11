@@ -27,17 +27,18 @@ const ElementsIcons: IElementsIcons = {
 const ElementsList: FC<Props> = () => {
   const { elements } = useElements();
   const { handleChangeElement, element } = useElement();
-  const { getColor } = useMemo(() => {
-    const getColor = (id: string) => {
+  const getColor = useCallback(
+    (id: string) => {
       return element?.id === id
         ? isDarkLight(` ${themeColors.primary}`)
         : "white";
-    };
 
-    return { getColor };
-  }, [element]);
+      // return getColor
+    },
+    [element]
+  );
 
-  const elementsMemo = useCallback(() => Object.values(elements), [elements]);
+  const elementsMemo = useMemo(() => Object.values(elements), [elements]);
   return (
     <AtomWrapper
       customCSS={(css) => css`
@@ -67,7 +68,7 @@ const ElementsList: FC<Props> = () => {
       width="100%"
       flexDirection="column"
     >
-      {elementsMemo()?.map((item, index) => (
+      {elementsMemo?.map((item, index) => (
         <AtomWrapper
           key={item.id}
           padding="0.35em 0.7em"

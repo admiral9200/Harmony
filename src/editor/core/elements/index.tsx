@@ -3,7 +3,7 @@
 "use client";
 
 import Konva from "konva";
-import { MutableRefObject, memo, useEffect, useMemo } from "react";
+import { MutableRefObject, memo, useCallback, useEffect, useMemo } from "react";
 import { Layer, Rect, Transformer } from "react-konva";
 import { useElement, useSelection, useTool } from "../hooks";
 import useElements from "../hooks/elements/hook";
@@ -26,13 +26,14 @@ const AtomEditorMapper = memo(() => {
     setSelected,
   } = useSelection();
 
-  const onChange = useMemo(() => {
-    return (element: IElement | IParamsElement) => {
+  const onChange = useCallback(
+    (element: IElement | IParamsElement) => {
       if (!element.id) return;
       handleSetElement(element);
       handleSetElements(element);
-    };
-  }, [isMoving, element, elements]);
+    },
+    [isMoving, element, elements]
+  );
 
   const mapped = useMemo(() => {
     return Object.values(elements);

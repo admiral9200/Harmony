@@ -1,17 +1,22 @@
 /* eslint-disable jsx-a11y/alt-text */
 import Konva from "konva";
-import { MutableRefObject, useEffect, useRef } from "react";
+import { MutableRefObject, useCallback, useEffect, useRef } from "react";
 import { Image as KonvaImg, Transformer } from "react-konva";
 import { isPartialBorderRadius } from "../BOX";
 import { IFCElement } from "../type";
 
 const AtomElementImage = (item: IFCElement) => {
   const { x, y } = item;
-  const image = new Image();
 
-  image.src = item?.src?.includes("https")
-    ? (item.src as string)
-    : "https://picsum.photos/200/300";
+  const image = useCallback(() => {
+    const dataImage = new Image();
+
+    dataImage.src = item?.src?.includes("https")
+      ? (item.src as string)
+      : "https://picsum.photos/200/300";
+
+    return dataImage;
+  }, [item]);
 
   const { rotate, draggable, onChange, onSelect, isSelected } = item;
   const shapeRef = useRef<Konva.Image>();
@@ -42,7 +47,7 @@ const AtomElementImage = (item: IFCElement) => {
         width={item.width}
         height={item?.height}
         cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
-        image={image}
+        image={image()}
         fill={item.style?.backgroundColor}
         shadowBlur={item?.style?.shadowBlur}
         stroke={item?.style?.stroke}

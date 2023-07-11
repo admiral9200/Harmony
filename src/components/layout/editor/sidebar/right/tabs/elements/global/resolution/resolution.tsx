@@ -5,7 +5,7 @@ import useSelect from "@/editor/core/hooks/select";
 import useCallStkcTime from "@/hooks/useCallTime";
 import themeColors from "@/themes";
 import { AtomButton, AtomInput, AtomText, AtomWrapper } from "@whil/ui";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 
 const SidebarResolutionsFC: FC = () => {
   const { SelectedChangeElement, handleSelectedChangeElement } = useSelect();
@@ -22,12 +22,12 @@ const SidebarResolutionsFC: FC = () => {
     ms: 250,
   });
 
-  const handle = (params?: IParamsElement) => {
+  const handle = useCallback((params?: IParamsElement) => {
     setTimer(0);
     handleSelectedChangeElement({
       ...params,
     });
-  };
+  }, []);
 
   return (
     <AtomWrapper display="flex" flexDirection="column" width="100%">

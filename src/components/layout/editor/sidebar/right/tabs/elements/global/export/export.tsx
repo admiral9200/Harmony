@@ -4,7 +4,7 @@ import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomButton, AtomText, AtomWrapper } from "@whil/ui";
 import Konva from "konva";
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect } from "react";
 import threads, { Threads } from "./threads/threads";
 
 function downloadURI(uri: string, name: string) {
@@ -18,9 +18,9 @@ function downloadURI(uri: string, name: string) {
 
 const SidebarExportFC: FC = () => {
   const { element } = useElement();
-  const [typeExport, setTypeExport] = useState("IMG");
+  // const [typeExport, setTypeExport] = useState("IMG");
 
-  const handleExport = () => {
+  const handleExport = useCallback(() => {
     const stage = new Konva.Stage({
       container: "viewer-layout",
       width: element?.width,
@@ -35,7 +35,7 @@ const SidebarExportFC: FC = () => {
     layer.add(thread as Threads);
 
     return stage;
-  };
+  }, []);
 
   useEffect(() => {
     handleExport();

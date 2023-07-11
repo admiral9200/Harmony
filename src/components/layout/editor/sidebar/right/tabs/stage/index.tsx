@@ -1,11 +1,9 @@
 import { useStage } from "@/editor/core/hooks";
-import useElements from "@/editor/core/hooks/elements/hook";
 import { AtomInput, AtomText, AtomWrapper } from "@whil/ui";
 import { FC } from "react";
 
 const StageSidebarRight: FC = () => {
   const { config, handleConfig } = useStage();
-  const { elements } = useElements();
 
   return (
     <AtomWrapper
@@ -76,9 +74,9 @@ const StageSidebarRight: FC = () => {
   );
 };
 
-function convertPxToPt(px: number) {
-  const pt = px * 0.75;
-  return pt;
-}
+// function convertPxToPt(px: number) {
+//   const pt = px * 0.75;
+//   return pt;
+// }
 
 export default StageSidebarRight;

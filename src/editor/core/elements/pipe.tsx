@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/display-name */
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { Layer } from "react-konva";
 import { Portal } from "react-konva-utils";
 import { useTool } from "../hooks";
@@ -14,7 +14,7 @@ const AtomPipeComponent = memo(() => {
   const { pipeline } = usePipe();
   const { draggable } = useElements();
   const { isMoving } = useTool();
-  const onChange = () => {};
+  const onChange = useCallback(() => {}, []);
 
   return (
     <>
