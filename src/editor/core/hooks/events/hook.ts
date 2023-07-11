@@ -14,9 +14,18 @@ import { IEndEvent, IStageEvents, IStartEvent } from "./types";
 
 const useEvent = () => {
   const { isCreatingElement, tool, setTool, disableKeyBoard } = useTool();
-  const { elements, handleSetElements } = useElements();
+  const {
+    elements,
+    handleSetElements,
+    handleDeleteElement,
+    handleDeleteManyElements,
+  } = useElements();
   const { pipeline, handleEmptyElement, handleSetElement } = usePipe();
-  const { element, handleSetElement: handleSetEl } = useElement();
+  const {
+    element,
+    handleSetElement: handleSetEl,
+    handleEmptyElement: handleElementEmpty,
+  } = useElement();
   const stageDataRef = useRef<Konva.Stage>(null);
 
   const [drawing, setDraw] = useState(false);
@@ -96,7 +105,6 @@ const useEvent = () => {
     },
     [isCreatingElement, eventsKeyboard, drawing, element, pipeline, isSelected]
   );
-
   const handleMouseMove = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
       if (
@@ -193,43 +201,58 @@ const useEvent = () => {
 
       if (disableKeyBoard) {
         if (KEY === "DELETE") {
-          // deleteElement(element);
-          handleEmptyElement();
+          if (!isSelected) {
+            handleDeleteElement(`${element?.id}`);
+
+            handleElementEmpty();
+          } else {
+            handleDeleteManyElements(elementsIds);
+            handleElementEmpty();
+            setSelected(false);
+            trRef.current.nodes([]);
+            setElementsIds([]);
+          }
         }
         if (KEY === "ALT") {
           setEventsKeyboard("STAGE_COPY_ELEMENT");
         }
         if (KEY === "O") {
           setTool("CIRCLE");
+          handleElementEmpty();
           handleEmptyElement();
         }
         if (KEY === "O") {
           setTool("CIRCLE");
           handleEmptyElement();
+          handleElementEmpty();
         }
         if (KEY === "L") {
           setTool("LINE");
+          handleElementEmpty();
           handleEmptyElement();
         }
         if (KEY === "V") {
           setTool("MOVE");
+          handleElementEmpty();
           handleEmptyElement();
         }
         if (KEY === "I") {
           setTool("IMAGE");
           handleEmptyElement();
+          handleElementEmpty();
         }
         if (KEY === "F") {
           setTool("BOX");
+          handleElementEmpty();
           handleEmptyElement();
         }
         if (KEY === "T") {
+          handleElementEmpty();
           handleEmptyElement();
           setTool("TEXT");
         }
       }
     };
-
     const handleKeyUp = () => {
       setEventsKeyboard("STAGE_WATCHING");
     };
@@ -241,7 +264,7 @@ const useEvent = () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
     };
-  }, [pipeline, disableKeyBoard]);
+  }, [pipeline, disableKeyBoard, element, elementsIds]);
 
   return {
     handleMouseDown,
