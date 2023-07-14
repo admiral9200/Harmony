@@ -32,6 +32,7 @@ const AtomElementText = (item: IFCElement) => {
     shapeRef.current?.zIndex(item?.zIndex as number);
     trRef.current?.zIndex(item?.zIndex as number);
   }, [isSelected, item, trRef, shapeRef]);
+
   return (
     <>
       <Text
@@ -41,9 +42,11 @@ const AtomElementText = (item: IFCElement) => {
         width={width}
         height={height}
         fontSize={item?.style?.fontSize}
-        fontStyle={item?.style?.fontStyle}
+        fontFamily={`${item?.style?.fontFamily}-${item?.style?.fontStyle}-${item?.style?.fontWeight}`}
         textDecoration={item?.style?.textDecoration}
-        fill={style?.colorText}
+        fill={style?.backgroundColor}
+        stroke={style?.stroke ?? "black"}
+        strokeWidth={style?.strokeWidth ?? 0}
         text={item?.text ?? item?.id?.slice?.(0, 4)}
         ref={shapeRef as MutableRefObject<Konva.Text>}
         draggable={draggable}
