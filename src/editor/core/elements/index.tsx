@@ -69,6 +69,22 @@ const AtomEditorMapper = memo(() => {
             />
           );
         })}
+        {/* <Group x={1000} y={0} width={250} height={250} draggable>
+          <Rect x={0} y={0} fill="red" width={250} height={250} />
+          {mapped?.map((item) => {
+            return (
+              <Rect
+                key={item.id}
+                x={125}
+                y={125}
+                fill="blue"
+                draggable
+                width={10}
+                height={10}
+              />
+            );
+          })}
+        </Group> */}
       </Layer>
       <Layer>
         <Portal selector=".top-layer" enabled={true}>
