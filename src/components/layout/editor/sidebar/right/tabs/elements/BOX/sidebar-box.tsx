@@ -5,14 +5,12 @@ const SidebarRightBox: FC = () => {
   return (
     <AtomWrapper
       display="flex"
+      padding="0.5em 0.7em"
       flexDirection="column"
       width="100%"
       color="white"
     >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-      perferendis doloribus ipsa expedita adipisci magni optio voluptatem,
-      placeat dolor nemo ex! Quam harum, modi dolorum recusandae aperiam error
-      nostrum tempora!
+      Box
     </AtomWrapper>
   );
 };
