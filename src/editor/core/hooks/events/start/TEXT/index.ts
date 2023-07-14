@@ -19,8 +19,13 @@ const textElementStart = (
     visible: true,
     text: uuidv4().slice(0, 4),
     style: {
+      backgroundColor: "#000",
+      stroke: "#000",
+      strokeWidth: 0,
       colorText: "#000",
       fontStyle: "normal",
+      fontWeight: 400,
+      fontFamily: "Roboto",
       fontSize: 12,
     },
     zIndex: count + 1,
