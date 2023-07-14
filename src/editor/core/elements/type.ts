@@ -5,7 +5,9 @@ export type IStyleElement = {
   backgroundColor?: string;
   fontSize?: number;
   fontStyle?: string;
+  fontFamily?: string;
   textDecoration?: string;
+  fontWeight?: number;
   shadowBlur?: number;
   borderRadius?: number;
   isAllBorderRadius?: boolean;
