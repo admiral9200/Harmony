@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { IParamsElement } from "@/editor/core/elements/type";
 import { useElement } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
