@@ -62,6 +62,16 @@ const useZoom = () => {
     [scrollEvent]
   );
 
+  const handleResetXandY = useCallback(() => {
+    setZoom((prevScrollPosition) => {
+      return Object.assign({}, prevScrollPosition, {
+        x: 0,
+        y: 0,
+        scale: 1,
+      });
+    });
+  }, []);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const KEY = event.key?.toUpperCase();
@@ -93,6 +103,7 @@ const useZoom = () => {
   return {
     onWheel: handlwRealWheel,
     zoom,
+    handleResetXandY,
   };
 };
 

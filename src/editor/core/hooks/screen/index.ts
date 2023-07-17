@@ -12,13 +12,13 @@ const useScreen = () => {
   const [dimensions, setDimensions] = useAtom(screenDimension);
 
   useEffect(() => {
-    if (divRef.current?.offsetHeight && divRef.current?.offsetWidth) {
+    if (divRef.current) {
       setDimensions({
         width: divRef.current.offsetWidth,
         height: divRef.current.offsetHeight,
       });
     }
-  }, []);
+  }, [divRef]);
 
   return {
     ref: divRef,
