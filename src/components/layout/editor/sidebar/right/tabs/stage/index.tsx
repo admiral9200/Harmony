@@ -95,8 +95,8 @@ const StageSidebarRight: FC = () => {
           {pages?.length > 1 ? (
             <AtomButton
               onClick={() => {
-                handleDeleteElementsByPage(page);
                 handleDeletePage(page);
+                handleDeleteElementsByPage(page);
               }}
               customCSS={(css) => css`
                 background-color: transparent;

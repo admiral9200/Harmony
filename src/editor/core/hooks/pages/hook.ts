@@ -20,10 +20,13 @@ const usePages = () => {
 
   const handleDeletePage = useCallback(
     (pageId: string) => {
-      setPages((prev) => prev?.filter((item) => item?.id !== pageId));
-      setPage(pages?.[0]?.id);
+      setPages((prev) => {
+        const pags = prev?.filter((item) => item?.id !== pageId);
+        setPage(pags?.[0]?.id);
+        return pags;
+      });
     },
-    [pages, setPages, setPage]
+    [setPages, setPage]
   );
 
   return {

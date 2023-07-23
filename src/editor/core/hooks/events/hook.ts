@@ -205,7 +205,6 @@ const useEvent = () => {
         trRef.current.nodes([]);
       }
     }
-
     if (eventsKeyboard === "STAGE_COPY_ELEMENT") {
       setEventsKeyboard("STAGE_WATCHING");
     }
@@ -296,23 +295,18 @@ const useEvent = () => {
   }, [pipeline, disableKeyBoard, element, elementsIds]);
 
   useEffect(() => {
-    // Manejar el cambio de visibilidad de la pestaña
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        // Aquí puedes realizar acciones cuando la pestaña está inactiva
         setTool("MOVE");
         setEventsKeyboard("STAGE_WATCHING");
       } else {
-        // Aquí puedes realizar acciones cuando la pestaña está activa
         setTool("MOVE");
         setEventsKeyboard("STAGE_WATCHING");
       }
     };
 
-    // Agregar el evento para escuchar los cambios de visibilidad
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // Eliminar el evento cuando el componente se desmonte
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
