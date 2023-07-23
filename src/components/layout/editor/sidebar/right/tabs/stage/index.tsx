@@ -79,13 +79,15 @@ const StageSidebarRight: FC = () => {
         Config
       </AtomText>
       <AtomWrapper flexDirection="column" padding="0.5em 0.7em">
-        <AtomText color="white" fontWeight="bold">
-          Do you want to delete the page?
+        <AtomText color="white" fontWeight="bold" textAlign="left">
+          {pages?.length > 1
+            ? "Do you want delete this page?"
+            : "The current page"}
         </AtomText>
         <AtomWrapper
           customCSS={(css) => css`
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 1em;
           `}
         >
