@@ -17,15 +17,14 @@ const AtomEditorElementBox = (item: IFCElement) => {
       }
     }
   }, [isSelected, item, trRef, shapeRef]);
-  useEffect(() => {
-    shapeRef.current?.setZIndex(item?.zIndex as number);
-    trRef.current?.setZIndex(item?.zIndex as number);
-  }, [isSelected, item, trRef, shapeRef]);
+
   return (
     <>
       <Rect
-        {...item}
         id={item?.id}
+        x={item?.x}
+        y={item?.y}
+        width={item?.width}
         fill={item.style?.stroke}
         height={item?.style?.strokeWidth}
         shadowBlur={item?.style?.shadowBlur}

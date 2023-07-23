@@ -21,6 +21,7 @@ const circleElementStart = (
     width: 100,
     // text: uuidv4().slice(0, 4),
     zIndex: count + 1,
+    view_position: count + 1,
     style: {
       backgroundColor: "#ffffff",
       stroke: "#000",

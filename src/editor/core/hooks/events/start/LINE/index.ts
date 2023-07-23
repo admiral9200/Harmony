@@ -22,6 +22,7 @@ const lineElementStart = (
       strokeWidth: 4,
     },
     zIndex: count + 1,
+    view_position: count + 1,
     rotate: 0,
     height: 100,
     width: 400,

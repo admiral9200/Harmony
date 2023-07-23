@@ -21,6 +21,7 @@ const imageElementStart = (
       strokeWidth: 0,
     },
     zIndex: count + 1,
+    view_position: count + 1,
     src: "https://picsum.photos/200/300",
     rotate: 0,
     height: 100,

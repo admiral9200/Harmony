@@ -1,10 +1,13 @@
 import icons from "@/assets";
+import { IPELMT } from "@/editor/core/elements/type";
 import { useElement } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
+import { LayerOrderElements } from "@/editor/core/hooks/elements/jotai";
 import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomIcon, AtomText, AtomWrapper, isDarkLight } from "@whil/ui";
-import { FC, ReactNode, useCallback, useMemo } from "react";
+import { useAtomValue } from "jotai";
+import { FC, ReactNode, useCallback } from "react";
 
 type Props = {
   children?: ReactNode;
@@ -25,20 +28,20 @@ const ElementsIcons: IElementsIcons = {
 };
 
 const ElementsList: FC<Props> = () => {
-  const { elements } = useElements();
+  const { dragSetState, dragState, handleOrderElements } = useElements();
+
   const { handleChangeElement, element } = useElement();
+
   const getColor = useCallback(
     (id: string) => {
       return element?.id === id
         ? isDarkLight(` ${themeColors.primary}`)
         : "white";
-
-      // return getColor
     },
     [element]
   );
+  const elementsMemo = useAtomValue(LayerOrderElements);
 
-  const elementsMemo = useMemo(() => Object.values(elements), [elements]);
   return (
     <AtomWrapper
       customCSS={(css) => css`
@@ -68,66 +71,97 @@ const ElementsList: FC<Props> = () => {
       width="100%"
       flexDirection="column"
     >
-      {elementsMemo?.map((item, index) => (
-        <AtomWrapper
-          key={item.id}
-          padding="0.35em 0.7em"
-          height="auto"
-          className="CursorPointer"
-          customCSS={(css) => css`
-            width: 100%;
-            border: 1px solid ${themeColors.dark};
-            user-select: none !important;
-            opacity: 0.8;
-            ${element.id === item?.id &&
-            css`
-              border: 1px solid ${themeColors.primary};
-              background-color: ${themeColors.primary};
-              opacity: 1;
-            `}
-            &:hover {
-              border: 1px solid ${themeColors.primary};
-              opacity: 1;
-            }
-          `}
-          flexDirection="row"
-          alignItems="center"
-          gap="5px"
-          onClick={() => handleChangeElement(item)}
-        >
-          <AtomIcon
-            src={ElementsIcons?.[`${item?.tool}` as IKeyTool]}
-            color="default"
-            height="20px"
-            width="20px"
+      {elementsMemo?.map((item) => (
+        <>
+          <AtomWrapper
+            key={item?.id}
+            padding="0.35em 0.7em"
+            height="auto"
+            className="CursorPointer"
+            draggable
+            onDragStart={() => {
+              dragSetState({
+                start: item,
+                enter: {},
+              });
+            }}
+            onDragEnter={(event) => {
+              event.preventDefault();
+              if (dragState?.start?.id !== item?.id) {
+                dragSetState((prev) => ({
+                  ...prev,
+                  enter: item,
+                }));
+              }
+            }}
+            onDragEnd={() => {
+              if (dragState?.start?.id !== dragState?.enter?.id) {
+                handleOrderElements();
+              }
+              dragSetState({
+                start: {} as IPELMT,
+                enter: {} as IPELMT,
+              });
+            }}
             customCSS={(css) => css`
-              svg {
-                path {
-                  stroke: #ffffff;
-                }
-                line {
-                  stroke: #ffffff;
-                }
+              width: 100%;
+              border: 1px solid ${themeColors.dark};
+              user-select: none !important;
+              opacity: 0.8;
+              ${element.id === item?.id &&
+              css`
+                border: 1px solid ${themeColors.primary};
+                background-color: ${themeColors.primary};
+                opacity: 1;
+              `}
+              ${dragState?.enter?.id === item?.id &&
+              css`
+                background-color: ${themeColors.primary};
+              `}
+                &:hover {
+                border: 1px solid ${themeColors.primary};
+                opacity: 1;
               }
             `}
-          />
-          <AtomText color={getColor(item?.id as string)} cursor="pointer">
-            {index + 1}
-          </AtomText>
-          <AtomText
-            color={getColor(item?.id as string)}
-            cursor="pointer"
-            customCSS={(css) => css`
-              user-select: none;
-              &::first-letter {
-                text-transform: uppercase;
-              }
-              text-transform: lowercase;
-            `}
+            flexDirection="row"
+            alignItems="center"
+            gap="5px"
+            onClick={() => handleChangeElement(item)}
           >
-            {item.tool}
-          </AtomText>
-        </AtomWrapper>
+            <AtomIcon
+              src={ElementsIcons?.[`${item?.tool}` as IKeyTool]}
+              color="default"
+              height="20px"
+              width="20px"
+              customCSS={(css) => css`
+                svg {
+                  path {
+                    stroke: #ffffff;
+                  }
+                  line {
+                    stroke: #ffffff;
+                  }
+                }
+              `}
+            />
+            <AtomText color={getColor(item?.id as string)} cursor="pointer">
+              {item?.view_position}
+            </AtomText>
+            <AtomText
+              color={getColor(item?.id as string)}
+              cursor="pointer"
+              customCSS={(css) => css`
+                user-select: none;
+                &::first-letter {
+                  text-transform: uppercase;
+                }
+                text-transform: lowercase;
+              `}
+            >
+              {item.tool}
+            </AtomText>
+          </AtomWrapper>
+        </>
       ))}
     </AtomWrapper>
   );

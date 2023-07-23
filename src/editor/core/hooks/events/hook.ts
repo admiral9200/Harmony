@@ -92,19 +92,36 @@ const useEvent = () => {
         element?.id &&
         !isSelected
       ) {
-        const newElement = Object.assign({}, element, { id: v4() });
+        const newElement = Object.assign({}, element, {
+          id: v4(),
+          view_position: Object.keys(elements).length + 1,
+        });
 
         handleSetElement(newElement);
       }
 
       if (eventsKeyboard === "STAGE_COPY_ELEMENT" && isSelected) {
-        for (const item of elementsIds) {
-          handleSetElements(Object.assign({}, elements[item], { id: v4() }));
+        for (let index = 0; index < elementsIds.length; index++) {
+          handleSetElements(
+            Object.assign({}, elements[elementsIds[index]], {
+              id: v4(),
+              view_position: Object.keys(elements).length + index + 1,
+            })
+          );
         }
       }
     },
-    [isCreatingElement, eventsKeyboard, drawing, element, pipeline, isSelected]
+    [
+      isCreatingElement,
+      eventsKeyboard,
+      drawing,
+      element,
+      pipeline,
+      isSelected,
+      elements,
+    ]
   );
+
   const handleMouseMove = useCallback(
     (e: KonvaEventObject<MouseEvent>) => {
       if (
@@ -141,7 +158,15 @@ const useEvent = () => {
         handleSetEl(updateElement);
       }
     },
-    [isCreatingElement, eventsKeyboard, drawing, element, pipeline, isSelected]
+    [
+      isCreatingElement,
+      eventsKeyboard,
+      drawing,
+      element,
+      pipeline,
+      isSelected,
+      elements,
+    ]
   );
 
   const handleMouseUp = useCallback(() => {
@@ -266,6 +291,28 @@ const useEvent = () => {
     };
   }, [pipeline, disableKeyBoard, element, elementsIds]);
 
+  useEffect(() => {
+    // Manejar el cambio de visibilidad de la pestaña
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // Aquí puedes realizar acciones cuando la pestaña está inactiva
+        setTool("MOVE");
+        setEventsKeyboard("STAGE_WATCHING");
+      } else {
+        // Aquí puedes realizar acciones cuando la pestaña está activa
+        setTool("MOVE");
+        setEventsKeyboard("STAGE_WATCHING");
+      }
+    };
+
+    // Agregar el evento para escuchar los cambios de visibilidad
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Eliminar el evento cuando el componente se desmonte
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
   return {
     handleMouseDown,
     handleMouseMove,

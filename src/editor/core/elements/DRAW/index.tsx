@@ -17,10 +17,6 @@ const AtomElementDraw = (item: IFCElement) => {
     }
   }, [isSelected]);
 
-  useEffect(() => {
-    shapeRef.current?.setZIndex(item?.zIndex as number);
-    trRef.current?.setZIndex(item?.zIndex as number);
-  }, [isSelected, item, trRef, shapeRef]);
   return (
     <>
       <Line

@@ -27,20 +27,13 @@ const AtomElementImage = (item: IFCElement) => {
       if (trRef.current && shapeRef.current) {
         trRef.current.nodes([shapeRef.current]);
         trRef.current?.getLayer()?.batchDraw();
-        shapeRef.current?.setZIndex(item?.zIndex as number);
       }
     }
-  }, [isSelected, item, trRef, shapeRef]);
-
-  useEffect(() => {
-    shapeRef.current?.setZIndex(item?.zIndex as number);
-    trRef.current?.setZIndex(item?.zIndex as number);
   }, [isSelected, item, trRef, shapeRef]);
 
   return (
     <>
       <KonvaImg
-        {...item}
         x={x}
         id={item?.id}
         y={y}

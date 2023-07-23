@@ -1,5 +1,5 @@
 import Konva from "konva";
-import { MutableRefObject, useEffect, useRef } from "react";
+import { MutableRefObject, useEffect, useMemo, useRef } from "react";
 import { Rect, Transformer } from "react-konva";
 import { IFCElement } from "../type";
 
@@ -17,19 +17,18 @@ const AtomElementCircle = (item: IFCElement) => {
     }
   }, [isSelected, item, trRef, shapeRef]);
 
-  useEffect(() => {
-    shapeRef.current?.setZIndex(item?.zIndex as number);
-    trRef.current?.setZIndex(item?.zIndex as number);
-  }, [isSelected, item, trRef, shapeRef]);
-
-  const borderRadius = Number(item?.width) + Number(item?.height) / 2;
+  const borderRadius = useMemo(
+    () => Number(item?.width) + Number(item?.height) / 2,
+    [item]
+  );
 
   return (
     <>
       <Rect
-        {...item}
         id={item?.id}
         key={item.id}
+        x={item?.x}
+        y={item?.y}
         name={item.id}
         width={item?.width}
         height={item?.width}
@@ -50,7 +49,7 @@ const AtomElementCircle = (item: IFCElement) => {
             y: e.target.y(),
           });
         }}
-        onTransform={(e) => {
+        onTransformEnd={(e) => {
           const rotate = e.target.rotation();
           if (shapeRef?.current) {
             const node = shapeRef.current;

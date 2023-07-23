@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
 import { IElement, IParamsElement } from "../../elements/type";
-import useElement from "../element/hook";
 import useTool from "../tool/hook";
-import elementsAtom from "./jotai";
+import elementsAtom, { ReOrderElementsAtom, dragStateAtom } from "./jotai";
 
 const useElements = () => {
   const [elements, setElements] = useAtom(elementsAtom);
-  const { element } = useElement();
   const { tool, isMoving } = useTool();
+
+  const [dragState, dragSetState] = useAtom(dragStateAtom);
+  const setOrderElements = useSetAtom(ReOrderElementsAtom);
 
   const handleSetElements = useCallback(
     (element: IElement | IParamsElement) => {
@@ -21,6 +22,10 @@ const useElements = () => {
     },
     []
   );
+
+  const handleOrderElements = useCallback(() => {
+    setOrderElements();
+  }, []);
 
   const handleDeleteElement = useCallback((id: string) => {
     setElements((prev) => {
@@ -41,6 +46,9 @@ const useElements = () => {
 
   return {
     elements,
+    dragState,
+    dragSetState,
+    handleOrderElements,
     tool,
     draggable: isMoving,
     handleSetElements: handleSetElements,

@@ -1,12 +1,14 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
+import { useAtomValue } from "jotai";
 import Konva from "konva";
-import { MutableRefObject, memo, useCallback, useEffect, useMemo } from "react";
+import { MutableRefObject, memo, useCallback, useEffect } from "react";
 import { Layer, Rect, Transformer } from "react-konva";
 import { Portal } from "react-konva-utils";
 import { useElement, useSelection, useTool } from "../hooks";
 import useElements from "../hooks/elements/hook";
+import { LayerOrderElements } from "../hooks/elements/jotai";
 import { IKeyTool } from "../hooks/tool/types";
 import { MapEls } from "./mp_el";
 import AtomPipeComponent from "./pipe";
@@ -16,6 +18,8 @@ const AtomEditorMapper = memo(() => {
   const { elements, draggable, handleSetElements } = useElements();
   const { element, handleSetElement } = useElement();
   const { isMoving } = useTool();
+
+  const mapped = useAtomValue(LayerOrderElements);
 
   const {
     selectionRectRef,
@@ -34,10 +38,6 @@ const AtomEditorMapper = memo(() => {
     },
     [isMoving, element, elements]
   );
-
-  const mapped = useMemo(() => {
-    return Object.values(elements);
-  }, [elements]);
 
   useEffect(() => {
     setSelectionRefs({

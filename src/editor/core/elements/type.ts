@@ -35,6 +35,7 @@ export type IElement = {
   src?: string;
   rotate?: number;
   zIndex: number;
+  view_position: number;
   style?: IStyleElement;
 };
 

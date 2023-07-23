@@ -29,6 +29,7 @@ const textElementStart = (
       fontSize: 12,
     },
     zIndex: count + 1,
+    view_position: count + 1,
     height: 100,
     width: 100,
   };

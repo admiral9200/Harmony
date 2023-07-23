@@ -20,6 +20,7 @@ const boxElementStart = (
     height: 100,
     width: 100,
     zIndex: count + 1,
+    view_position: count + 1,
     style: {
       stroke: "#000000",
       strokeWidth: 0,
