@@ -114,6 +114,7 @@ const useEvent = () => {
     [
       isCreatingElement,
       eventsKeyboard,
+      handleSetElement,
       drawing,
       element,
       pipeline,
