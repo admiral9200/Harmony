@@ -64,7 +64,6 @@ const ElementsList: FC<Props> = () => {
             box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
           }
         }
-
         display: flex;
         justify-content: flex-start;
       `}
@@ -78,8 +77,8 @@ const ElementsList: FC<Props> = () => {
             padding="0.35em 0.7em"
             height="auto"
             className="CursorPointer"
-            draggable
-            onDragStart={() => {
+            draggable={true}
+            onDragStart={(event) => {
               dragSetState({
                 start: item,
                 enter: {},
@@ -87,6 +86,7 @@ const ElementsList: FC<Props> = () => {
             }}
             onDragEnter={(event) => {
               event.preventDefault();
+              event.dataTransfer.getData("text/plain");
               if (dragState?.start?.id !== item?.id) {
                 dragSetState((prev) => ({
                   ...prev,
@@ -122,6 +122,7 @@ const ElementsList: FC<Props> = () => {
                 border: 1px solid ${themeColors.primary};
                 opacity: 1;
               }
+              cursor: move;
             `}
             flexDirection="row"
             alignItems="center"
@@ -144,7 +145,17 @@ const ElementsList: FC<Props> = () => {
                 }
               `}
             />
-            <AtomText color={getColor(item?.id as string)} cursor="pointer">
+            <AtomText
+              color={getColor(item?.id as string)}
+              cursor="pointer"
+              customCSS={(css) => css`
+                cursor: grab !important;
+
+                &:active {
+                  cursor: grabbing !important;
+                }
+              `}
+            >
               {item?.view_position}
             </AtomText>
             <AtomText
