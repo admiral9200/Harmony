@@ -4,7 +4,8 @@ import { IKeyTool } from "../tool/types";
 
 export type IStartEvent = (
   event: KonvaEventObject<MouseEvent>,
-  count: number
+  count: number,
+  pageId: string
 ) => IElement | IParamsElement;
 
 export type IEndEvent = (

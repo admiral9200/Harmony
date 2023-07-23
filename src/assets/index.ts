@@ -53,6 +53,12 @@ const icons = {
 <path d="M2 12H22" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
   `,
+  add: `
+  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.875 8.12402H8.125V11.874H6.875V8.12402H3.125V6.87402H6.875V3.12402H8.125V6.87402H11.875V8.12402Z" fill="white"/>
+</svg>
+
+  `,
 };
 
 export default icons;

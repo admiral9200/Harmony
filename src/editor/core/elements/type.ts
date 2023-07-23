@@ -31,6 +31,8 @@ export type IElement = {
   text?: string;
   visible: boolean;
   resolution?: "portrait" | "landscape";
+  pageId: string;
+  parentId: string;
   points?: number[];
   src?: string;
   rotate?: number;

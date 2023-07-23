@@ -6,7 +6,8 @@ import { v4 } from "uuid";
 
 const drawElementStart = (
   event: KonvaEventObject<MouseEvent>,
-  count: number
+  count: number,
+  pageId: string
 ): IElement => {
   const stage = event?.target?.getStage?.() as Konva.Stage;
   const { x, y } = stagePosition(stage);
@@ -14,6 +15,8 @@ const drawElementStart = (
     id: v4(),
     x,
     y,
+    pageId,
+    parentId: "DEFAULT",
     tool: "DRAW",
     visible: true,
     rotate: 0,

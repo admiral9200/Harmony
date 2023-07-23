@@ -6,7 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 
 const imageElementStart = (
   event: KonvaEventObject<MouseEvent>,
-  count: number
+  count: number,
+  pageId: string
 ): IElement => {
   const stage = event?.target?.getStage?.() as Konva.Stage;
   const { x, y } = stagePosition(stage);
@@ -14,6 +15,8 @@ const imageElementStart = (
     id: uuidv4(),
     x,
     y,
+    pageId,
+    parentId: "DEFAULT",
     visible: true,
     tool: "IMAGE",
     style: {

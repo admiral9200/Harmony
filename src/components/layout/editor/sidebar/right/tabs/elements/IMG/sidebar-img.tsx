@@ -1,5 +1,5 @@
 import { IParamsElement } from "@/editor/core/elements/type";
-import { useElement } from "@/editor/core/hooks";
+import { useElement, useTool } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
 import useSelect from "@/editor/core/hooks/select";
 import useCallStkcTime from "@/hooks/useCallTime";
@@ -15,7 +15,7 @@ const SidebarIMG: FC<Props> = (props) => {
   const { SelectedChangeElement, handleSelectedChangeElement } = useSelect();
   const { handleSetElement } = useElement();
   const { handleSetElements } = useElements();
-
+  const { setTool } = useTool();
   const { width, height, style } = SelectedChangeElement;
 
   const { setTimer } = useCallStkcTime({
@@ -56,8 +56,12 @@ const SidebarIMG: FC<Props> = (props) => {
         <AtomInput
           readonly
           type="text"
+          onClick={() => {
+            setTool("WRITING");
+          }}
           value={SelectedChangeElement?.src}
           onChange={(event) => {
+            setTool("WRITING");
             handle({
               src: event.target.value,
             });

@@ -1,8 +1,8 @@
-import icons from "@/assets";
 import themeColors from "@/themes";
-import { AtomIcon, AtomText, AtomWrapper } from "@whil/ui";
+import { AtomText, AtomWrapper } from "@whil/ui";
 import { FC } from "react";
 import ElementsList from "./elements";
+import PagesComponent from "./pages/pages";
 
 const LayoutEditorSidebarLeft: FC = () => {
   return (
@@ -34,107 +34,7 @@ const LayoutEditorSidebarLeft: FC = () => {
           Layers
         </AtomText>
       </AtomWrapper>
-      <AtomWrapper
-        width="100%"
-        display="flex"
-        flexDirection="column"
-        customCSS={(css) => css`
-          border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-          padding-bottom: 1em;
-        `}
-      >
-        <AtomText
-          color="white"
-          fontWeight="bold"
-          fontSize="16px"
-          padding="0.5em 0.7em"
-        >
-          Pages
-        </AtomText>
-        <AtomWrapper
-          customCSS={(css) => css`
-            height: 15rem;
-            overflow: hidden;
-            overflow-x: hidden;
-
-            &:hover {
-              overflow-y: scroll;
-
-              ::-webkit-scrollbar {
-                width: 6px;
-              }
-              ::-webkit-scrollbar-thumb {
-                background: #ffffff67;
-                border-radius: 99px;
-              }
-              ::-webkit-scrollbar-thumb:hover {
-                background: ${themeColors.white};
-                box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-              }
-            }
-
-            display: flex;
-            justify-content: flex-start;
-          `}
-          width="100%"
-          flexDirection="column"
-        >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map((item, index) => (
-            <AtomWrapper
-              key={item}
-              height="auto"
-              padding="0.35em 0.7em"
-              className="CursorPointer"
-              customCSS={(css) => css`
-                width: 100%;
-                border: 1px solid ${themeColors.dark};
-
-                user-select: none !important;
-
-                &:hover {
-                  border: 1px solid ${themeColors.primary};
-                }
-              `}
-              flexDirection="row"
-              alignItems="center"
-              gap="6px"
-            >
-              <AtomWrapper height="20px" width="20px">
-                {index === 0 && (
-                  <AtomIcon
-                    src={icons.check}
-                    height="20px"
-                    width="20px"
-                    color="default"
-                    customCSS={(css) => css`
-                      svg {
-                        path {
-                          stroke: #ffffff;
-                        }
-                        line {
-                          stroke: #ffffff;
-                        }
-                      }
-                    `}
-                  />
-                )}
-              </AtomWrapper>
-              <AtomText
-                color={themeColors.white}
-                customCSS={(css) => css`
-                  user-select: none;
-                  &::first-letter {
-                    text-transform: uppercase;
-                  }
-                  text-transform: lowercase;
-                `}
-              >
-                Page {item}
-              </AtomText>
-            </AtomWrapper>
-          ))}
-        </AtomWrapper>
-      </AtomWrapper>
+      <PagesComponent />
       <ElementsList />
     </AtomWrapper>
   );

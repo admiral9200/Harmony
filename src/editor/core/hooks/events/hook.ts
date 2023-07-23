@@ -6,6 +6,7 @@ import { v4 } from "uuid";
 import stagePosition from "../../helpers/stage/position";
 import useElement from "../element/hook";
 import useElements from "../elements/hook";
+import usePages from "../pages/hook";
 import usePipe from "../pipe/hook";
 import useSelection from "../selection/hook";
 import useTool from "../tool/hook";
@@ -40,6 +41,7 @@ const useEvent = () => {
 
   const [elementsIds, setElementsIds] = useState<string[]>([]);
 
+  const { page } = usePages();
   const updateSelectionRect = useCallback(() => {
     const node = selectionRectRef.current;
     if (node) {
@@ -81,7 +83,8 @@ const useEvent = () => {
 
         const createdElement = createStartElement(
           event,
-          Object.keys(elements).length
+          Object.keys(elements).length,
+          page
         );
 
         handleSetElement(createdElement);

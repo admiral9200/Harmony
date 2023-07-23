@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { IElement, IPELMT, IParamsElement } from "../../elements/type";
 import elementSelectedAtom from "../element/jotai";
+import { pageSelectedAtom } from "../pages/jotai";
 
 type IOBCElement = {
   [key: string]: IElement | IParamsElement;
@@ -43,9 +44,9 @@ export const ReOrderElementsAtom = atom(null, (get, set) => {
 export const LayerOrderElements = atom(
   (get) => {
     const elements = get(elementsAtom);
-    return Object.values(elements)?.sort(
-      (a, b) => Number(a?.view_position) - Number(b?.view_position)
-    );
+    return Object.values(elements)
+      ?.sort((a, b) => Number(a?.view_position) - Number(b?.view_position))
+      ?.filter((item) => get(pageSelectedAtom)?.includes(`${item?.pageId}`));
   },
   (get, set, args: IOBCElement) => args
 );
