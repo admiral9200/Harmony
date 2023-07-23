@@ -22,6 +22,13 @@ const imageElementStart = (
     style: {
       backgroundColor: "#ffffff",
       strokeWidth: 0,
+      stroke: "#000000",
+      isAllBorderRadius: false,
+      borderRadius: 0,
+      borderRadiusBottomLeft: 0,
+      borderRadiusBottomRight: 0,
+      borderRadiusTopLeft: 0,
+      borderRadiusTopRight: 0,
     },
     zIndex: count + 1,
     view_position: count + 1,
