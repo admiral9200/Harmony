@@ -92,7 +92,7 @@ const StageSidebarRight: FC = () => {
           `}
         >
           <AtomText color="white" fontWeight="bold">
-            {page?.slice(0, 8)}
+            {page?.slice(0, 14)}
           </AtomText>
           {pages?.length > 1 ? (
             <AtomButton
