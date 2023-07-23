@@ -1,4 +1,5 @@
 import { useAtom } from "jotai";
+import { useCallback } from "react";
 import { v4 } from "uuid";
 import pagesAtom, { pageSelectedAtom } from "./jotai";
 
@@ -17,10 +18,19 @@ const usePages = () => {
     setPage(id);
   };
 
+  const handleDeletePage = useCallback(
+    (pageId: string) => {
+      setPages((prev) => prev?.filter((item) => item?.id !== pageId));
+      setPage(pages?.[0]?.id);
+    },
+    [pages, setPages, setPage]
+  );
+
   return {
     handleAddPage,
     pages,
     hnadleSelectPage,
+    handleDeletePage,
     page,
   };
 };

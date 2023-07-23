@@ -44,12 +44,25 @@ const useElements = () => {
     });
   }, []);
 
+  const handleDeleteElementsByPage = useCallback((pageId: string) => {
+    setElements((prev) => {
+      for (const iterator of Object.values(prev)) {
+        if (pageId === iterator.pageId) {
+          delete prev[`${iterator.id}`];
+        }
+      }
+      const data = Object.assign({}, prev);
+      return data;
+    });
+  }, []);
+
   return {
     elements,
     dragState,
     dragSetState,
     handleOrderElements,
     tool,
+    handleDeleteElementsByPage,
     draggable: isMoving,
     handleSetElements: handleSetElements,
     handleDeleteElement,

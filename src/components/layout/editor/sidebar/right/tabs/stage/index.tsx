@@ -1,9 +1,14 @@
 import { useStage } from "@/editor/core/hooks";
-import { AtomInput, AtomText, AtomWrapper } from "@whil/ui";
+import useElements from "@/editor/core/hooks/elements/hook";
+import usePages from "@/editor/core/hooks/pages/hook";
+import { AtomButton, AtomInput, AtomText, AtomWrapper } from "@whil/ui";
 import { FC } from "react";
 
 const StageSidebarRight: FC = () => {
   const { config, handleConfig } = useStage();
+  const { page, handleDeletePage, pages } = usePages();
+
+  const { handleDeleteElementsByPage } = useElements();
 
   return (
     <AtomWrapper
@@ -70,6 +75,43 @@ const StageSidebarRight: FC = () => {
           border-bottom: 1px solid rgba(255, 255, 255, 0.25);
         `}
       ></AtomWrapper>
+      <AtomText color="white" fontWeight="bold" padding="0.5em 0.7em">
+        Config
+      </AtomText>
+      <AtomWrapper flexDirection="column" padding="0.5em 0.7em">
+        <AtomText color="white" fontWeight="bold">
+          Do you want to delete the page?
+        </AtomText>
+        <AtomWrapper
+          customCSS={(css) => css`
+            align-items: center;
+            justify-content: center;
+            gap: 1em;
+          `}
+        >
+          <AtomText color="white" fontWeight="bold">
+            {page?.slice(0, 8)}
+          </AtomText>
+          {pages?.length > 1 ? (
+            <AtomButton
+              onClick={() => {
+                handleDeleteElementsByPage(page);
+                handleDeletePage(page);
+              }}
+              customCSS={(css) => css`
+                background-color: transparent;
+                border: 0px;
+                color: red;
+                padding: 1em;
+                cursor: pointer;
+                border: 1px solid red;
+              `}
+            >
+              Delete
+            </AtomButton>
+          ) : null}
+        </AtomWrapper>
+      </AtomWrapper>
     </AtomWrapper>
   );
 };
