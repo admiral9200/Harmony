@@ -52,6 +52,7 @@ const SidebarIMG: FC<Props> = (props) => {
           gap: 0.5em;
         `}
         alignItems="center"
+        flexDirection="column"
       >
         <AtomInput
           readonly
@@ -59,15 +60,19 @@ const SidebarIMG: FC<Props> = (props) => {
           onClick={() => {
             setTool("WRITING");
           }}
-          value={SelectedChangeElement?.src}
+          value={
+            SelectedChangeElement?.src?.includes("data:image")
+              ? "Image Blob"
+              : SelectedChangeElement?.src
+          }
           onChange={(event) => {
+            if (SelectedChangeElement?.src?.includes("data:image")) return;
             setTool("WRITING");
             handle({
               src: event.target.value,
             });
           }}
           customCSS={(css) => css`
-            padding: 0.2em;
             color: white;
             width: 100%;
             border: 1px solid ${themeColors.dark};
@@ -76,6 +81,33 @@ const SidebarIMG: FC<Props> = (props) => {
             }
             background-color: ${themeColors.dark};
           `}
+        />
+        <AtomInput
+          type="file"
+          // value={element?.style?.stroke}
+          customCSS={(css) => css`
+            color: white;
+            width: 100%;
+            background-color: ${themeColors.dark};
+          `}
+          onChange={(event) => {
+            if (event.target.files?.length) {
+              const reader = new FileReader();
+
+              reader.onload = function (data) {
+                const image = new Image();
+                image.src = data?.target?.result as string;
+                image.onload = () => {
+                  handle({
+                    height: image.naturalHeight,
+                    width: image.naturalWidth,
+                    src: data?.target?.result as string,
+                  });
+                };
+              };
+              reader.readAsDataURL(event.target.files[0]);
+            }
+          }}
         />
       </AtomWrapper>
     </AtomWrapper>

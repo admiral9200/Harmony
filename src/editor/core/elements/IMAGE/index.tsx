@@ -11,9 +11,10 @@ const AtomElementImage = (item: IFCElement) => {
   const image = useCallback(() => {
     const dataImage = new Image();
 
-    dataImage.src = item?.src?.includes("https")
-      ? (item.src as string)
-      : "https://picsum.photos/200/300";
+    dataImage.src =
+      item?.src?.includes("https") || item?.src?.includes("data:image")
+        ? (item.src as string)
+        : "https://picsum.photos/200/300";
 
     return dataImage;
   }, [item]);
