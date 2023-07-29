@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useElement } from "@/editor/core/hooks";
-import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomButton, AtomText, AtomWrapper } from "@whil/ui";
 import Konva from "konva";
 import { FC, useCallback, useEffect } from "react";
-import threads, { Threads } from "./threads/threads";
 
 function downloadURI(uri: string, name: string) {
   var link = document.createElement("a");
@@ -27,12 +25,12 @@ const SidebarExportFC: FC = () => {
       height: element?.height,
     });
 
-    const layer = new Konva.Layer();
-    stage.add(layer);
+    // const layer = new Konva.Layer();
+    // stage.add(layer);
 
-    const thread = threads?.[element?.tool as IKeyTool]?.(element);
+    // const thread = threads?.[element?.tool as IKeyTool]?.(element);
 
-    layer.add(thread as Threads);
+    // layer.add(thread as Threads);
 
     return stage;
   }, []);

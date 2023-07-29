@@ -276,6 +276,39 @@ const SidebarResolutionsFC: FC = () => {
           />
         </AtomWrapper>
       </AtomWrapper>
+      <AtomWrapper
+        padding="0.5em 0.7em"
+        customCSS={(css) => css`
+          width: 100%;
+          gap: 1em;
+        `}
+      >
+        <AtomWrapper gap="0.4em" gridColumn="1" gridRow="1">
+          <AtomInput
+            type="checkbox"
+            id="isBlocked"
+            checked={SelectedChangeElement.isBlocked}
+            onChange={() => {
+              handle({
+                isBlocked: !SelectedChangeElement.isBlocked,
+              });
+            }}
+            customCSS={(css) => css`
+              padding: 0.2em;
+              color: white;
+              width: 100%;
+              border: 1px solid ${themeColors.dark};
+              &:hover {
+                border: 1px solid ${themeColors.white};
+              }
+              background-color: ${themeColors.dark};
+            `}
+          />
+          <AtomText color="white" as={"label"} htmlFor="isBlocked">
+            {SelectedChangeElement?.isBlocked ? "Blocked" : "Unblocked"}
+          </AtomText>
+        </AtomWrapper>
+      </AtomWrapper>
     </AtomWrapper>
   );
 };

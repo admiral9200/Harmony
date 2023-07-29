@@ -31,12 +31,12 @@ export type IElement = {
   text?: string;
   visible: boolean;
   resolution?: "portrait" | "landscape";
+  isBlocked: boolean;
   pageId: string;
   parentId: string;
   points?: number[];
   src?: string;
   rotate?: number;
-  zIndex: number;
   view_position: number;
   style?: IStyleElement;
 };
@@ -51,6 +51,7 @@ export type IFCElement = IParamsElement & {
   isSelected: boolean;
   onSelect: (item: IPELMT) => void;
   isMoving: boolean;
+  elements: IPELMT[];
 };
 
 export type FCE = FC<IFCElement>;

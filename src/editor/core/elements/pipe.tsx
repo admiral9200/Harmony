@@ -32,6 +32,7 @@ const AtomPipeComponent = memo(() => {
                   isSelected={item?.id === pipeline?.id}
                   onChange={onChange}
                   onSelect={onChange}
+                  elements={[pipeline]}
                 />
               );
             })}

@@ -20,6 +20,7 @@ const AtomElementDraw = (item: IFCElement) => {
   return (
     <>
       <Line
+        {...item}
         id={item?.id}
         points={item?.points}
         stroke={item?.style?.stroke}

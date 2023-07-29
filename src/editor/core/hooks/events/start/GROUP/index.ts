@@ -4,7 +4,7 @@ import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { v4 as uuidv4 } from "uuid";
 
-const boxElementStart = (
+const groupStart = (
   event: KonvaEventObject<MouseEvent>,
   count: number,
   pageId: string
@@ -16,9 +16,9 @@ const boxElementStart = (
     x,
     y,
     pageId,
-    parentId: "DEFAULT",
     isBlocked: false,
-    tool: "BOX",
+    parentId: "DEFAULT",
+    tool: "GROUP",
     visible: true,
     rotate: 0,
     height: 100,
@@ -37,4 +37,4 @@ const boxElementStart = (
     },
   };
 };
-export default boxElementStart;
+export default groupStart;

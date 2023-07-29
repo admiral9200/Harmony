@@ -25,6 +25,7 @@ const AtomElementCircle = (item: IFCElement) => {
   return (
     <>
       <Rect
+        {...item}
         id={item?.id}
         key={item.id}
         x={item?.x}

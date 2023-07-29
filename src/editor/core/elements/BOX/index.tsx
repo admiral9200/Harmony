@@ -20,6 +20,7 @@ const AtomEditorElementBox = (item: IFCElement) => {
   return (
     <>
       <Rect
+        {...item}
         x={item?.x}
         y={item?.y}
         width={item?.width}

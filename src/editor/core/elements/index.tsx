@@ -53,19 +53,34 @@ const AtomEditorMapper = memo(() => {
       <Layer ref={layerRef as MutableRefObject<Konva.Layer>}>
         {mapped?.map((item) => {
           const Component = MapEls?.[`${item?.tool}` as IKeyTool] as FCE;
-          return (
+          const isBlocked = item?.isBlocked;
+          const isSelected = item?.id === element?.id;
+
+          return isBlocked ? (
+            <Component
+              {...item}
+              key={item?.id}
+              draggable={false}
+              isMoving={false}
+              isSelected={isSelected}
+              onChange={() => {}}
+              onSelect={() => {}}
+              elements={mapped}
+            />
+          ) : (
             <Component
               {...item}
               key={item?.id}
               draggable={draggable}
               isMoving={isMoving}
-              isSelected={item?.id === element?.id}
+              isSelected={isSelected}
               onChange={onChange}
               onSelect={() => {
                 setSelected(false);
                 trRef?.current?.nodes?.([]);
                 onChange(item);
               }}
+              elements={mapped}
             />
           );
         })}

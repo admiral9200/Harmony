@@ -1,5 +1,4 @@
 import { atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import { IElement, IPELMT, IParamsElement } from "../../elements/type";
 import elementSelectedAtom from "../element/jotai";
 import { pageSelectedAtom } from "../pages/jotai";
@@ -8,7 +7,7 @@ type IOBCElement = {
   [key: string]: IElement | IParamsElement;
 };
 
-const elementsAtom = atomWithStorage<IOBCElement>("harmony_elements", {});
+const elementsAtom = atom<IOBCElement>({});
 
 export const dragStateAtom = atom({
   start: {} as IPELMT,

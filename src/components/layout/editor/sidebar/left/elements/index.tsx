@@ -24,13 +24,14 @@ const ElementsIcons: IElementsIcons = {
   TEXT: icons.text,
   LINE: icons.line,
   MOVE: icons.cursor,
+  GROUP: icons.group,
   DRAW: icons.peentool,
 };
 
 const ElementsList: FC<Props> = () => {
   const { dragSetState, dragState, handleOrderElements } = useElements();
 
-  const { handleChangeElement, element } = useElement();
+  const { handleSetElement, element } = useElement();
 
   const getColor = useCallback(
     (id: string) => {
@@ -78,7 +79,7 @@ const ElementsList: FC<Props> = () => {
             height="auto"
             className="CursorPointer"
             draggable={true}
-            onDragStart={(event) => {
+            onDragStart={() => {
               dragSetState({
                 start: item,
                 enter: {},
@@ -127,7 +128,7 @@ const ElementsList: FC<Props> = () => {
             flexDirection="row"
             alignItems="center"
             gap="5px"
-            onClick={() => handleChangeElement(item)}
+            onClick={() => handleSetElement(item)}
           >
             <AtomIcon
               src={ElementsIcons?.[`${item?.tool}` as IKeyTool]}

@@ -30,6 +30,7 @@ const AtomElementText = (item: IFCElement) => {
   return (
     <>
       <Text
+        {...item}
         x={x}
         y={y}
         id={item?.id}

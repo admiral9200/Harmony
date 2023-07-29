@@ -34,6 +34,7 @@ const AtomElementImage = (item: IFCElement) => {
   return (
     <>
       <KonvaImg
+        {...item}
         x={x}
         id={item?.id}
         y={y}

@@ -16,12 +16,12 @@ const drawElementStart = (
     x,
     y,
     pageId,
+    isBlocked: false,
     parentId: "DEFAULT",
     tool: "DRAW",
     visible: true,
     rotate: 0,
     height: 100,
-    zIndex: count + 1,
     view_position: count + 1,
     width: 100,
     style: {

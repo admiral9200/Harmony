@@ -16,10 +16,10 @@ const METHODS: Methods[] = [
     icon: icons.cursor,
     keyMethod: "MOVE",
   },
-  // {
-  //   icon: "https://res.cloudinary.com/whil/image/upload/v1682651572/app/harmony/format-square_jidxxt.svg",
-  //   keyMethod: "FRAME",
-  // },
+  {
+    icon: icons.group,
+    keyMethod: "GROUP",
+  },
   {
     icon: icons.box,
     keyMethod: "BOX",

@@ -6,5 +6,6 @@ export type IKeyTool =
   | "IMAGE"
   | "TEXT"
   | "FRAME"
+  | "GROUP"
   | "DRAW"
   | "WRITING";

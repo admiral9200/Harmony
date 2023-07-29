@@ -43,17 +43,19 @@ const useEvent = () => {
 
   const { page } = usePages();
   const updateSelectionRect = useCallback(() => {
-    const node = selectionRectRef.current;
-    if (node) {
-      node.setAttrs({
-        visible: selection.current.visible,
-        x: Math.min(selection.current.x1, selection.current.x2),
-        y: Math.min(selection.current.y1, selection.current.y2),
-        width: Math.abs(selection.current.x1 - selection.current.x2),
-        height: Math.abs(selection.current.y1 - selection.current.y2),
-        fill: "rgba(0, 161, 255, 0.3)",
-      });
-      node.getLayer().batchDraw();
+    if (selectionRectRef.current) {
+      const node = selectionRectRef.current;
+      if (node) {
+        node.setAttrs({
+          visible: selection.current.visible,
+          x: Math.min(selection.current.x1, selection.current.x2),
+          y: Math.min(selection.current.y1, selection.current.y2),
+          width: Math.abs(selection.current.x1 - selection.current.x2),
+          height: Math.abs(selection.current.y1 - selection.current.y2),
+          fill: "rgba(0, 161, 255, 0.3)",
+        });
+        node.getLayer().batchDraw();
+      }
     }
   }, [selectionRectRef]);
 
@@ -187,13 +189,18 @@ const useEvent = () => {
 
       const elementsSelected = layerRef?.current?.children?.filter?.(
         (elementNode) => {
-          if (elementNode?.attrs?.id === "select-rect-default") return;
+          if (
+            elementNode?.attrs?.id === "select-rect-default" ||
+            elementNode?.attrs?.isBlocked
+          )
+            return;
           const elBox = elementNode.getClientRect();
           if (Konva.Util.haveIntersection(selBox, elBox)) {
             return elementNode;
           }
         }
       );
+
       setElementsIds(
         elementsSelected?.map((item) => `${item?.attrs?.id}`) as string[]
       );

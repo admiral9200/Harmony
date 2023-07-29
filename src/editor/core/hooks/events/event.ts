@@ -7,6 +7,7 @@ import textElementProgress from "./progress/TEXT";
 import boxElementStart from "./start/BOX";
 import circleElementStart from "./start/CIRCLE";
 import drawElementStart from "./start/DRAW";
+import groupStart from "./start/GROUP";
 import imageElementStart from "./start/IMAGE";
 import lineElementStart from "./start/LINE";
 import textElementStart from "./start/TEXT";
@@ -15,6 +16,10 @@ import { IEventElement } from "./types";
 const eventElements: IEventElement = {
   BOX: {
     start: boxElementStart,
+    progress: boxElementProgress,
+  },
+  GROUP: {
+    start: groupStart,
     progress: boxElementProgress,
   },
   DRAW: {
