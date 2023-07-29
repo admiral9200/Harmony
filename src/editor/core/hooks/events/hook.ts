@@ -262,6 +262,7 @@ const useEvent = () => {
       } else {
         handleSetElements(element);
       }
+      handleEmptyElement();
     }
   }, [selection, layerRef, eventsKeyboard, drawing, tool, pipeline, element]);
 

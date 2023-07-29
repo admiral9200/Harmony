@@ -3,15 +3,15 @@ import Konva from "konva";
 
 const ThreadText = (element: IElement | Partial<IElement>) => {
   const text = new Konva.Text({
-    x: 0,
-    y: 0,
+    x: element?.x,
+    y: element?.y,
     id: element?.id,
     width: element?.width,
     height: element?.height,
     fontSize: element?.style?.fontSize,
     fontStyle: element?.style?.fontStyle,
     textDecoration: element?.style?.textDecoration,
-    fill: element?.style?.colorText,
+    fill: element?.style?.backgroundColor,
     text: element?.text ?? element?.id,
   });
   return text;

@@ -20,8 +20,8 @@ const ThreadImg = (element: IElement | Partial<IElement>) => {
   image.crossOrigin = "Anonymous";
 
   const box = new Konva.Image({
-    x: 0,
-    y: 0,
+    x: element?.x,
+    y: element?.y,
     width: element?.width,
     height: element?.height,
     image,

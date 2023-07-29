@@ -1,9 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useElement } from "@/editor/core/hooks";
+import useElements from "@/editor/core/hooks/elements/hook";
+import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomButton, AtomText, AtomWrapper } from "@whil/ui";
 import Konva from "konva";
 import { FC, useCallback, useEffect } from "react";
+import threads, { Threads } from "./threads/threads";
 
 function downloadURI(uri: string, name: string) {
   var link = document.createElement("a");
@@ -16,6 +19,7 @@ function downloadURI(uri: string, name: string) {
 
 const SidebarExportFC: FC = () => {
   const { element } = useElement();
+  const { elements } = useElements();
   // const [typeExport, setTypeExport] = useState("IMG");
 
   const handleExport = useCallback(() => {
@@ -25,19 +29,42 @@ const SidebarExportFC: FC = () => {
       height: element?.height,
     });
 
-    // const layer = new Konva.Layer();
-    // stage.add(layer);
+    const layer = new Konva.Layer();
+    stage.add(layer);
 
-    // const thread = threads?.[element?.tool as IKeyTool]?.(element);
+    if (element?.tool === "GROUP") {
+      const groupElements = Object.values(elements)?.filter(
+        (item) => item?.groupId === element?.groupId
+      );
 
-    // layer.add(thread as Threads);
+      console.log(groupElements, "groupElements");
+
+      layer.add(
+        new Konva.Rect({
+          x: 0,
+          y: 0,
+          width: element?.width,
+          height: element?.height,
+          fill: element?.style?.backgroundColor,
+          rotation: 0,
+        })
+      );
+
+      for (const iterator of groupElements) {
+        const thread = threads?.[iterator?.tool as IKeyTool]?.(iterator);
+        layer.add(thread as Threads);
+      }
+    } else {
+      const thread = threads?.[element?.tool as IKeyTool]?.(element);
+      layer.add(thread as Threads);
+    }
 
     return stage;
-  }, []);
+  }, [element, elements]);
 
   useEffect(() => {
     handleExport();
-  }, [element]);
+  }, [element, elements]);
 
   return (
     <AtomWrapper display="flex" flexDirection="column" width="100%">

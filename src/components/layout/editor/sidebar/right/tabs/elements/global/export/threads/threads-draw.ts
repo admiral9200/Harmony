@@ -3,8 +3,8 @@ import Konva from "konva";
 
 const ThreadDraw = (element: IElement | Partial<IElement>) => {
   const line = new Konva.Line({
-    x: 0,
-    y: 0,
+    x: element?.x,
+    y: element?.y,
     points: element?.points,
     stroke: "red",
     tension: 1,

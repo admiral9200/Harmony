@@ -4,6 +4,8 @@ import Konva from "konva";
 const ThreadLine = (element: IElement | Partial<IElement>) => {
   const line = new Konva.Line({
     id: element?.id,
+    x: element?.x,
+    y: element?.y,
     fill: element?.style?.stroke,
     height: element?.height,
     width: element?.width,
