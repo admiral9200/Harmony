@@ -4,10 +4,10 @@ import { Group, Rect, Transformer } from "react-konva";
 import { IKeyTool } from "../../hooks/tool/types";
 import { isPartialBorderRadius } from "../BOX";
 import { MapEls } from "../mp_el";
-import { IFCElement } from "../type";
+import { FCE, IFCElement } from "../type";
 
 const AtomGroupElement = (item: IFCElement) => {
-  const { draggable, onChange, onSelect, isSelected, elements } = item;
+  const { draggable, onChange, onSelect, isSelected, elements, element } = item;
   const shapeRef = useRef<Konva.Rect>();
   const trRef = useRef<Konva.Transformer>();
 
@@ -70,20 +70,43 @@ const AtomGroupElement = (item: IFCElement) => {
         }}
       />
       <Group x={item?.x} y={item?.y} width={item?.width} height={item?.height}>
-        {elements
-          ?.filter((item) => item?.tool !== "GROUP")
-          ?.map((item) => {
-            const Component = MapEls?.[`${item?.tool}` as IKeyTool] as any;
-            return (
-              <Component
-                {...item}
-                key={item?.id}
-                draggable={false}
-                isMoving={false}
-                isSelected={false}
-              />
-            );
-          })}
+        {elements?.map((elementsItem) => {
+          const Component = MapEls?.[
+            `${elementsItem?.tool}` as IKeyTool
+          ] as FCE;
+          const isBlocked = elementsItem?.isBlocked;
+          const mySelectElt = element?.id === elementsItem?.id;
+
+          return isBlocked ? (
+            <Component
+              {...elementsItem}
+              key={elementsItem?.id}
+              draggable={false}
+              isMoving={mySelectElt}
+              element={{}}
+              isSelected={mySelectElt}
+              onChange={() => {}}
+              onSelect={() => {}}
+              elements={[]}
+            />
+          ) : (
+            <Component
+              {...elementsItem}
+              key={elementsItem?.id}
+              draggable={draggable}
+              isMoving={true}
+              isSelected={mySelectElt}
+              element={{}}
+              onChange={onChange}
+              onSelect={() => {
+                // setSelected(false);
+                // trRef?.current?.nodes?.([]);
+                onChange(elementsItem);
+              }}
+              elements={[]}
+            />
+          );
+        })}
       </Group>
       {isSelected && (
         <Transformer

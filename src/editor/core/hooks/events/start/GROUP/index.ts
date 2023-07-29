@@ -11,13 +11,14 @@ const groupStart = (
 ): IElement => {
   const stage = event?.target?.getStage?.() as Konva.Stage;
   const { x, y } = stagePosition(stage);
+  const id = uuidv4();
   return {
-    id: uuidv4(),
+    id,
     x,
     y,
     pageId,
     isBlocked: false,
-    parentId: "DEFAULT",
+    groupId: id,
     tool: "GROUP",
     visible: true,
     rotate: 0,

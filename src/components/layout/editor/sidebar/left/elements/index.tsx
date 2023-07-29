@@ -45,136 +45,151 @@ const ElementsList: FC<Props> = () => {
 
   return (
     <AtomWrapper
-      customCSS={(css) => css`
-        height: calc(100vh - 24.4em);
-        overflow: hidden;
-        overflow-x: hidden;
-
-        &:hover {
-          overflow-y: scroll;
-
-          ::-webkit-scrollbar {
-            width: 6px;
-          }
-          ::-webkit-scrollbar-thumb {
-            background: #ffffff67;
-            border-radius: 99px;
-          }
-          ::-webkit-scrollbar-thumb:hover {
-            background: ${themeColors.white};
-            box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-          }
-        }
-        display: flex;
-        justify-content: flex-start;
-      `}
       width="100%"
+      display="flex"
       flexDirection="column"
+      customCSS={(css) => css`
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        padding-bottom: 1em;
+      `}
     >
-      {elementsMemo?.map((item) => (
-        <>
-          <AtomWrapper
-            key={item?.id}
-            padding="0.35em 0.7em"
-            height="auto"
-            className="CursorPointer"
-            draggable={true}
-            onDragStart={() => {
-              dragSetState({
-                start: item,
-                enter: {},
-              });
-            }}
-            onDragEnter={(event) => {
-              event.preventDefault();
-              event.dataTransfer.getData("text/plain");
-              if (dragState?.start?.id !== item?.id) {
-                dragSetState((prev) => ({
-                  ...prev,
-                  enter: item,
-                }));
-              }
-            }}
-            onDragEnd={() => {
-              if (dragState?.start?.id !== dragState?.enter?.id) {
-                handleOrderElements();
-              }
-              dragSetState({
-                start: {} as IPELMT,
-                enter: {} as IPELMT,
-              });
-            }}
-            customCSS={(css) => css`
-              width: 100%;
-              border: 1px solid ${themeColors.dark};
-              user-select: none !important;
-              opacity: 0.8;
-              ${element.id === item?.id &&
-              css`
-                border: 1px solid ${themeColors.primary};
-                background-color: ${themeColors.primary};
-                opacity: 1;
-              `}
-              ${dragState?.enter?.id === item?.id &&
-              css`
-                background-color: ${themeColors.primary};
-              `}
-                &:hover {
-                border: 1px solid ${themeColors.primary};
-                opacity: 1;
-              }
-              cursor: move;
-            `}
-            flexDirection="row"
-            alignItems="center"
-            gap="5px"
-            onClick={() => handleSetElement(item)}
-          >
-            <AtomIcon
-              src={ElementsIcons?.[`${item?.tool}` as IKeyTool]}
-              color="default"
-              height="20px"
-              width="20px"
-              customCSS={(css) => css`
-                svg {
-                  path {
-                    stroke: #ffffff;
-                  }
-                  line {
-                    stroke: #ffffff;
-                  }
-                }
-              `}
-            />
-            <AtomText
-              color={getColor(item?.id as string)}
-              cursor="pointer"
-              customCSS={(css) => css`
-                cursor: grab !important;
+      <AtomWrapper padding="0.5em 0.7em" justifyContent="space-between">
+        <AtomText color="white" fontWeight="bold" fontSize="16px">
+          Elements
+        </AtomText>
+      </AtomWrapper>
+      <AtomWrapper
+        customCSS={(css) => css`
+          height: calc(100vh - 28.3em);
+          overflow: hidden;
+          overflow-x: hidden;
 
-                &:active {
-                  cursor: grabbing !important;
+          &:hover {
+            overflow-y: scroll;
+
+            ::-webkit-scrollbar {
+              width: 6px;
+            }
+            ::-webkit-scrollbar-thumb {
+              background: #ffffff67;
+              border-radius: 99px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+              background: ${themeColors.white};
+              box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+            }
+          }
+          display: flex;
+          justify-content: flex-start;
+        `}
+        width="100%"
+        flexDirection="column"
+      >
+        {elementsMemo?.map((item) => (
+          <>
+            <AtomWrapper
+              key={item?.id}
+              height="auto"
+              className="CursorPointer"
+              draggable={true}
+              onDragStart={() => {
+                dragSetState({
+                  start: item,
+                  enter: {},
+                });
+              }}
+              onDragEnter={(event) => {
+                event.preventDefault();
+                event.dataTransfer.getData("text/plain");
+                if (dragState?.start?.id !== item?.id) {
+                  dragSetState((prev) => ({
+                    ...prev,
+                    enter: item,
+                  }));
                 }
-              `}
-            >
-              {item?.view_position}
-            </AtomText>
-            <AtomText
-              color={getColor(item?.id as string)}
-              cursor="pointer"
+              }}
+              onDragEnd={() => {
+                if (dragState?.start?.id !== dragState?.enter?.id) {
+                  handleOrderElements();
+                }
+                dragSetState({
+                  start: {} as IPELMT,
+                  enter: {} as IPELMT,
+                });
+              }}
               customCSS={(css) => css`
-                user-select: none;
-                &::first-letter {
-                  text-transform: uppercase;
+                width: 100%;
+                border: 1px solid ${themeColors.dark};
+                user-select: none !important;
+                opacity: 0.8;
+                ${element.id === item?.id &&
+                css`
+                  border: 1px solid ${themeColors.primary};
+                  background-color: ${themeColors.primary};
+                  opacity: 1;
+                `}
+                ${dragState?.enter?.id === item?.id &&
+                css`
+                  background-color: ${themeColors.primary};
+                `}
+                &:hover {
+                  border: 1px solid ${themeColors.primary};
+                  opacity: 1;
                 }
-                text-transform: lowercase;
+                cursor: move;
               `}
+              padding="0.35em 0.7em"
+              flexDirection="row"
+              alignItems="center"
+              gap="5px"
+              onClick={() => handleSetElement(item)}
             >
-              {item.tool}
-            </AtomText>
-          </AtomWrapper>
-        </>
-      ))}
+              <AtomIcon
+                src={ElementsIcons?.[`${item?.tool}` as IKeyTool]}
+                color="default"
+                height="20px"
+                width="20px"
+                customCSS={(css) => css`
+                  svg {
+                    path {
+                      stroke: #ffffff;
+                    }
+                    line {
+                      stroke: #ffffff;
+                    }
+                  }
+                `}
+              />
+              <AtomText
+                color={getColor(item?.id as string)}
+                cursor="pointer"
+                customCSS={(css) => css`
+                  cursor: grab !important;
+
+                  &:active {
+                    cursor: grabbing !important;
+                  }
+                `}
+              >
+                {item?.view_position}
+              </AtomText>
+              <AtomText
+                color={getColor(item?.id as string)}
+                cursor="pointer"
+                customCSS={(css) => css`
+                  user-select: none;
+                  &::first-letter {
+                    text-transform: uppercase;
+                  }
+                  text-transform: lowercase;
+                `}
+              >
+                {item.tool}
+              </AtomText>
+            </AtomWrapper>
+          </>
+        ))}
+      </AtomWrapper>
     </AtomWrapper>
   );
 };

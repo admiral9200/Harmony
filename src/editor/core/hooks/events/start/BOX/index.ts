@@ -7,7 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 const boxElementStart = (
   event: KonvaEventObject<MouseEvent>,
   count: number,
-  pageId: string
+  pageId: string,
+  groupId: string
 ): IElement => {
   const stage = event?.target?.getStage?.() as Konva.Stage;
   const { x, y } = stagePosition(stage);
@@ -16,7 +17,7 @@ const boxElementStart = (
     x,
     y,
     pageId,
-    parentId: "DEFAULT",
+    groupId,
     isBlocked: false,
     tool: "BOX",
     visible: true,

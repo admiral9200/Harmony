@@ -33,7 +33,7 @@ export type IElement = {
   resolution?: "portrait" | "landscape";
   isBlocked: boolean;
   pageId: string;
-  parentId: string;
+  groupId: string;
   points?: number[];
   src?: string;
   rotate?: number;
@@ -51,6 +51,7 @@ export type IFCElement = IParamsElement & {
   isSelected: boolean;
   onSelect: (item: IPELMT) => void;
   isMoving: boolean;
+  element: IPELMT;
   elements: IPELMT[];
 };
 

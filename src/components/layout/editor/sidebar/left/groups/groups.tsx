@@ -1,8 +1,8 @@
 import icons from "@/assets";
 import { useElement } from "@/editor/core/hooks";
-import usePages from "@/editor/core/hooks/pages/hook";
+import useGroups from "@/editor/core/hooks/groups/hook";
 import themeColors from "@/themes";
-import { AtomButton, AtomIcon, AtomText, AtomWrapper } from "@whil/ui";
+import { AtomIcon, AtomText, AtomWrapper } from "@whil/ui";
 import { FC, ReactNode } from "react";
 
 type Props = {
@@ -10,9 +10,8 @@ type Props = {
 };
 
 const PagesComponent: FC<Props> = () => {
-  const { pages, hnadleSelectPage, page, handleAddPage } = usePages();
-  const { handleEmptyElement } = useElement();
-
+  const { listGroups, groupSelectId, setGroupSelectId } = useGroups();
+  const { handleEmptyElement, handleSetElement, element } = useElement();
   return (
     <AtomWrapper
       width="100%"
@@ -25,22 +24,8 @@ const PagesComponent: FC<Props> = () => {
     >
       <AtomWrapper padding="0.5em 0.7em" justifyContent="space-between">
         <AtomText color="white" fontWeight="bold" fontSize="16px">
-          Pages
+          Groups
         </AtomText>
-
-        <AtomButton
-          padding="0em"
-          alignItems="center"
-          justifyContent="center"
-          backgroundColor="transparent"
-          border="0px"
-          onClick={() => {
-            handleAddPage();
-            handleEmptyElement();
-          }}
-        >
-          <AtomIcon src={icons.add} color="white" width="20px" height="20px" />
-        </AtomButton>
       </AtomWrapper>
       <AtomWrapper
         customCSS={(css) => css`
@@ -70,7 +55,7 @@ const PagesComponent: FC<Props> = () => {
         width="100%"
         flexDirection="column"
       >
-        {pages.map((item, index) => (
+        {listGroups.map((item, index) => (
           <AtomWrapper
             key={item?.id}
             height="auto"
@@ -90,12 +75,12 @@ const PagesComponent: FC<Props> = () => {
             alignItems="center"
             gap="6px"
             onClick={() => {
-              hnadleSelectPage(item?.id);
-              handleEmptyElement();
+              setGroupSelectId(item?.id);
+              handleSetElement(item);
             }}
           >
             <AtomWrapper height="20px" width="20px">
-              {item?.id === page && (
+              {item?.groupId === groupSelectId && (
                 <AtomIcon
                   src={icons.check}
                   height="20px"
@@ -124,7 +109,7 @@ const PagesComponent: FC<Props> = () => {
                 text-transform: lowercase;
               `}
             >
-              Page {index + 1}
+              Group {index + 1}
             </AtomText>
           </AtomWrapper>
         ))}

@@ -3,9 +3,11 @@ import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
+import { IPELMT } from "../../elements/type";
 import stagePosition from "../../helpers/stage/position";
 import useElement from "../element/hook";
 import useElements from "../elements/hook";
+import useGroups from "../groups/hook";
 import usePages from "../pages/hook";
 import usePipe from "../pipe/hook";
 import useSelection from "../selection/hook";
@@ -42,6 +44,14 @@ const useEvent = () => {
   const [elementsIds, setElementsIds] = useState<string[]>([]);
 
   const { page } = usePages();
+  const {
+    handleAddGroup,
+    groupSelectId,
+    groups,
+    handleDeleteGroup,
+    handleDeleteManyGroups,
+  } = useGroups();
+
   const updateSelectionRect = useCallback(() => {
     if (selectionRectRef.current) {
       const node = selectionRectRef.current;
@@ -86,7 +96,8 @@ const useEvent = () => {
         const createdElement = createStartElement(
           event,
           Object.keys(elements).length,
-          page
+          page,
+          groupSelectId as string
         );
 
         handleSetElement(createdElement);
@@ -97,22 +108,38 @@ const useEvent = () => {
         element?.id &&
         !isSelected
       ) {
+        const id = v4();
+
         const newElement = Object.assign({}, element, {
-          id: v4(),
+          id,
+          groupId: element?.tool === "GROUP" ? id : element.groupId,
           view_position: Object.keys(elements).length + 1,
-        });
+        } as IPELMT);
 
         handleSetElement(newElement);
       }
 
       if (eventsKeyboard === "STAGE_COPY_ELEMENT" && isSelected) {
         for (let index = 0; index < elementsIds.length; index++) {
-          handleSetElements(
-            Object.assign({}, elements[elementsIds[index]], {
-              id: v4(),
-              view_position: Object.keys(elements).length + index + 1,
-            })
-          );
+          const elemnt =
+            elements[elementsIds[index]] ?? groups[elementsIds[index]];
+          const id = v4();
+          if (elemnt?.tool === "GROUP") {
+            handleAddGroup(
+              Object.assign({}, elemnt, {
+                id,
+                groupId: id,
+                view_position: Object.keys(groups).length + index + 1,
+              } as IPELMT)
+            );
+          } else {
+            handleSetElements(
+              Object.assign({}, elemnt, {
+                id: v4(),
+                view_position: Object.keys(elements).length + index + 1,
+              })
+            );
+          }
         }
       }
     },
@@ -222,11 +249,19 @@ const useEvent = () => {
       setTool("MOVE");
     }
     if (pipeline?.id) {
-      handleSetElements(pipeline);
+      if (pipeline?.tool === "GROUP") {
+        handleAddGroup(pipeline);
+      } else {
+        handleSetElements(pipeline);
+      }
       handleEmptyElement();
     }
     if (element?.id) {
-      handleSetElements(element);
+      if (element?.tool === "GROUP") {
+        handleAddGroup(pipeline);
+      } else {
+        handleSetElements(element);
+      }
     }
   }, [selection, layerRef, eventsKeyboard, drawing, tool, pipeline, element]);
 
@@ -237,10 +272,14 @@ const useEvent = () => {
       if (disableKeyBoard) {
         if (KEY === "DELETE") {
           if (!isSelected) {
-            handleDeleteElement(`${element?.id}`);
-
+            if (element?.tool === "GROUP") {
+              handleDeleteGroup(`${element?.id}`);
+            } else {
+              handleDeleteElement(`${element?.id}`);
+            }
             handleElementEmpty();
           } else {
+            handleDeleteManyGroups(elementsIds);
             handleDeleteManyElements(elementsIds);
             handleElementEmpty();
             setSelected(false);

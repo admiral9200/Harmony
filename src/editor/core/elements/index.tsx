@@ -8,7 +8,8 @@ import { Layer, Rect, Transformer } from "react-konva";
 import { Portal } from "react-konva-utils";
 import { useElement, useSelection, useTool } from "../hooks";
 import useElements from "../hooks/elements/hook";
-import { LayerOrderElements } from "../hooks/elements/jotai";
+import { CanvasElements } from "../hooks/elements/jotai";
+import useGroups from "../hooks/groups/hook";
 import { IKeyTool } from "../hooks/tool/types";
 import { MapEls } from "./mp_el";
 import AtomPipeComponent from "./pipe";
@@ -19,7 +20,7 @@ const AtomEditorMapper = memo(() => {
   const { element, handleSetElement } = useElement();
   const { isMoving } = useTool();
 
-  const mapped = useAtomValue(LayerOrderElements);
+  const mapped = useAtomValue(CanvasElements);
 
   const {
     selectionRectRef,
@@ -29,12 +30,17 @@ const AtomEditorMapper = memo(() => {
     layerRef,
     setSelected,
   } = useSelection();
+  const { listGroups, handleAddGroup } = useGroups();
 
   const onChange = useCallback(
     (element: IElement | IParamsElement) => {
       if (!element.id) return;
       handleSetElement(element);
-      handleSetElements(element);
+      if (element?.tool === "GROUP") {
+        handleAddGroup(element);
+      } else {
+        handleSetElements(element);
+      }
     },
     [isMoving, element, elements]
   );
@@ -51,11 +57,10 @@ const AtomEditorMapper = memo(() => {
   return (
     <>
       <Layer ref={layerRef as MutableRefObject<Konva.Layer>}>
-        {mapped?.map((item) => {
+        {listGroups?.map((item) => {
           const Component = MapEls?.[`${item?.tool}` as IKeyTool] as FCE;
           const isBlocked = item?.isBlocked;
           const isSelected = item?.id === element?.id;
-
           return isBlocked ? (
             <Component
               {...item}
@@ -65,7 +70,10 @@ const AtomEditorMapper = memo(() => {
               isSelected={isSelected}
               onChange={() => {}}
               onSelect={() => {}}
-              elements={mapped}
+              element={element}
+              elements={mapped?.filter(
+                (dataItem) => dataItem?.groupId === item?.groupId
+              )}
             />
           ) : (
             <Component
@@ -74,16 +82,20 @@ const AtomEditorMapper = memo(() => {
               draggable={draggable}
               isMoving={isMoving}
               isSelected={isSelected}
+              element={element}
               onChange={onChange}
               onSelect={() => {
                 setSelected(false);
                 trRef?.current?.nodes?.([]);
                 onChange(item);
               }}
-              elements={mapped}
+              elements={mapped?.filter(
+                (dataItem) => dataItem?.groupId === item?.groupId
+              )}
             />
           );
         })}
+
         {/* <Group x={1000} y={0} width={250} height={250} draggable>
           <Rect x={0} y={0} fill="red" width={250} height={250} />
           {mapped?.map((item) => {

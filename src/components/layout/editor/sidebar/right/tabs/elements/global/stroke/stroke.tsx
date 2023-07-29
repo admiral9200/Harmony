@@ -1,6 +1,7 @@
 import { IParamsElement } from "@/editor/core/elements/type";
 import { useElement } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
+import useGroups from "@/editor/core/hooks/groups/hook";
 import useSelect from "@/editor/core/hooks/select";
 import useCallStkcTime from "@/hooks/useCallTime";
 import themeColors from "@/themes";
@@ -11,13 +12,18 @@ const SidebarStrokeFC: FC = () => {
   const { SelectedChangeElement, handleSelectedChangeElement } = useSelect();
   const { handleSetElement } = useElement();
   const { handleSetElements } = useElements();
-
+  const { handleAddGroup } = useGroups();
   const { style } = SelectedChangeElement;
 
   const { setTimer } = useCallStkcTime({
     callback: () => {
       handleSetElement(SelectedChangeElement);
-      handleSetElements(SelectedChangeElement);
+
+      if (SelectedChangeElement?.tool === "GROUP") {
+        handleAddGroup(SelectedChangeElement);
+      } else {
+        handleSetElements(SelectedChangeElement);
+      }
     },
     ms: 250,
   });
