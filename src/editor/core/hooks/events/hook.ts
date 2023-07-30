@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAtomValue } from "jotai";
 import Konva from "konva";
+import { Group } from "konva/lib/Group";
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
@@ -225,12 +226,35 @@ const useEvent = () => {
         return;
       }
       updateSelectionRect();
+
+      //  const selBox = selectionRectRef?.current?.getClientRect?.();
+
+      //   const elementsSelected = layerRef?.current?.children?.filter?.(
+      //     (elementNode) => {
+      //       if (
+      //         elementNode?.attrs?.id === "select-rect-default" ||
+      //         elementNode?.attrs?.isBlocked
+      //       )
+      //         return;
+      //       const elBox = elementNode.getClientRect();
+      //       if (Konva.Util.haveIntersection(selBox, elBox)) {
+      //         return elementNode;
+      //       }
+      //     }
+
       const selBox = selectionRectRef?.current?.getClientRect?.();
 
-      const elementsSelected = layerRef?.current?.children?.filter?.(
+      const groupElements = layerRef?.current?.children?.filter(
+        (item) =>
+          item?.attrs?.tool === "GROUP" &&
+          item?.attrs?.groupId === groupSelectId
+      ) as Group[];
+
+      const elementsSel = groupElements?.[0]?.children?.filter?.(
         (elementNode) => {
           if (
             elementNode?.attrs?.id === "select-rect-default" ||
+            elementNode?.attrs?.id === "group-style-background" ||
             elementNode?.attrs?.isBlocked
           )
             return;
@@ -241,13 +265,15 @@ const useEvent = () => {
         }
       );
 
+      console.log(elementsSel);
+
       setElementsIds(
-        elementsSelected?.map((item) => `${item?.attrs?.id}`) as string[]
+        elementsSel?.map((item) => `${item?.attrs?.id}`) as string[]
       );
 
-      setSelected(Boolean(Number(elementsSelected?.length)));
-      if (elementsSelected?.length) {
-        trRef.current.nodes(elementsSelected);
+      setSelected(Boolean(Number(elementsSel?.length)));
+      if (elementsSel?.length) {
+        trRef.current.nodes(elementsSel);
       } else {
         trRef.current.nodes([]);
       }

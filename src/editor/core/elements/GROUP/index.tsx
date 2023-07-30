@@ -39,27 +39,30 @@ const AtomGroupElement = (item: IFCElement) => {
   return (
     <>
       <Rect
-        {...item}
         x={item?.x}
         y={item?.y}
         width={item?.width}
         height={item?.height}
         rotationDeg={item?.rotate}
-        id={item?.id}
+        id={"group-style-background"}
         cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
         fill={item.style?.backgroundColor}
         shadowBlur={item?.style?.shadowBlur}
-        draggable={draggable}
+        draggable={item?.isBlocked === true ? false : draggable}
         stroke={item?.style?.stroke}
         ref={shapeRef as MutableRefObject<Konva.Rect>}
         strokeWidth={item?.style?.strokeWidth}
         onClick={() => {
+          if (item?.isBlocked) return;
+
           onSelect(item);
         }}
         onTap={() => {
+          if (item?.isBlocked) return;
           onSelect(item);
         }}
         onDragEnd={(e) => {
+          if (item?.isBlocked) return;
           onChange({
             ...item,
             x: e.target.x(),
@@ -86,10 +89,13 @@ const AtomGroupElement = (item: IFCElement) => {
         }}
       />
       <Group
+        {...item}
+        id={item?.id}
         x={item?.x}
         y={item?.y}
         width={item?.width}
         height={item?.height}
+        draggable={item?.isBlocked === true ? false : draggable}
         ref={groupRef as LegacyRef<Konva.Group>}
       >
         {elements?.map((elementsItem) => {
@@ -99,33 +105,20 @@ const AtomGroupElement = (item: IFCElement) => {
           const isBlocked = elementsItem?.isBlocked;
           const mySelectElt = element?.id === elementsItem?.id;
 
-          return isBlocked ? (
+          return (
             <Component
               {...elementsItem}
               key={elementsItem?.id}
-              draggable={false}
-              isMoving={mySelectElt}
-              element={{}}
+              draggable={isBlocked === true ? false : mySelectElt}
+              isMoving={isBlocked === true ? false : mySelectElt}
               isSelected={mySelectElt}
-              onChange={() => {}}
-              onSelect={() => {}}
-              elements={[]}
-            />
-          ) : (
-            <Component
-              {...elementsItem}
-              key={elementsItem?.id}
-              draggable={draggable}
-              isMoving={true}
-              isSelected={mySelectElt}
-              element={{}}
-              onChange={onChange}
+              onChange={(item) => {
+                if (isBlocked) return;
+                onChange?.(item);
+              }}
               onSelect={() => {
-                // setSelected(false);
-                // trRef?.current?.nodes?.([]);
                 onChange(elementsItem);
               }}
-              elements={[]}
             />
           );
         })}

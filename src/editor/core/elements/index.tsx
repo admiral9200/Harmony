@@ -3,6 +3,7 @@
 "use client";
 import { useAtomValue, useSetAtom } from "jotai";
 import Konva from "konva";
+import { Group } from "konva/lib/Group";
 import { MutableRefObject, memo, useCallback, useEffect } from "react";
 import { Layer, Rect, Transformer } from "react-konva";
 import { Portal } from "react-konva-utils";
@@ -62,27 +63,7 @@ const AtomEditorMapper = memo(() => {
           const Component = MapEls?.[`${item?.tool}` as IKeyTool] as FCE;
           const isBlocked = item?.isBlocked;
           const isSelected = item?.id === element?.id;
-          return isBlocked ? (
-            <Component
-              {...item}
-              key={item?.id}
-              draggable={false}
-              isMoving={false}
-              isRef={item?.groupId === groupSelectId}
-              isSelected={isSelected}
-              onChange={() => {}}
-              onRef={(ref) => {
-                const data = ref.current;
-
-                setGroupRef(data);
-              }}
-              onSelect={() => {}}
-              element={element}
-              elements={mapped?.filter(
-                (dataItem) => dataItem?.groupId === item?.groupId
-              )}
-            />
-          ) : (
+          return (
             <Component
               {...item}
               key={item?.id}
@@ -90,18 +71,19 @@ const AtomEditorMapper = memo(() => {
               isMoving={isMoving}
               isSelected={isSelected}
               isRef={item?.groupId === groupSelectId}
-              element={element}
-              onChange={onChange}
+              onChange={(item) => {
+                onChange?.(item);
+              }}
               onRef={(ref) => {
                 const data = ref.current;
-
-                setGroupRef(data);
+                setGroupRef(data as Group);
               }}
               onSelect={() => {
                 setSelected(false);
                 trRef?.current?.nodes?.([]);
                 onChange(item);
               }}
+              element={element}
               elements={mapped?.filter(
                 (dataItem) => dataItem?.groupId === item?.groupId
               )}

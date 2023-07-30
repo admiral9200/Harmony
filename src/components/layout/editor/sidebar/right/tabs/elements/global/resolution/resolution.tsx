@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { IParamsElement } from "@/editor/core/elements/type";
-import { useElement } from "@/editor/core/hooks";
+import { useElement, useTool } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
 import useGroups from "@/editor/core/hooks/groups/hook";
 import useSelect from "@/editor/core/hooks/select";
@@ -15,7 +15,7 @@ const SidebarResolutionsFC: FC = () => {
   const { handleSetElements } = useElements();
   const { handleAddGroup } = useGroups();
   const { width, height } = SelectedChangeElement;
-
+  const { setTool } = useTool();
   const { setTimer } = useCallStkcTime({
     callback: () => {
       handleSetElement(SelectedChangeElement);
@@ -146,7 +146,11 @@ const SidebarResolutionsFC: FC = () => {
             readonly
             type="number"
             value={SelectedChangeElement.x}
+            onClick={() => {
+              setTool("WRITING");
+            }}
             onChange={(event) => {
+              setTool("WRITING");
               handle({
                 x: Number(event.target.value),
               });
@@ -170,7 +174,11 @@ const SidebarResolutionsFC: FC = () => {
           <AtomInput
             type="number"
             value={SelectedChangeElement.y}
+            onClick={() => {
+              setTool("WRITING");
+            }}
             onChange={(event) => {
+              setTool("WRITING");
               handle({
                 y: Number(event.target.value),
               });
@@ -204,7 +212,11 @@ const SidebarResolutionsFC: FC = () => {
           <AtomInput
             type="number"
             value={SelectedChangeElement.width}
+            onClick={() => {
+              setTool("WRITING");
+            }}
             onChange={(event) => {
+              setTool("WRITING");
               handle({
                 width: Number(event.target.value),
               });
@@ -228,7 +240,11 @@ const SidebarResolutionsFC: FC = () => {
           <AtomInput
             type="number"
             value={SelectedChangeElement.height}
+            onClick={() => {
+              setTool("WRITING");
+            }}
             onChange={(event) => {
+              setTool("WRITING");
               handle({
                 height: Number(event.target.value),
               });
@@ -263,7 +279,11 @@ const SidebarResolutionsFC: FC = () => {
           <AtomInput
             type="number"
             value={SelectedChangeElement.rotate}
+            onClick={() => {
+              setTool("WRITING");
+            }}
             onChange={(event) => {
+              setTool("WRITING");
               handle({
                 rotate: Number(event.target.value),
               });
