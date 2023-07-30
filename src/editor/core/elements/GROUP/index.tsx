@@ -1,5 +1,5 @@
 import Konva from "konva";
-import { MutableRefObject, useEffect, useRef } from "react";
+import { LegacyRef, MutableRefObject, useEffect, useRef } from "react";
 import { Group, Rect, Transformer } from "react-konva";
 import { IKeyTool } from "../../hooks/tool/types";
 import { isPartialBorderRadius } from "../BOX";
@@ -7,8 +7,18 @@ import { MapEls } from "../mp_el";
 import { FCE, IFCElement } from "../type";
 
 const AtomGroupElement = (item: IFCElement) => {
-  const { draggable, onChange, onSelect, isSelected, elements, element } = item;
+  const {
+    draggable,
+    onChange,
+    onSelect,
+    isSelected,
+    elements,
+    element,
+    isRef,
+    onRef,
+  } = item;
   const shapeRef = useRef<Konva.Rect>();
+  const groupRef = useRef<Konva.Group | undefined>();
   const trRef = useRef<Konva.Transformer>();
 
   useEffect(() => {
@@ -19,6 +29,12 @@ const AtomGroupElement = (item: IFCElement) => {
       }
     }
   }, [isSelected, item, trRef, shapeRef]);
+
+  useEffect(() => {
+    if (isRef) {
+      onRef?.(groupRef);
+    }
+  }, [isRef, groupRef, onRef]);
 
   return (
     <>
@@ -69,7 +85,13 @@ const AtomGroupElement = (item: IFCElement) => {
           }
         }}
       />
-      <Group x={item?.x} y={item?.y} width={item?.width} height={item?.height}>
+      <Group
+        x={item?.x}
+        y={item?.y}
+        width={item?.width}
+        height={item?.height}
+        ref={groupRef as LegacyRef<Konva.Group>}
+      >
         {elements?.map((elementsItem) => {
           const Component = MapEls?.[
             `${elementsItem?.tool}` as IKeyTool

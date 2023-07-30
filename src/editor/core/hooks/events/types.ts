@@ -1,18 +1,19 @@
-import { KonvaEventObject } from "konva/lib/Node";
 import { IElement, IPELMT, IParamsElement } from "../../elements/type";
 import { IKeyTool } from "../tool/types";
 
+export type IRelativePosition = {
+  x: number;
+  y: number;
+};
+
 export type IStartEvent = (
-  event: KonvaEventObject<MouseEvent>,
+  event: IRelativePosition,
   count: number,
   pageId: string,
   groupId: string
 ) => IElement | IParamsElement;
 
-export type IEndEvent = (
-  event: KonvaEventObject<MouseEvent>,
-  element: IPELMT
-) => IPELMT;
+export type IEndEvent = (event: IRelativePosition, element: IPELMT) => IPELMT;
 
 export type IEventElement = {
   [key in IKeyTool]?: {

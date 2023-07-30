@@ -37,8 +37,6 @@ const SidebarExportFC: FC = () => {
         (item) => item?.groupId === element?.groupId
       );
 
-      console.log(groupElements, "groupElements");
-
       layer.add(
         new Konva.Rect({
           x: 0,
@@ -89,7 +87,7 @@ const SidebarExportFC: FC = () => {
         `}
         alignItems="center"
       >
-        <AtomWrapper
+        {/* <AtomWrapper
           as={"select"}
           customCSS={(css) => css`
             padding: 0em;
@@ -106,7 +104,7 @@ const SidebarExportFC: FC = () => {
         >
           <AtomWrapper as={"option"}>IMG</AtomWrapper>
           <AtomWrapper as={"option"}>PDF</AtomWrapper>
-        </AtomWrapper>
+        </AtomWrapper> */}
         <AtomButton
           customCSS={(css) => css`
             height: 1rem;

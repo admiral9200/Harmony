@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 import { atomWithDefault } from "jotai/utils";
+import { Group } from "konva/lib/Group";
 import { IPELMT } from "../../elements/type";
 import { pageSelectedAtom } from "../pages/jotai";
 
@@ -49,5 +50,7 @@ export const groupAtom = atom((get) =>
     (dataItem) => dataItem?.groupId === get(groupoSelectedIdAtom)
   )
 );
+
+export const groupRefAtom = atom<Group>({} as Group);
 
 export default groupsAtom;

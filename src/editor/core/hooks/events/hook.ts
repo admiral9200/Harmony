@@ -1,13 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useAtomValue } from "jotai";
 import Konva from "konva";
 import { KonvaEventObject } from "konva/lib/Node";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
 import { IPELMT } from "../../elements/type";
-import stagePosition from "../../helpers/stage/position";
+import groupAbsolutePosition from "../../helpers/group/position/position";
+import stageAbsolutePosition from "../../helpers/stage/position";
 import useElement from "../element/hook";
 import useElements from "../elements/hook";
 import useGroups from "../groups/hook";
+import { groupRefAtom } from "../groups/jotai";
 import usePages from "../pages/hook";
 import usePipe from "../pipe/hook";
 import useSelection from "../selection/hook";
@@ -29,11 +32,6 @@ const useEvent = () => {
     handleSetElement: handleSetEl,
     handleEmptyElement: handleElementEmpty,
   } = useElement();
-  const stageDataRef = useRef<Konva.Stage>(null);
-
-  const [drawing, setDraw] = useState(false);
-  const [eventsKeyboard, setEventsKeyboard] =
-    useState<IStageEvents>("STAGE_COPY_ELEMENT");
   const {
     selectionRefsState: { rectRef: selectionRectRef, layerRef, trRef },
     selectionRef: selection,
@@ -41,9 +39,6 @@ const useEvent = () => {
     isSelected,
   } = useSelection();
 
-  const [elementsIds, setElementsIds] = useState<string[]>([]);
-
-  const { page } = usePages();
   const {
     handleAddGroup,
     groupSelectId,
@@ -51,6 +46,14 @@ const useEvent = () => {
     handleDeleteGroup,
     handleDeleteManyGroups,
   } = useGroups();
+  const groupRef = useAtomValue(groupRefAtom);
+  const { page } = usePages();
+  const stageDataRef = useRef<Konva.Stage>(null);
+
+  const [drawing, setDraw] = useState(false);
+  const [eventsKeyboard, setEventsKeyboard] =
+    useState<IStageEvents>("STAGE_COPY_ELEMENT");
+  const [elementsIds, setElementsIds] = useState<string[]>([]);
 
   const updateSelectionRect = useCallback(() => {
     if (selectionRectRef.current) {
@@ -79,8 +82,7 @@ const useEvent = () => {
         !pipeline?.id &&
         !isSelected
       ) {
-        const stage = event.target?.getStage?.() as Konva.Stage;
-        const { x, y } = stagePosition(stage);
+        const { x, y } = stageAbsolutePosition(event);
         selection.current.visible = true;
         selection.current.x1 = Number(x);
         selection.current.y1 = Number(y);
@@ -92,9 +94,13 @@ const useEvent = () => {
       if (isCreatingElement) {
         setDraw(true);
         const createStartElement = eventElements?.[tool]?.start as IStartEvent;
+        const eventd =
+          tool === "GROUP"
+            ? stageAbsolutePosition(event)
+            : groupAbsolutePosition(groupRef);
 
         const createdElement = createStartElement(
-          event,
+          eventd,
           Object.keys(elements).length,
           page,
           groupSelectId as string
@@ -168,8 +174,7 @@ const useEvent = () => {
         if (!selection.current.visible) {
           return;
         }
-        const stage = e.target?.getStage?.() as Konva.Stage;
-        const { x, y } = stagePosition(stage);
+        const { x, y } = stageAbsolutePosition(e);
         selection.current.x2 = Number(x);
         selection.current.y2 = Number(y);
         updateSelectionRect();
@@ -179,15 +184,23 @@ const useEvent = () => {
       if (isCreatingElement) {
         const updateProgressElement = eventElements?.[tool]
           ?.progress as IEndEvent;
-
-        const updateElement = updateProgressElement(e, pipeline);
+        const evnt =
+          pipeline?.tool === "GROUP"
+            ? stageAbsolutePosition(e)
+            : groupAbsolutePosition(groupRef);
+        const updateElement = updateProgressElement(evnt, pipeline);
         handleSetElement(updateElement);
       }
       if (eventsKeyboard === "STAGE_COPY_ELEMENT" && pipeline?.id) {
-        const stage = e.target?.getStage?.() as Konva.Stage;
-        const { x, y } = stagePosition(stage);
+        const evnt =
+          pipeline?.tool === "GROUP"
+            ? stageAbsolutePosition(e)
+            : groupAbsolutePosition(groupRef);
 
-        const updateElement = Object.assign({}, pipeline, { x, y });
+        const updateElement = Object.assign({}, pipeline, {
+          x: evnt?.x,
+          y: evnt?.y,
+        });
         handleSetEl(updateElement);
       }
     },

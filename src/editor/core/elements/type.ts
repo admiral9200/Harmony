@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { Group } from "konva/lib/Group";
+import { FC, MutableRefObject } from "react";
 import { IKeyTool } from "../hooks/tool/types";
 
 export type IStyleElement = {
@@ -49,6 +50,8 @@ export type IFCElement = IParamsElement & {
   draggable: boolean;
   onChange: (item: IPELMT) => void;
   isSelected: boolean;
+  onRef?: (ref: MutableRefObject<Group | undefined>) => void;
+  isRef?: boolean;
   onSelect: (item: IPELMT) => void;
   isMoving: boolean;
   element: IPELMT;

@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import Konva from "konva";
 import { MutableRefObject, memo, useCallback, useEffect } from "react";
 import { Layer, Rect, Transformer } from "react-konva";
@@ -10,6 +10,7 @@ import { useElement, useSelection, useTool } from "../hooks";
 import useElements from "../hooks/elements/hook";
 import { CanvasElements } from "../hooks/elements/jotai";
 import useGroups from "../hooks/groups/hook";
+import { groupRefAtom } from "../hooks/groups/jotai";
 import { IKeyTool } from "../hooks/tool/types";
 import { MapEls } from "./mp_el";
 import AtomPipeComponent from "./pipe";
@@ -19,9 +20,9 @@ const AtomEditorMapper = memo(() => {
   const { elements, draggable, handleSetElements } = useElements();
   const { element, handleSetElement } = useElement();
   const { isMoving } = useTool();
-
+  const { groupSelectId } = useGroups();
   const mapped = useAtomValue(CanvasElements);
-
+  const setGroupRef = useSetAtom(groupRefAtom);
   const {
     selectionRectRef,
     trRef,
@@ -67,8 +68,14 @@ const AtomEditorMapper = memo(() => {
               key={item?.id}
               draggable={false}
               isMoving={false}
+              isRef={item?.groupId === groupSelectId}
               isSelected={isSelected}
               onChange={() => {}}
+              onRef={(ref) => {
+                const data = ref.current;
+
+                setGroupRef(data);
+              }}
               onSelect={() => {}}
               element={element}
               elements={mapped?.filter(
@@ -82,8 +89,14 @@ const AtomEditorMapper = memo(() => {
               draggable={draggable}
               isMoving={isMoving}
               isSelected={isSelected}
+              isRef={item?.groupId === groupSelectId}
               element={element}
               onChange={onChange}
+              onRef={(ref) => {
+                const data = ref.current;
+
+                setGroupRef(data);
+              }}
               onSelect={() => {
                 setSelected(false);
                 trRef?.current?.nodes?.([]);

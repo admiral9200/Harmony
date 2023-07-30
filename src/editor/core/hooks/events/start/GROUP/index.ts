@@ -1,16 +1,13 @@
 import { IElement } from "@/editor/core/elements/type";
-import stagePosition from "@/editor/core/helpers/stage/position";
-import Konva from "konva";
-import { KonvaEventObject } from "konva/lib/Node";
 import { v4 as uuidv4 } from "uuid";
+import { IRelativePosition } from "../../types";
 
 const groupStart = (
-  event: KonvaEventObject<MouseEvent>,
+  event: IRelativePosition,
   count: number,
   pageId: string
 ): IElement => {
-  const stage = event?.target?.getStage?.() as Konva.Stage;
-  const { x, y } = stagePosition(stage);
+  const { x, y } = event;
   const id = uuidv4();
   return {
     id,

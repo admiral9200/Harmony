@@ -1,10 +1,9 @@
-import Konva from "konva";
-import { KonvaEventObject } from "konva/lib/Node";
+import { IRelativePosition } from "@/editor/core/hooks/events/types";
+import { Group } from "konva/lib/Group";
 import { Vector2d } from "konva/lib/types";
 
-const stageAbsolutePosition = (event: KonvaEventObject<MouseEvent>) => {
+const groupAbsolutePosition = (node: Group): IRelativePosition => {
   // the function will return pointer position relative to the passed node
-  const node = event?.target?.getStage?.() as Konva.Stage;
   const transform = node?.getAbsoluteTransform()?.copy?.();
   // to detect relative position we need to invert transform
   transform?.invert?.();
@@ -15,4 +14,4 @@ const stageAbsolutePosition = (event: KonvaEventObject<MouseEvent>) => {
   // now we find a relative point
   return transform?.point?.(pos);
 };
-export default stageAbsolutePosition;
+export default groupAbsolutePosition;
