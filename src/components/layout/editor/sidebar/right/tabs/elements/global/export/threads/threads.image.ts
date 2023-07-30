@@ -27,9 +27,9 @@ const ThreadImg = (element: IElement | Partial<IElement>) => {
     image,
     fill: backgroundColor,
     rotation: 0,
-    // stroke: stroke,
+    stroke: stroke,
+    strokeWidth: strokeWidth,
     // rotation: element?.rotate,
-    // strokeWidth: strokeWidth,
     // cornerRadius: isAllBorderRadius
     //   ? Array(4).fill(borderRadius)
     //   : [

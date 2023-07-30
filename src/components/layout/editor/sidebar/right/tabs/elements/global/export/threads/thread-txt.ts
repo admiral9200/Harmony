@@ -9,7 +9,7 @@ const ThreadText = (element: IElement | Partial<IElement>) => {
     width: element?.width,
     height: element?.height,
     fontSize: element?.style?.fontSize,
-    fontStyle: element?.style?.fontStyle,
+    fontFamily: `${element?.style?.fontFamily}-${element?.style?.fontStyle}-${element?.style?.fontWeight}`,
     textDecoration: element?.style?.textDecoration,
     fill: element?.style?.backgroundColor,
     text: element?.text ?? element?.id,
