@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { IParamsElement } from "@/editor/core/elements/type";
-import { useElement } from "@/editor/core/hooks";
+import { useElement, useTool } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
 import useGroups from "@/editor/core/hooks/groups/hook";
 import useSelect from "@/editor/core/hooks/select";
@@ -12,7 +13,7 @@ const SidebarFillFC: FC = () => {
   const { SelectedChangeElement, handleSelectedChangeElement } = useSelect();
   const { handleSetElement } = useElement();
   const { handleSetElements } = useElements();
-
+  const { setTool } = useTool();
   const { handleAddGroup } = useGroups();
 
   const { style } = SelectedChangeElement;
@@ -77,14 +78,14 @@ const SidebarFillFC: FC = () => {
               outline: none;
             `}
             value={style?.backgroundColor}
-            onChange={(event) =>
+            onChange={(event) => {
               handle({
                 style: {
                   ...SelectedChangeElement.style,
                   backgroundColor: event.target.value,
                 },
-              })
-            }
+              });
+            }}
           />
           <AtomText
             as={"label"}
@@ -102,7 +103,11 @@ const SidebarFillFC: FC = () => {
           readonly
           type="text"
           value={`#${style?.backgroundColor?.replace(/#/, "")}`}
+          onClick={() => {
+            setTool("WRITING");
+          }}
           onChange={(event) => {
+            setTool("WRITING");
             handle({
               style: {
                 ...SelectedChangeElement.style,

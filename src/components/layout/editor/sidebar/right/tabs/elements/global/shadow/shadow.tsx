@@ -9,7 +9,7 @@ import themeColors from "@/themes";
 import { AtomInput, AtomText, AtomWrapper } from "@whil/ui";
 import { FC, useCallback } from "react";
 
-const SidebarStrokeFC: FC = () => {
+const SidebarShadowFC: FC = () => {
   const { SelectedChangeElement, handleSelectedChangeElement } = useSelect();
   const { handleSetElement } = useElement();
   const { handleSetElements } = useElements();
@@ -173,4 +173,4 @@ const SidebarStrokeFC: FC = () => {
   );
 };
 
-export default SidebarStrokeFC;
+export default SidebarShadowFC;
