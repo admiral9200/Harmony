@@ -6,7 +6,10 @@ const textElementStart = (
   event: IRelativePosition,
   count: number,
   pageId: string,
-  groupId: string
+  groupId: string,
+  params?: {
+    text?: string;
+  }
 ): IElement => {
   const { x, y } = event;
   return {
@@ -19,7 +22,7 @@ const textElementStart = (
     tool: "TEXT",
     rotate: 0,
     visible: true,
-    text: uuidv4().slice(0, 4),
+    text: params?.text ?? uuidv4().slice(0, 4),
     style: {
       backgroundColor: "#000",
       stroke: "#000",

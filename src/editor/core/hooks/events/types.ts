@@ -10,7 +10,13 @@ export type IStartEvent = (
   event: IRelativePosition,
   count: number,
   pageId: string,
-  groupId: string
+  groupId: string,
+  params?: {
+    text?: string;
+    image?: string;
+    width?: number;
+    height?: number;
+  }
 ) => IElement | IParamsElement;
 
 export type IEndEvent = (event: IRelativePosition, element: IPELMT) => IPELMT;

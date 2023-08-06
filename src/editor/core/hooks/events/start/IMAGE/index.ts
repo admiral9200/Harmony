@@ -6,7 +6,12 @@ const imageElementStart = (
   event: IRelativePosition,
   count: number,
   pageId: string,
-  groupId: string
+  groupId: string,
+  params?: {
+    image?: string;
+    width?: number;
+    height?: number;
+  }
 ): IElement => {
   const { x, y } = event;
   return {
@@ -37,10 +42,10 @@ const imageElementStart = (
       borderRadiusTopRight: 0,
     },
     view_position: count + 1,
-    src: "https://picsum.photos/200/300",
+    src: params?.image ?? "https://picsum.photos/200/300",
     rotate: 0,
-    height: 100,
-    width: 100,
+    height: params?.height ?? 100,
+    width: params?.width ?? 100,
   };
 };
 export default imageElementStart;
