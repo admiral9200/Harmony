@@ -1,14 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useAtom, useAtomValue } from "jotai";
 import { useCallback } from "react";
 import { IPELMT } from "../../elements/type";
 import groupsAtom, {
   groupAtom,
+  groupDefaultId,
   groupoSelectedIdAtom,
   listGroupsAtom,
 } from "./jotai";
 
 const useGroups = () => {
   const [groups, setGroups] = useAtom(groupsAtom);
+
   const listGroups = useAtomValue(listGroupsAtom);
   const group = useAtomValue(groupAtom);
   const [groupSelectId, setGroupSelectId] = useAtom(groupoSelectedIdAtom);
@@ -21,6 +24,7 @@ const useGroups = () => {
   };
   const handleDeleteGroup = (groupId: string) => {
     setGroups((prev) => {
+      if (groupId === groupDefaultId) return prev;
       if (Object?.values(prev)?.length === 1) return prev;
       delete prev[groupId];
 
@@ -35,6 +39,7 @@ const useGroups = () => {
       if (totalGroups === 1) return prev;
 
       for (const iterator of ids) {
+        if (iterator === groupDefaultId) break;
         if (Object?.values(prev)?.length === 1) break;
         delete prev[iterator];
       }
