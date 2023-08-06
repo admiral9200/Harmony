@@ -371,10 +371,6 @@ const useEvent = () => {
     const handlePaste = (event: globalThis.ClipboardEvent) => {
       const clipboardText = event?.clipboardData?.getData("text") ?? "";
 
-      const plainTextRegex = /^[a-zA-Z0-9\s]+$/;
-
-      const htmlTagsRegex = /<[^>]+>/g;
-      const plainText = clipboardText.replace(htmlTagsRegex, "");
       const file = event?.clipboardData?.files[0];
 
       if (file) {
