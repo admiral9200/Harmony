@@ -1,5 +1,44 @@
 # Harmony Editor
 
+_A project that reflects the greatness of my skills._
+
+Introducing "harmony" - A project that reflects my skills.
+
+I have created 'Harmony' to showcase my skills as a frontend developer in JavaScript with React.js. Harmony is a testament to my passion for crafting stunning and functional web experiences. I hope you enjoy exploring the harmony of code and design that I have woven together in this project, reflecting my dedication and enthusiasm for frontend development!
+
+## Instructions
+
+This application was created with the next tech stack.
+
+1. React
+2. Typescript
+3. Next.js
+4. Jotai State Management
+5. @whil/ui
+6. canvas
+7. react-konva
+8. uuid
+
+If you want to run the application next the follow instructions.
+
+1. Git clone repository
+
+   ```
+   git clone https://github.com/IvanGLpz/Harmony
+   ```
+
+2. install the dependencies
+
+   ```
+   yarn install
+   ```
+
+3. Run application
+
+   ```
+   yarn android or yarn ios
+   ```
+
 ![1686589816205](image/README/1686589816205.png)
 
 Harmony offers an innovative solution for React projects that require image editing, PDF creation, and dynamic web design capabilities, similar to popular tools like Figma, Adobe XD, and Adobe Photoshop. Harmony is an open-source project specifically designed for React developers, using React Konva and Styled Components as its foundation. Importantly, Harmony is not a paid library or product. It allows each developer to customize it to fit their specific needs at no additional cost.
