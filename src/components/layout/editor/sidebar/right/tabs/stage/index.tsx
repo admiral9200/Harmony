@@ -1,6 +1,7 @@
 import { useStage } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
 import usePages from "@/editor/core/hooks/pages/hook";
+import { pageIdDefault } from "@/editor/core/hooks/pages/jotai";
 import { AtomButton, AtomInput, AtomText, AtomWrapper } from "@whil/ui";
 import { FC } from "react";
 
@@ -78,42 +79,45 @@ const StageSidebarRight: FC = () => {
       <AtomText color="white" fontWeight="bold" padding="0.5em 0.7em">
         Config
       </AtomText>
-      <AtomWrapper flexDirection="column" padding="0.5em 0.7em">
-        <AtomText color="white" fontWeight="bold" textAlign="left">
-          {pages?.length > 1
-            ? "Do you want delete this page?"
-            : "The current page"}
-        </AtomText>
-        <AtomWrapper
-          customCSS={(css) => css`
-            align-items: center;
-            justify-content: flex-start;
-            gap: 1em;
-          `}
-        >
-          <AtomText color="white" fontWeight="bold">
-            {page?.slice(0, 14)}
+      {page !== pageIdDefault ? (
+        <AtomWrapper flexDirection="column" padding="0.5em 0.7em">
+          <AtomText color="white" fontWeight="bold" textAlign="left">
+            {pages?.length > 1
+              ? "Do you want delete this page?"
+              : "The current page"}
           </AtomText>
-          {pages?.length > 1 ? (
-            <AtomButton
-              onClick={() => {
-                handleDeletePage(page);
-                handleDeleteElementsByPage(page);
-              }}
-              customCSS={(css) => css`
-                background-color: transparent;
-                border: 0px;
-                color: red;
-                padding: 1em;
-                cursor: pointer;
-                border: 1px solid red;
-              `}
-            >
-              Delete
-            </AtomButton>
-          ) : null}
+          <AtomWrapper
+            customCSS={(css) => css`
+              align-items: center;
+              justify-content: flex-start;
+              gap: 1em;
+            `}
+          >
+            <AtomText color="white" fontWeight="bold">
+              {page?.slice(0, 14)}
+            </AtomText>
+            {pages?.length > 1 ? (
+              <AtomButton
+                onClick={() => {
+                  if (page === pageIdDefault) return;
+                  handleDeletePage(page);
+                  handleDeleteElementsByPage(page);
+                }}
+                customCSS={(css) => css`
+                  background-color: transparent;
+                  border: 0px;
+                  color: red;
+                  padding: 1em;
+                  cursor: pointer;
+                  border: 1px solid red;
+                `}
+              >
+                Delete
+              </AtomButton>
+            ) : null}
+          </AtomWrapper>
         </AtomWrapper>
-      </AtomWrapper>
+      ) : null}
     </AtomWrapper>
   );
 };
