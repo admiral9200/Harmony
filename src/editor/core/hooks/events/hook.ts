@@ -18,7 +18,6 @@ import useSelection from "../selection/hook";
 import useTool from "../tool/hook";
 import eventElements from "./event";
 import { IEndEvent, IStageEvents, IStartEvent } from "./types";
-
 const useEvent = () => {
   const { isCreatingElement, tool, setTool, disableKeyBoard } = useTool();
   const {
@@ -265,8 +264,6 @@ const useEvent = () => {
         }
       );
 
-      console.log(elementsSel);
-
       setElementsIds(
         elementsSel?.map((item) => `${item?.attrs?.id}`) as string[]
       );
@@ -371,11 +368,107 @@ const useEvent = () => {
       setEventsKeyboard("STAGE_WATCHING");
     };
 
+    const handlePaste = (event: globalThis.ClipboardEvent) => {
+      const clipboardText = event?.clipboardData?.getData("text") ?? "";
+
+      const plainTextRegex = /^[a-zA-Z0-9\s]+$/;
+
+      const htmlTagsRegex = /<[^>]+>/g;
+      const plainText = clipboardText.replace(htmlTagsRegex, "");
+      const file = event?.clipboardData?.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (data) {
+          const image = new Image();
+          image.src = data?.target?.result as string;
+          image.onload = () => {
+            const createStartElement = eventElements?.["IMAGE"]
+              ?.start as IStartEvent;
+            const eventd = groupAbsolutePosition(groupRef);
+            const createdElement = createStartElement(
+              eventd,
+              Object.keys(elements).length,
+              page,
+              groupSelectId as string,
+              {
+                image: data?.target?.result as string,
+                width: image.width,
+                height: image.height,
+              }
+            );
+            handleSetElement(createdElement);
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+      // Comprobar si es texto plano
+      if (clipboardText) {
+        const createStartElement = eventElements?.["TEXT"]
+          ?.start as IStartEvent;
+        const eventd = groupAbsolutePosition(groupRef);
+        const createdElement = createStartElement(
+          eventd,
+          Object.keys(elements).length,
+          page,
+          groupSelectId as string,
+          {
+            text: clipboardText,
+          }
+        );
+        handleSetElement(createdElement);
+      }
+
+      if (clipboardText.trim().startsWith("<svg")) {
+        const parser = new DOMParser();
+        const svgDOM = parser
+          .parseFromString(clipboardText, "image/svg+xml")
+          .querySelector("svg");
+
+        const serializer = new XMLSerializer();
+        const svgString = serializer.serializeToString(svgDOM as SVGSVGElement);
+
+        const img = new Image();
+
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas?.getContext?.("2d");
+
+          canvas.width = img.width;
+          canvas.height = img.height;
+
+          ctx?.drawImage(img, 0, 0);
+        };
+
+        const dataImage =
+          "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgString);
+
+        img.src = dataImage;
+        const createStartElement = eventElements?.["IMAGE"]
+          ?.start as IStartEvent;
+        const eventd = groupAbsolutePosition(groupRef);
+        const createdElement = createStartElement(
+          eventd,
+          Object.keys(elements).length,
+          page,
+          groupSelectId as string,
+          {
+            image: dataImage,
+            width: img.width,
+            height: img.height,
+          }
+        );
+        handleSetElement(createdElement);
+      }
+    };
     document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("paste", handlePaste);
     document.addEventListener("keyup", handleKeyUp);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("paste", handlePaste);
       document.removeEventListener("keyup", handleKeyUp);
     };
   }, [pipeline, disableKeyBoard, element, elementsIds]);
