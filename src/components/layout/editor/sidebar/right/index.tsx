@@ -1,7 +1,7 @@
 import useElement from "@/editor/core/hooks/element/hook";
 import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
-import { AtomText, AtomWrapper } from "@whil/ui";
+import { AtomWrapper } from "@whil/ui";
 import { FC } from "react";
 import SidebarRightBox from "./tabs/elements/BOX/sidebar-box";
 import SidebarIMG from "./tabs/elements/IMG/sidebar-img";
@@ -13,17 +13,35 @@ import SidebarStrokeFC from "./tabs/elements/global/stroke/stroke";
 import StageSidebarRight from "./tabs/stage";
 
 type LayoutsTabs = {
-  [key in IKeyTool]?: JSX.Element;
+  [key in IKeyTool]?: FC;
 };
 const layoutTabs: LayoutsTabs = {
-  BOX: <SidebarRightBox />,
-  IMAGE: <SidebarIMG />,
-  TEXT: <SidebarText />,
+  BOX: SidebarRightBox,
+  IMAGE: SidebarIMG,
+  TEXT: SidebarText,
   // CIRCLE: <LayoutSidebarRightStageTabElementCircle />,
   // LINE: <LayoutSidebarRightStageTabElementLine />,
   // IMAGE: <LayoutSidebarRightStageTabElementImage />,
   // TEXT: <LayoutSidebarRightStageTabElementText />,
 };
+
+const propertiesElements = (tool: IKeyTool) => [
+  {
+    Component: SidebarResolutionsFC,
+  },
+  {
+    Component: layoutTabs?.[`${tool}`],
+  },
+  {
+    Component: SidebarFillFC,
+  },
+  {
+    Component: SidebarStrokeFC,
+  },
+  {
+    Component: SidebarExportFC,
+  },
+];
 
 const LayoutEditorSidebarRight: FC = () => {
   const { element } = useElement();
@@ -66,58 +84,24 @@ const LayoutEditorSidebarRight: FC = () => {
     >
       {element?.id ? (
         <>
-          <AtomWrapper padding="0.5em 0.7em">
-            <AtomText color="white" fontWeight="bold" fontSize="0.8em">
-              Properties
-            </AtomText>
-          </AtomWrapper>
-          <AtomWrapper
-            width="100%"
-            height="auto"
-            customCSS={(css) => css`
-              border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            `}
-          ></AtomWrapper>
-          <SidebarResolutionsFC />
-          <AtomWrapper
-            width="100%"
-            height="auto"
-            customCSS={(css) => css`
-              border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            `}
-          ></AtomWrapper>
-          {layoutTabs?.[`${element?.tool}` as IKeyTool]}
-          <AtomWrapper
-            width="100%"
-            height="auto"
-            customCSS={(css) => css`
-              border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            `}
-          ></AtomWrapper>
-          <SidebarFillFC />
-          <AtomWrapper
-            width="100%"
-            height="auto"
-            customCSS={(css) => css`
-              border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            `}
-          ></AtomWrapper>
-          <SidebarStrokeFC />
-          <AtomWrapper
-            width="100%"
-            height="auto"
-            customCSS={(css) => css`
-              border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            `}
-          ></AtomWrapper>
-          <AtomWrapper
-            width="100%"
-            height="auto"
-            customCSS={(css) => css`
-              border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            `}
-          ></AtomWrapper>
-          <SidebarExportFC />
+          {propertiesElements?.(`${element?.tool as IKeyTool}`)?.map(
+            ({ Component }) => (
+              <>
+                {Component ? (
+                  <>
+                    <Component />
+                    <AtomWrapper
+                      width="100%"
+                      height="auto"
+                      customCSS={(css) => css`
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+                      `}
+                    ></AtomWrapper>
+                  </>
+                ) : null}
+              </>
+            )
+          )}
         </>
       ) : (
         <StageSidebarRight />
