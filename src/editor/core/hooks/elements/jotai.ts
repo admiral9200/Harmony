@@ -3,12 +3,15 @@ import { IElement, IPELMT, IParamsElement } from "../../elements/type";
 import elementSelectedAtom from "../element/jotai";
 import { groupoSelectedIdAtom } from "../groups/jotai";
 import { pageSelectedAtom } from "../pages/jotai";
+import JSONPORTFOLIO from "./hydrated";
 
 type IOBCElement = {
   [key: string]: IElement | IParamsElement;
 };
 
-const elementsAtom = atom<IOBCElement>({});
+const elementsAtom = atom<IOBCElement>(
+  JSON.parse(JSONPORTFOLIO) as IOBCElement
+);
 
 export const dragStateAtom = atom({
   start: {} as IPELMT,
