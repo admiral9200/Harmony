@@ -10,6 +10,12 @@ export type IStyleElement = {
   textDecoration?: string;
   fontWeight?: number;
   shadowBlur?: number;
+  shadowColor?: string;
+  shadowOffset?: {
+    x?: number;
+    y?: number;
+  };
+  shadowOpacity?: number;
   borderRadius?: number;
   isAllBorderRadius?: boolean;
   borderRadiusTopLeft?: number;

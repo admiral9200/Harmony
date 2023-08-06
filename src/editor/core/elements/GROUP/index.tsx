@@ -44,10 +44,14 @@ const AtomGroupElement = (item: IFCElement) => {
         width={item?.width}
         height={item?.height}
         rotationDeg={item?.rotate}
+        shadowColor={item?.style?.shadowColor}
+        shadowOpacity={item?.style?.shadowOpacity}
+        shadowOffsetX={item?.style?.shadowOffset?.x}
+        shadowOffsetY={item?.style?.shadowOffset?.y}
+        shadowBlur={item?.style?.shadowBlur}
         id={"group-style-background"}
         cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
         fill={item.style?.backgroundColor}
-        shadowBlur={item?.style?.shadowBlur}
         draggable={item?.isBlocked === true ? false : draggable}
         stroke={item?.style?.stroke}
         ref={shapeRef as MutableRefObject<Konva.Rect>}

@@ -24,6 +24,13 @@ const drawElementStart = (
     width: 100,
     style: {
       stroke: "#000",
+      shadowBlur: 0,
+      shadowColor: "#000",
+      shadowOffset: {
+        x: 0,
+        y: 0,
+      },
+      shadowOpacity: 1,
       strokeWidth: 1,
       backgroundColor: "#ffffff",
     },

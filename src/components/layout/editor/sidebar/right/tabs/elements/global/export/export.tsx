@@ -1,4 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { isPartialBorderRadius } from "@/editor/core/elements/BOX";
+import { IFCElement } from "@/editor/core/elements/type";
 import { useElement } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
 import { IKeyTool } from "@/editor/core/hooks/tool/types";
@@ -44,7 +46,16 @@ const SidebarExportFC: FC = () => {
           width: element?.width,
           height: element?.height,
           fill: element?.style?.backgroundColor,
-          rotation: 0,
+          stroke: element?.style?.stroke,
+          strokeWidth: element?.style?.strokeWidth,
+          shadowBlur: element?.style?.shadowBlur,
+          shadowColor: element?.style?.shadowColor,
+          shadowOpacity: element?.style?.shadowOpacity,
+          shadowOffsetX: element?.style?.shadowOffset?.x,
+          shadowOffsetY: element?.style?.shadowOffset?.y,
+          rotation: element?.rotate,
+          cornerRadius: isPartialBorderRadius(element as IFCElement)
+            ?.cornerRadius,
         })
       );
 

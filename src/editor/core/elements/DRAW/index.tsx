@@ -24,6 +24,11 @@ const AtomElementDraw = (item: IFCElement) => {
         id={item?.id}
         points={item?.points}
         stroke={item?.style?.stroke}
+        shadowColor={item?.style?.shadowColor}
+        shadowOpacity={item?.style?.shadowOpacity}
+        shadowOffsetX={item?.style?.shadowOffset?.x}
+        shadowOffsetY={item?.style?.shadowOffset?.y}
+        shadowBlur={item?.style?.shadowBlur}
         strokeWidth={item?.style?.strokeWidth}
         globalCompositeOperation="source-over"
         lineCap="round"

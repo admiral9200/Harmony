@@ -26,10 +26,14 @@ const AtomEditorElementBox = (item: IFCElement) => {
         width={item?.width}
         height={item?.height}
         rotationDeg={item?.rotate}
+        shadowColor={item?.style?.shadowColor}
+        shadowOpacity={item?.style?.shadowOpacity}
+        shadowOffsetX={item?.style?.shadowOffset?.x}
+        shadowOffsetY={item?.style?.shadowOffset?.y}
+        shadowBlur={item?.style?.shadowBlur}
         id={item?.id}
         cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
         fill={item.style?.backgroundColor}
-        shadowBlur={item?.style?.shadowBlur}
         ref={shapeRef as MutableRefObject<Konva.Rect>}
         draggable={draggable}
         stroke={item?.style?.stroke}
@@ -92,23 +96,14 @@ export const isPartialBorderRadius = (item: IFCElement) => {
     borderRadius,
   } = item?.style as IStyleElement;
 
-  return item?.style?.isAllBorderRadius
-    ? {
-        cornerRadius: [
-          borderRadiusTopLeft,
-          borderRadiusTopRight,
-          borderRadiusBottomRight,
-          borderRadiusBottomLeft,
-        ] as number[],
-      }
-    : {
-        cornerRadius: [
-          borderRadius,
-          borderRadius,
-          borderRadius,
-          borderRadius,
-        ] as number[],
-      };
+  return {
+    cornerRadius: [
+      borderRadiusTopLeft,
+      borderRadiusTopRight,
+      borderRadiusBottomRight,
+      borderRadiusBottomLeft,
+    ] as number[],
+  };
 };
 
 export default AtomEditorElementBox;

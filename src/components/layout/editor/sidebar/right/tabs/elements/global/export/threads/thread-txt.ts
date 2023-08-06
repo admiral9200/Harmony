@@ -11,6 +11,13 @@ const ThreadText = (element: IElement | Partial<IElement>) => {
     fontSize: element?.style?.fontSize,
     fontFamily: `${element?.style?.fontFamily}-${element?.style?.fontStyle}-${element?.style?.fontWeight}`,
     textDecoration: element?.style?.textDecoration,
+    shadowColor: element?.style?.shadowColor,
+    shadowOpacity: element?.style?.shadowOpacity,
+    shadowOffsetX: element?.style?.shadowOffset?.x,
+    shadowOffsetY: element?.style?.shadowOffset?.y,
+    shadowBlur: element?.style?.shadowBlur,
+    stroke: element?.style?.stroke,
+    strokeWidth: element?.style?.strokeWidth,
     fill: element?.style?.backgroundColor,
     text: element?.text ?? element?.id,
   });

@@ -26,6 +26,13 @@ const imageElementStart = (
       borderRadius: 0,
       borderRadiusBottomLeft: 0,
       borderRadiusBottomRight: 0,
+      shadowBlur: 0,
+      shadowColor: "#000",
+      shadowOffset: {
+        x: 0,
+        y: 0,
+      },
+      shadowOpacity: 1,
       borderRadiusTopLeft: 0,
       borderRadiusTopRight: 0,
     },

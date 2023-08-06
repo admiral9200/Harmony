@@ -26,6 +26,13 @@ const circleElementStart = (
       backgroundColor: "#ffffff",
       strokeWidth: 0,
       stroke: "#000000",
+      shadowBlur: 0,
+      shadowColor: "#000",
+      shadowOffset: {
+        x: 0,
+        y: 0,
+      },
+      shadowOpacity: 1,
       isAllBorderRadius: false,
       borderRadius: 0,
       borderRadiusBottomLeft: 0,

@@ -27,8 +27,12 @@ const AtomEditorElementBox = (item: IFCElement) => {
         y={item?.y}
         width={item?.width}
         fill={item.style?.stroke}
-        height={item?.style?.strokeWidth}
+        shadowColor={item?.style?.shadowColor}
+        shadowOpacity={item?.style?.shadowOpacity}
+        shadowOffsetX={item?.style?.shadowOffset?.x}
+        shadowOffsetY={item?.style?.shadowOffset?.y}
         shadowBlur={item?.style?.shadowBlur}
+        height={item?.style?.strokeWidth}
         cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
         ref={shapeRef as MutableRefObject<Konva.Rect>}
         draggable={draggable}

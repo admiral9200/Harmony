@@ -46,6 +46,10 @@ const AtomElementImage = (item: IFCElement) => {
         fill={item.style?.backgroundColor}
         shadowBlur={item?.style?.shadowBlur}
         stroke={item?.style?.stroke}
+        shadowColor={item?.style?.shadowColor}
+        shadowOpacity={item?.style?.shadowOpacity}
+        shadowOffsetX={item?.style?.shadowOffset?.x}
+        shadowOffsetY={item?.style?.shadowOffset?.y}
         strokeWidth={item?.style?.strokeWidth}
         rotation={rotate}
         ref={shapeRef as MutableRefObject<Konva.Image>}

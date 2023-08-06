@@ -37,6 +37,11 @@ const AtomElementText = (item: IFCElement) => {
         width={width}
         height={height}
         fontSize={item?.style?.fontSize}
+        shadowColor={item?.style?.shadowColor}
+        shadowOpacity={item?.style?.shadowOpacity}
+        shadowOffsetX={item?.style?.shadowOffset?.x}
+        shadowOffsetY={item?.style?.shadowOffset?.y}
+        shadowBlur={item?.style?.shadowBlur}
         fontFamily={`${item?.style?.fontFamily}-${item?.style?.fontStyle}-${item?.style?.fontWeight}`}
         textDecoration={item?.style?.textDecoration}
         fill={style?.backgroundColor}

@@ -9,12 +9,16 @@ const ThreadCircle = (element: IElement | Partial<IElement>) => {
     x: element?.x,
     y: element?.y,
     width: element?.width,
-    height: element?.height,
+    height: element?.width,
     fill: backgroundColor,
     stroke: stroke,
-    rotation: 0,
     strokeWidth: strokeWidth,
+    rotation: element?.rotate,
     shadowBlur: element?.style?.shadowBlur,
+    shadowOpacity: element?.style?.shadowOpacity,
+    shadowColor: element?.style?.shadowColor,
+    shadowOffsetX: element?.style?.shadowOffset?.x,
+    shadowOffsetY: element?.style?.shadowOffset?.y,
     cornerRadius: Number(element?.width) + Number(element?.height) / 2,
   });
   return box;

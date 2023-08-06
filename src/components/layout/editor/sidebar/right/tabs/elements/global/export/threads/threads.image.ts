@@ -1,18 +1,14 @@
-import { IElement, IStyleElement } from "@/editor/core/elements/type";
+import { isPartialBorderRadius } from "@/editor/core/elements/BOX";
+import {
+  IElement,
+  IFCElement,
+  IStyleElement,
+} from "@/editor/core/elements/type";
 import Konva from "konva";
 
 const ThreadImg = (element: IElement | Partial<IElement>) => {
-  const {
-    backgroundColor,
-    stroke,
-    strokeWidth,
-    isAllBorderRadius,
-    borderRadius,
-    borderRadiusBottomLeft,
-    borderRadiusBottomRight,
-    borderRadiusTopLeft,
-    borderRadiusTopRight,
-  } = element?.style as IStyleElement;
+  const { backgroundColor, stroke, strokeWidth } =
+    element?.style as IStyleElement;
 
   const image = new Image();
 
@@ -29,15 +25,12 @@ const ThreadImg = (element: IElement | Partial<IElement>) => {
     rotation: 0,
     stroke: stroke,
     strokeWidth: strokeWidth,
-    // rotation: element?.rotate,
-    // cornerRadius: isAllBorderRadius
-    //   ? Array(4).fill(borderRadius)
-    //   : [
-    //       borderRadiusTopLeft,
-    //       borderRadiusTopRight,
-    //       borderRadiusBottomRight,
-    //       borderRadiusBottomLeft,
-    //     ],
+    shadowBlur: element?.style?.shadowBlur,
+    shadowColor: element?.style?.shadowColor,
+    shadowOpacity: element?.style?.shadowOpacity,
+    shadowOffsetX: element?.style?.shadowOffset?.x,
+    shadowOffsetY: element?.style?.shadowOffset?.y,
+    cornerRadius: isPartialBorderRadius(element as IFCElement)?.cornerRadius,
   });
   return box;
 };

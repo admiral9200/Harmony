@@ -32,9 +32,13 @@ const AtomElementCircle = (item: IFCElement) => {
         y={item?.y}
         name={item.id}
         width={item?.width}
+        shadowColor={item?.style?.shadowColor}
+        shadowOpacity={item?.style?.shadowOpacity}
+        shadowOffsetX={item?.style?.shadowOffset?.x}
+        shadowOffsetY={item?.style?.shadowOffset?.y}
+        shadowBlur={item?.style?.shadowBlur}
         height={item?.width}
         cornerRadius={borderRadius}
-        shadowBlur={item?.style?.shadowBlur}
         stroke={item?.style?.stroke}
         strokeWidth={item?.style?.strokeWidth}
         rotation={rotate}

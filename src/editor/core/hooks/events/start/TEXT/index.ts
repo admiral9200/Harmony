@@ -26,6 +26,13 @@ const textElementStart = (
       strokeWidth: 0,
       colorText: "#000",
       fontStyle: "normal",
+      shadowBlur: 0,
+      shadowColor: "#000",
+      shadowOffset: {
+        x: 0,
+        y: 0,
+      },
+      shadowOpacity: 1,
       fontWeight: 400,
       fontFamily: "Roboto",
       fontSize: 12,

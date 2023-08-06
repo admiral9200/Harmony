@@ -6,9 +6,11 @@ import { FC } from "react";
 import SidebarRightBox from "./tabs/elements/BOX/sidebar-box";
 import SidebarIMG from "./tabs/elements/IMG/sidebar-img";
 import SidebarText from "./tabs/elements/TEXT/sidebar-text";
+import SidebarBorderFC from "./tabs/elements/global/border/border";
 import SidebarExportFC from "./tabs/elements/global/export/export";
 import SidebarFillFC from "./tabs/elements/global/fill/fill";
 import SidebarResolutionsFC from "./tabs/elements/global/resolution/resolution";
+import SidebarShadowFC from "./tabs/elements/global/shadow/shadow";
 import SidebarStrokeFC from "./tabs/elements/global/stroke/stroke";
 import StageSidebarRight from "./tabs/stage";
 
@@ -37,6 +39,12 @@ const propertiesElements = (tool: IKeyTool) => [
   },
   {
     Component: SidebarStrokeFC,
+  },
+  {
+    Component: SidebarBorderFC,
+  },
+  {
+    Component: SidebarShadowFC,
   },
   {
     Component: SidebarExportFC,
