@@ -30,13 +30,13 @@ If you want to run the application next the follow instructions.
 2. install the dependencies
 
    ```
-   yarn install
+   pnpm install
    ```
 
 3. Run application
 
    ```
-   yarn android or yarn ios
+   pnpm dev
    ```
 
 ![1686589816205](image/README/1686589816205.png)
