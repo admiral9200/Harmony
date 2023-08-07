@@ -52,7 +52,7 @@ const useEvent = () => {
 
   const [drawing, setDraw] = useState(false);
   const [eventsKeyboard, setEventsKeyboard] =
-    useState<IStageEvents>("STAGE_COPY_ELEMENT");
+    useState<IStageEvents>("STAGE_WATCHING");
   const [elementsIds, setElementsIds] = useState<string[]>([]);
 
   const updateSelectionRect = useCallback(() => {
