@@ -97,8 +97,8 @@ const PagesComponent: FC<Props> = () => {
               {item?.id === page && (
                 <AtomIcon
                   src={icons.check}
-                  height="20px"
-                  width="20px"
+                  height="1em"
+                  width="1em"
                   color="default"
                   customCSS={(css) => css`
                     svg {
@@ -116,6 +116,7 @@ const PagesComponent: FC<Props> = () => {
             <AtomText
               color={themeColors.white}
               customCSS={(css) => css`
+                font-size: small;
                 user-select: none;
                 &::first-letter {
                   text-transform: uppercase;

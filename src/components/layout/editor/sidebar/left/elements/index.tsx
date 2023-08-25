@@ -146,8 +146,8 @@ const ElementsList: FC<Props> = () => {
               <AtomIcon
                 src={ElementsIcons?.[`${item?.tool}` as IKeyTool]}
                 color="default"
-                height="20px"
-                width="20px"
+                height="1em"
+                width="1em"
                 customCSS={(css) => css`
                   svg {
                     path {
@@ -163,8 +163,8 @@ const ElementsList: FC<Props> = () => {
                 color={getColor(item?.id as string)}
                 cursor="pointer"
                 customCSS={(css) => css`
+                  font-size: small;
                   cursor: grab !important;
-
                   &:active {
                     cursor: grabbing !important;
                   }
@@ -177,13 +177,17 @@ const ElementsList: FC<Props> = () => {
                 cursor="pointer"
                 customCSS={(css) => css`
                   user-select: none;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  font-size: small;
+                  text-overflow: ellipsis;
                   &::first-letter {
                     text-transform: uppercase;
                   }
                   text-transform: lowercase;
                 `}
               >
-                {item.tool}
+                {item?.text || item.tool}
               </AtomText>
             </AtomWrapper>
           </>
