@@ -8,6 +8,7 @@ body {
   min-height: 100vh;
   cursor: url("/cursors/default.png"), auto;
   box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 html,
