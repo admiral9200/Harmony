@@ -17,7 +17,7 @@ const LayoutEditor: FC<Props> = ({ children }) => {
       justifyContent="flex-start"
       customCSS={(css) => css`
         display: grid;
-        grid-template-columns: 240px 1fr 240px;
+        grid-template-columns: 220px 1fr 220px;
         grid-template-rows: 1fr 1fr;
         height: 100vh;
         min-height: 100vh;
@@ -30,7 +30,7 @@ const LayoutEditor: FC<Props> = ({ children }) => {
           grid-column: 1 / 4;
           grid-row: 1;
           background-color: ${themeColors.dark};
-          border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           padding: 0.6em;
         `}
         alignItems="center"

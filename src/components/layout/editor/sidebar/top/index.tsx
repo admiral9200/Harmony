@@ -66,7 +66,7 @@ const LayoutEditorTop: FC = () => {
         gap: 1em;
         z-index: 999999999999999999999;
         position: absolute;
-        padding: 0.6em;
+        padding: 0.4em;
         border-radius: 12px;
         top: 0.5em;
       `}
@@ -83,8 +83,8 @@ const LayoutEditorTop: FC = () => {
             <AtomButton
               key={item?.keyMethod}
               borderRadius="8px"
-              width="2.4em"
-              height="2.4em"
+              width="2em"
+              height="2em"
               border="0px"
               alignItems="center"
               justifyContent="center"
@@ -98,8 +98,8 @@ const LayoutEditorTop: FC = () => {
               <AtomIcon
                 src={item?.icon}
                 color="default"
-                height="25px"
-                width="20px"
+                height="1em"
+                width="1em"
                 customCSS={(css) => css`
                   svg {
                     path {
