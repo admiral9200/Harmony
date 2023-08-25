@@ -61,7 +61,6 @@ const AtomEditorMapper = memo(() => {
       <Layer ref={layerRef as MutableRefObject<Konva.Layer>}>
         {listGroups?.map((item) => {
           const Component = MapEls?.[`${item?.tool}` as IKeyTool] as FCE;
-          const isBlocked = item?.isBlocked;
           const isSelected = item?.id === element?.id;
           return (
             <Component

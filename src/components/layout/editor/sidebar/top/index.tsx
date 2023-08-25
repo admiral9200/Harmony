@@ -40,10 +40,10 @@ const METHODS: Methods[] = [
     icon: icons.text,
     keyMethod: "TEXT",
   },
-  {
-    icon: icons.peentool,
-    keyMethod: "DRAW",
-  },
+  // {
+  //   icon: icons.peentool,
+  //   keyMethod: "DRAW",
+  // },
 ];
 
 const LayoutEditorTop: FC = () => {

@@ -16,8 +16,10 @@ import usePages from "../pages/hook";
 import usePipe from "../pipe/hook";
 import useSelection from "../selection/hook";
 import useTool from "../tool/hook";
+import { IKeyTool } from "../tool/types";
 import eventElements from "./event";
 import { IEndEvent, IStageEvents, IStartEvent } from "./types";
+
 const useEvent = () => {
   const { isCreatingElement, tool, setTool, disableKeyBoard } = useTool();
   const {
@@ -53,6 +55,7 @@ const useEvent = () => {
   const [drawing, setDraw] = useState(false);
   const [eventsKeyboard, setEventsKeyboard] =
     useState<IStageEvents>("STAGE_WATCHING");
+
   const [elementsIds, setElementsIds] = useState<string[]>([]);
 
   const updateSelectionRect = useCallback(() => {
@@ -226,21 +229,6 @@ const useEvent = () => {
       }
       updateSelectionRect();
 
-      //  const selBox = selectionRectRef?.current?.getClientRect?.();
-
-      //   const elementsSelected = layerRef?.current?.children?.filter?.(
-      //     (elementNode) => {
-      //       if (
-      //         elementNode?.attrs?.id === "select-rect-default" ||
-      //         elementNode?.attrs?.isBlocked
-      //       )
-      //         return;
-      //       const elBox = elementNode.getClientRect();
-      //       if (Konva.Util.haveIntersection(selBox, elBox)) {
-      //         return elementNode;
-      //       }
-      //     }
-
       const selBox = selectionRectRef?.current?.getClientRect?.();
 
       const groupElements = layerRef?.current?.children?.filter(
@@ -302,6 +290,12 @@ const useEvent = () => {
     }
   }, [selection, layerRef, eventsKeyboard, drawing, tool, pipeline, element]);
 
+  const handleResetElement = (kl: IKeyTool) => {
+    setTool(kl);
+    handleElementEmpty();
+    handleEmptyElement();
+  };
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const KEY = event.key?.toUpperCase();
@@ -328,39 +322,22 @@ const useEvent = () => {
           setEventsKeyboard("STAGE_COPY_ELEMENT");
         }
         if (KEY === "O") {
-          setTool("CIRCLE");
-          handleElementEmpty();
-          handleEmptyElement();
-        }
-        if (KEY === "O") {
-          setTool("CIRCLE");
-          handleEmptyElement();
-          handleElementEmpty();
+          handleResetElement("CIRCLE");
         }
         if (KEY === "L") {
-          setTool("LINE");
-          handleElementEmpty();
-          handleEmptyElement();
+          handleResetElement("LINE");
         }
         if (KEY === "V") {
-          setTool("MOVE");
-          handleElementEmpty();
-          handleEmptyElement();
+          handleResetElement("MOVE");
         }
         if (KEY === "I") {
-          setTool("IMAGE");
-          handleEmptyElement();
-          handleElementEmpty();
+          handleResetElement("IMAGE");
         }
         if (KEY === "F") {
-          setTool("BOX");
-          handleElementEmpty();
-          handleEmptyElement();
+          handleResetElement("BOX");
         }
         if (KEY === "T") {
-          handleElementEmpty();
-          handleEmptyElement();
-          setTool("TEXT");
+          handleResetElement("TEXT");
         }
       }
     };
@@ -394,12 +371,13 @@ const useEvent = () => {
                 height: image.height,
               }
             );
-            handleSetElement(createdElement);
+            // handleSetElement(createdElement);
+            handleSetElements(createdElement);
           };
         };
         reader.readAsDataURL(file);
       }
-      // Comprobar si es texto plano
+
       if (clipboardText) {
         const createStartElement = eventElements?.["TEXT"]
           ?.start as IStartEvent;
@@ -413,7 +391,7 @@ const useEvent = () => {
             text: clipboardText,
           }
         );
-        handleSetElement(createdElement);
+        handleSetElements(createdElement);
       }
 
       if (clipboardText.trim().startsWith("<svg")) {
@@ -455,7 +433,7 @@ const useEvent = () => {
             height: img.height,
           }
         );
-        handleSetElement(createdElement);
+        handleSetElements(createdElement);
       }
     };
     document.addEventListener("keydown", handleKeyDown);

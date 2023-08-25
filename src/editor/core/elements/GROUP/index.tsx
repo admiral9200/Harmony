@@ -2,7 +2,6 @@ import Konva from "konva";
 import { LegacyRef, MutableRefObject, useEffect, useRef } from "react";
 import { Group, Rect, Transformer } from "react-konva";
 import { IKeyTool } from "../../hooks/tool/types";
-import { isPartialBorderRadius } from "../BOX";
 import { MapEls } from "../mp_el";
 import { FCE, IFCElement } from "../type";
 
@@ -35,9 +34,53 @@ const AtomGroupElement = (item: IFCElement) => {
       onRef?.(groupRef);
     }
   }, [isRef, groupRef, onRef]);
+  console.log(item, "item");
 
   return (
     <>
+      <Rect
+        x={item?.x}
+        y={Number(item?.y) - 80}
+        width={item?.width}
+        height={70}
+        cornerRadius={12}
+        fill="#151414"
+        onClick={() => {
+          if (item?.isBlocked) return;
+
+          onSelect(item);
+        }}
+        onTap={() => {
+          if (item?.isBlocked) return;
+          onSelect(item);
+        }}
+        onDragEnd={(e) => {
+          if (item?.isBlocked) return;
+          onChange({
+            ...item,
+            x: e.target.x(),
+            y: e.target.y(),
+          });
+        }}
+        onTransformEnd={(e) => {
+          const rotate = e.target.rotation();
+          if (shapeRef?.current) {
+            const node = shapeRef.current;
+            const scaleX = node.scaleX();
+            const scaleY = node.scaleY();
+            node.scaleX(1);
+            node.scaleY(1);
+            onChange({
+              ...item,
+              x: node.x(),
+              y: node.y(),
+              rotate,
+              width: Math.max(5, node.width() * scaleX),
+              height: Math.max(node.height() * scaleY),
+            });
+          }
+        }}
+      />
       <Rect
         x={item?.x}
         y={item?.y}
@@ -50,7 +93,7 @@ const AtomGroupElement = (item: IFCElement) => {
         shadowOffsetY={item?.style?.shadowOffset?.y}
         shadowBlur={item?.style?.shadowBlur}
         id={"group-style-background"}
-        cornerRadius={isPartialBorderRadius(item)?.cornerRadius}
+        cornerRadius={12}
         fill={item.style?.backgroundColor}
         draggable={item?.isBlocked === true ? false : draggable}
         stroke={item?.style?.stroke}
