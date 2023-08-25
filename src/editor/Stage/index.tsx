@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Modal from "@/components/atoms/AtomModal";
+import LayoutEditorTop from "@/components/layout/editor/sidebar/top";
 import { AtomText, AtomWrapper } from "@whil/ui";
 import {
   FC,
@@ -105,6 +106,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
           background-color: ${config.backgroundColor};
         `}
       >
+        <LayoutEditorTop />
         {show ? (
           <Stage
             ref={stageDataRef}

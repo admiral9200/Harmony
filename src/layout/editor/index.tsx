@@ -1,7 +1,7 @@
 import LayoutEditorSidebarLeft from "@/components/layout/editor/sidebar/left";
 import LayoutEditorSidebarRight from "@/components/layout/editor/sidebar/right";
-import LayoutEditorTop from "@/components/layout/editor/sidebar/top";
-import { AtomWrapper } from "@whil/ui";
+import themeColors from "@/themes";
+import { AtomText, AtomWrapper } from "@whil/ui";
 import { FC, ReactNode } from "react";
 
 type Props = {
@@ -22,9 +22,26 @@ const LayoutEditor: FC<Props> = ({ children }) => {
         height: 100vh;
         min-height: 100vh;
         overflow: hidden;
+        position: relative;
       `}
     >
-      <LayoutEditorTop />
+      <AtomWrapper
+        customCSS={(css) => css`
+          grid-column: 1 / 4;
+          grid-row: 1;
+          background-color: ${themeColors.dark};
+          border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+          padding: 0.6em;
+        `}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <AtomWrapper alignItems="center" justifyContent="center">
+          <AtomText color="white" fontWeight={"bold"}>
+            Harmony
+          </AtomText>
+        </AtomWrapper>
+      </AtomWrapper>
       <LayoutEditorSidebarLeft />
       {children}
       <LayoutEditorSidebarRight />
