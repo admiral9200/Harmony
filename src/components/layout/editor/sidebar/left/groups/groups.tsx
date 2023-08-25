@@ -19,7 +19,6 @@ const PagesComponent: FC<Props> = () => {
       flexDirection="column"
       customCSS={(css) => css`
         border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-        padding-bottom: 1em;
       `}
     >
       <AtomWrapper padding="0.5em 0.7em" justifyContent="space-between">
