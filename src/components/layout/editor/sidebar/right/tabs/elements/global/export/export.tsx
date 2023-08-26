@@ -69,7 +69,7 @@ const SidebarExportFC: FC = () => {
       const thread = threads?.[element?.tool as IKeyTool]?.(element);
       layer.add(thread as Threads);
     }
-    setUrl(stage.toDataURL({ pixelRatio: 1 }));
+    setUrl(stage.toDataURL({ pixelRatio: 5 }));
   }, [element, elements, pipeline]);
 
   return (
