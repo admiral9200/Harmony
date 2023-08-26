@@ -11,7 +11,7 @@ type Props = {
 
 const PagesComponent: FC<Props> = () => {
   const { listGroups, groupSelectId, setGroupSelectId } = useGroups();
-  const { handleEmptyElement, handleSetElement, element } = useElement();
+  const { handleSetElement } = useElement();
   return (
     <AtomWrapper
       width="100%"
