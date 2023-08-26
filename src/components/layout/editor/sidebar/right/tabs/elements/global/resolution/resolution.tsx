@@ -183,8 +183,7 @@ const SidebarResolutionsFC: FC = () => {
               color: white;
               width: 100%;
               border: 1px solid ${themeColors.dark};
-              &:hover {
-              }
+
               background-color: ${themeColors.dark};
             `}
           />

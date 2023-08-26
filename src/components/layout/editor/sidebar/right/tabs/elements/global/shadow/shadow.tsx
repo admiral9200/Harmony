@@ -46,7 +46,7 @@ const SidebarShadowFC: FC = () => {
           justify-content: flex-start;
         `}
       >
-        <AtomText color="white" fontWeight={"bold"}>
+        <AtomText color="white" fontWeight={"bold"} fontSize="small">
           Shadow
         </AtomText>
       </AtomWrapper>
@@ -56,90 +56,107 @@ const SidebarShadowFC: FC = () => {
           width: 100%;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          grid-template-rows: 1fr !important;
-          gap: 1em;
+          grid-template-rows: repeat(2, auto);
+          gap: 0.6em;
         `}
       >
-        <AtomWrapper gap="0.4em" gridColumn="1" gridRow="1">
-          <AtomWrapper
-            customCSS={(css) => css`
-              width: 100%;
-              display: grid;
-              grid-template-columns: auto 1fr;
-              grid-template-rows: 1fr !important;
-              gap: 0.5em;
-            `}
-            alignItems="center"
-          >
-            <AtomWrapper alignItems="center">
-              <AtomInput
-                type="color"
-                id="shadowColor"
-                customCSS={(css) => css`
-                  background-color: blue;
-                  margin: 0%;
-                  outline: none;
-                  padding: 0%;
-                  border: none;
-                  opacity: 0;
-                  height: 0;
-                  width: 0;
-                  outline: none;
-                `}
-                value={style?.stroke}
-                onChange={(event) =>
-                  handle({
-                    style: {
-                      ...SelectedChangeElement.style,
-                      shadowColor: event.target.value,
-                    },
-                  })
-                }
-              />
-              <AtomText
-                as={"label"}
-                htmlFor="shadowColor"
-                customCSS={(css) => css`
-                  background-color: ${style?.shadowColor};
-                  border: 1px solid white;
-                  height: 1.7rem;
-                  border-radius: 0.4rem;
-                  width: 1.7rem;
-                `}
-              ></AtomText>
-            </AtomWrapper>
+        <AtomWrapper
+          alignItems="center"
+          gridColumn="1"
+          gridRow="1"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomWrapper alignItems="center">
             <AtomInput
-              readonly
-              type="text"
-              value={`#${style?.shadowColor?.replace(/#/, "")}`}
-              onClick={() => {
-                setTool("WRITING");
-              }}
-              onChange={(event) => {
-                setTool("WRITING");
+              type="color"
+              id="shadowColor"
+              customCSS={(css) => css`
+                margin: 0%;
+                outline: none;
+                padding: 0%;
+                border: none;
+                opacity: 0;
+                height: 0;
+                width: 0;
+                outline: none;
+              `}
+              value={style?.shadowColor ?? "#ffffff"}
+              onChange={(event) =>
                 handle({
                   style: {
                     ...SelectedChangeElement.style,
                     shadowColor: event.target.value,
                   },
-                });
-              }}
-              customCSS={(css) => css`
-                padding: 0.2em;
-                color: white;
-                width: 100%;
-                border: 1px solid ${themeColors.dark};
-                &:hover {
-                  border: 1px solid ${themeColors.white};
-                }
-                background-color: ${themeColors.dark};
-              `}
+                })
+              }
             />
+            <AtomText
+              as={"label"}
+              htmlFor="shadowColor"
+              customCSS={(css) => css`
+                background-color: ${style?.shadowColor};
+                height: 1.3rem;
+                border-radius: 0.2rem;
+                width: 1.3rem;
+              `}
+            ></AtomText>
           </AtomWrapper>
+          <AtomInput
+            readonly
+            type="text"
+            value={`#${style?.shadowColor?.replace(/#/, "") ?? "ffffff"}`}
+            onClick={() => {
+              setTool("WRITING");
+            }}
+            onChange={(event) => {
+              setTool("WRITING");
+              handle({
+                style: {
+                  ...SelectedChangeElement.style,
+                  shadowColor: event.target.value,
+                },
+              });
+            }}
+            customCSS={(css) => css`
+              font-size: small;
+              color: white;
+              width: 100%;
+              border: 1px solid ${themeColors.dark};
+              background-color: ${themeColors.dark};
+            `}
+          />
         </AtomWrapper>
-        <AtomWrapper gap="0.4em" gridColumn="2" gridRow="1" alignItems="center">
-          <AtomText color="white" width="1.5em">
-            bl
+
+        <AtomWrapper
+          gap="0.4em"
+          gridColumn="2"
+          gridRow="1"
+          alignItems="center"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomText
+            color="white"
+            backgroundColor="rgba(255, 255, 255, 0.20)"
+            textAlign="center"
+            fontWeight={"bold"}
+            customCSS={(css) => css`
+              vertical-align: center;
+              margin: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: small;
+              padding: 0.3em;
+            `}
+          >
+            b
           </AtomText>
           <AtomInput
             type="number"
@@ -157,25 +174,22 @@ const SidebarShadowFC: FC = () => {
               });
             }}
             customCSS={(css) => css`
-              padding: 0.2em;
+              font-size: small;
               color: white;
               width: 100%;
               border: 1px solid ${themeColors.dark};
-              &:hover {
-                border: 1px solid ${themeColors.white};
-              }
               background-color: ${themeColors.dark};
             `}
           />
         </AtomWrapper>
       </AtomWrapper>
-      <AtomWrapper
+      {/* <AtomWrapper
         padding="0.5em 0.7em"
         customCSS={(css) => css`
           width: 100%;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          grid-template-rows: 1fr !important;
+          grid-template-rows: 1fr;
           gap: 1em;
         `}
       >
@@ -248,7 +262,7 @@ const SidebarShadowFC: FC = () => {
             `}
           />
         </AtomWrapper>
-      </AtomWrapper>
+      </AtomWrapper> */}
     </AtomWrapper>
   );
 };

@@ -36,11 +36,12 @@ const propertiesElements = (tool: IKeyTool) => [
     Component: SidebarStrokeFC,
   },
   {
-    Component: SidebarBorderFC,
-  },
-  {
     Component: SidebarShadowFC,
   },
+  {
+    Component: SidebarBorderFC,
+  },
+
   {
     Component: SidebarExportFC,
   },

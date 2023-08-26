@@ -90,7 +90,7 @@ const SidebarExportFC: FC = () => {
           justify-content: flex-start;
         `}
       >
-        <AtomText color="white" fontWeight={"bold"}>
+        <AtomText color="white" fontWeight={"bold"} fontSize="small">
           Export
         </AtomText>
       </AtomWrapper>
