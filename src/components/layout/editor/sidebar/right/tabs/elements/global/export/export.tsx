@@ -8,7 +8,8 @@ import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomButton, AtomImage, AtomText, AtomWrapper } from "@whil/ui";
 import Konva from "konva";
-import { FC, useEffect, useState } from "react";
+import { Stage } from "konva/lib/Stage";
+import { FC, useCallback, useEffect, useState } from "react";
 import threads, { Threads } from "./threads/threads";
 
 function downloadURI(uri: string, name: string) {
@@ -24,9 +25,9 @@ const SidebarExportFC: FC = () => {
   const { element } = useElement();
   const { elements } = useElements();
   const { pipeline } = usePipe();
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(null as unknown as Stage);
 
-  useEffect(() => {
+  const handleExportd = useCallback(() => {
     const stage = new Konva.Stage({
       container: "viewer-layout",
       width: element?.width,
@@ -73,7 +74,11 @@ const SidebarExportFC: FC = () => {
       });
       layer.add(thread as Threads);
     }
-    setUrl(stage.toDataURL({ pixelRatio: 5 }));
+    setUrl(stage as any);
+  }, [element, elements, pipeline]);
+
+  useEffect(() => {
+    handleExportd();
   }, [element, elements, pipeline]);
 
   return (
@@ -119,7 +124,7 @@ const SidebarExportFC: FC = () => {
           `}
           onClick={() => {
             downloadURI(
-              url,
+              url?.toDataURL({ pixelRatio: 7 }),
               `${element?.tool?.toLowerCase()}_${element?.id?.slice(0, 4)}.png`
             );
           }}
@@ -134,7 +139,12 @@ const SidebarExportFC: FC = () => {
           padding: 0.5em 0.7em;
         `}
       >
-        <AtomImage src={url} width="100%" height="100%" objectFit="cover" />
+        <AtomImage
+          src={url?.toDataURL()}
+          width="100%"
+          height="100%"
+          objectFit="cover"
+        />
         <AtomWrapper
           id="viewer-layout"
           customCSS={(css) => css`
