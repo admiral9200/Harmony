@@ -73,7 +73,7 @@ const SidebarExportFC: FC = () => {
       });
       layer.add(thread as Threads);
     }
-    setUrl(stage.toDataURL({ pixelRatio: 3.5 }));
+    setUrl(stage.toDataURL({ pixelRatio: 5 }));
   }, [element, elements, pipeline]);
 
   return (
@@ -94,8 +94,6 @@ const SidebarExportFC: FC = () => {
         customCSS={(css) => css`
           width: 100%;
           gap: 0.5em;
-          display: grid;
-          grid-template-columns: auto 1fr;
         `}
         alignItems="center"
       >
@@ -111,9 +109,12 @@ const SidebarExportFC: FC = () => {
             align-items: center;
             display: flex;
             justify-content: center;
-            border: 1px solid ${themeColors.primary};
+            width: 100%;
+            border: 1px solid ${themeColors.white};
+            font-size: small;
             &:active {
-              background-color: ${themeColors.primary};
+              background-color: ${themeColors.white};
+              color: ${themeColors.dark};
             }
           `}
           onClick={() => {
