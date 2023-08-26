@@ -20,10 +20,10 @@ const lineElementStart = (
     visible: true,
     text: "",
     style: {
-      stroke: "#000",
+      stroke: "#ffffff",
       strokeWidth: 4,
       shadowBlur: 0,
-      shadowColor: "#000",
+      shadowColor: "#ffffff",
       shadowOffset: {
         x: 0,
         y: 0,

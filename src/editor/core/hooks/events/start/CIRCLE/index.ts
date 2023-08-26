@@ -25,9 +25,9 @@ const circleElementStart = (
     style: {
       backgroundColor: "#ffffff",
       strokeWidth: 0,
-      stroke: "#000000",
+      stroke: "#ffffff",
       shadowBlur: 0,
-      shadowColor: "#000",
+      shadowColor: "#ffffff",
       shadowOffset: {
         x: 0,
         y: 0,

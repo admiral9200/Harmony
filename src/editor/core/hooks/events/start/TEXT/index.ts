@@ -25,7 +25,7 @@ const textElementStart = (
     text: params?.text ?? uuidv4().slice(0, 4),
     style: {
       backgroundColor: "#000",
-      stroke: "#000",
+      stroke: "#ffffff",
       strokeWidth: 0,
       colorText: "#000",
       fontStyle: "normal",

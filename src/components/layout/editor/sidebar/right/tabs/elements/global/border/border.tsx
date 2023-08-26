@@ -15,7 +15,6 @@ const SidebarBorderFC: FC = () => {
   const { handleSetElements } = useElements();
   const { setTool } = useTool();
   const { handleAddGroup } = useGroups();
-  const { style } = SelectedChangeElement;
 
   const { setTimer } = useCallStkcTime({
     callback: () => {

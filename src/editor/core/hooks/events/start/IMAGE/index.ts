@@ -26,13 +26,13 @@ const imageElementStart = (
     style: {
       backgroundColor: "#ffffff",
       strokeWidth: 0,
-      stroke: "#000000",
+      stroke: "#ffffff",
       isAllBorderRadius: false,
       borderRadius: 0,
       borderRadiusBottomLeft: 0,
       borderRadiusBottomRight: 0,
       shadowBlur: 0,
-      shadowColor: "#000",
+      shadowColor: "#ffffff",
       shadowOffset: {
         x: 0,
         y: 0,

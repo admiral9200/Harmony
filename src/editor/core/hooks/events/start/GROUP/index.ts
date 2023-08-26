@@ -23,11 +23,11 @@ const groupStart = (
     width: 100,
     view_position: count + 1,
     style: {
-      stroke: "#000000",
+      stroke: "#ffffff",
       strokeWidth: 0,
       backgroundColor: "#ffffff",
       shadowBlur: 0,
-      shadowColor: "#000",
+      shadowColor: "#ffffff",
       shadowOffset: {
         x: 0,
         y: 0,

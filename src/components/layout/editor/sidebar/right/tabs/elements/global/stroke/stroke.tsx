@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { IParamsElement } from "@/editor/core/elements/type";
 import { useElement, useTool } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
 import useGroups from "@/editor/core/hooks/groups/hook";
@@ -7,7 +6,7 @@ import useSelect from "@/editor/core/hooks/select";
 import useCallStkcTime from "@/hooks/useCallTime";
 import themeColors from "@/themes";
 import { AtomInput, AtomText, AtomWrapper } from "@whil/ui";
-import { FC, useCallback } from "react";
+import { FC, useState } from "react";
 
 const SidebarStrokeFC: FC = () => {
   const { SelectedChangeElement, handleSelectedChangeElement } = useSelect();
@@ -17,25 +16,38 @@ const SidebarStrokeFC: FC = () => {
   const { handleAddGroup } = useGroups();
   const { style } = SelectedChangeElement;
 
+  const [color, setColor] = useState(style?.stroke || "#000000");
+
+  const [swidth, setSWidth] = useState(
+    SelectedChangeElement?.style?.strokeWidth || 0
+  );
+
   const { setTimer } = useCallStkcTime({
     callback: () => {
-      handleSetElement(SelectedChangeElement);
+      const element = Object.assign({}, SelectedChangeElement, {
+        style: {
+          ...SelectedChangeElement.style,
+          stroke: color,
+          strokeWidth: swidth,
+        },
+      });
+      handleSetElement(element);
 
-      if (SelectedChangeElement?.tool === "GROUP") {
-        handleAddGroup(SelectedChangeElement);
+      if (element?.tool === "GROUP") {
+        handleAddGroup(element);
       } else {
-        handleSetElements(SelectedChangeElement);
+        handleSetElements(element);
       }
     },
     ms: 250,
   });
 
-  const handle = useCallback((params?: IParamsElement) => {
-    setTimer(0);
-    handleSelectedChangeElement({
-      ...params,
-    });
-  }, []);
+  // const handle = useCallback((params?: IParamsElement) => {
+  //   setTimer(0);
+  //   handleSelectedChangeElement({
+  //     ...params,
+  //   });
+  // }, []);
 
   return (
     <AtomWrapper display="flex" flexDirection="column" width="100%">
@@ -46,7 +58,7 @@ const SidebarStrokeFC: FC = () => {
           justify-content: flex-start;
         `}
       >
-        <AtomText color="white" fontWeight={"bold"}>
+        <AtomText color="white" fontWeight={"bold"} fontSize="small">
           Stroke
         </AtomText>
       </AtomWrapper>
@@ -86,84 +98,90 @@ const SidebarStrokeFC: FC = () => {
                   width: 0;
                   outline: none;
                 `}
-                value={style?.stroke}
-                onChange={(event) =>
-                  handle({
-                    style: {
-                      ...SelectedChangeElement.style,
-                      stroke: event.target.value,
-                    },
-                  })
-                }
+                value={color}
+                onChange={(event) => {
+                  setTimer(0);
+                  setColor(event.target.value);
+                }}
               />
               <AtomText
                 as={"label"}
                 htmlFor="StrokeColor"
                 customCSS={(css) => css`
-                  background-color: ${style?.stroke};
-                  border: 1px solid white;
-                  height: 1.7rem;
-                  border-radius: 0.4rem;
-                  width: 1.7rem;
+                  background-color: ${color};
+                  /* border: 1px solid white; */
+                  height: 1.3rem;
+                  border-radius: 0.2rem;
+                  width: 1.3rem;
                 `}
               ></AtomText>
             </AtomWrapper>
             <AtomInput
               readonly
               type="text"
+              disabled
               value={`#${style?.stroke?.replace(/#/, "")}`}
               onClick={() => {
                 setTool("WRITING");
               }}
               onChange={(event) => {
                 setTool("WRITING");
-                handle({
-                  style: {
-                    ...SelectedChangeElement.style,
-                    stroke: event.target.value,
-                  },
-                });
               }}
               customCSS={(css) => css`
+                font-size: small;
                 padding: 0.2em;
                 color: white;
                 width: 100%;
                 border: 1px solid ${themeColors.dark};
-                &:hover {
-                  border: 1px solid ${themeColors.white};
-                }
                 background-color: ${themeColors.dark};
               `}
             />
           </AtomWrapper>
         </AtomWrapper>
-        <AtomWrapper gap="0.4em" gridColumn="2" gridRow="1" alignItems="center">
-          <AtomText color="white" width="1.5em">
+        <AtomWrapper
+          // gap="0.4em"
+          gridColumn="2"
+          gridRow="1"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomText
+            color="white"
+            backgroundColor="rgba(255, 255, 255, 0.20)"
+            textAlign="center"
+            fontWeight={"bold"}
+            customCSS={(css) => css`
+              vertical-align: center;
+              margin: 0;
+              line-height: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: small;
+            `}
+          >
             w
           </AtomText>
           <AtomInput
             type="number"
-            value={SelectedChangeElement?.style?.strokeWidth}
+            value={swidth}
             onClick={() => {
               setTool("WRITING");
             }}
             onChange={(event) => {
+              setTimer(0);
               setTool("WRITING");
-              handle({
-                style: {
-                  ...SelectedChangeElement.style,
-                  strokeWidth: Number(event.target.value),
-                },
-              });
+              setSWidth(Number(event.target.value));
             }}
             customCSS={(css) => css`
-              padding: 0.2em;
+              font-size: small;
               color: white;
               width: 100%;
               border: 1px solid ${themeColors.dark};
-              &:hover {
-                border: 1px solid ${themeColors.white};
-              }
+
               background-color: ${themeColors.dark};
             `}
           />
