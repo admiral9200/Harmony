@@ -193,7 +193,6 @@ const SidebarShadowFC: FC = () => {
         >
           <AtomText
             color="white"
-            width="1.5em"
             backgroundColor="rgba(255, 255, 255, 0.20)"
             textAlign="center"
             fontWeight={"bold"}
@@ -201,11 +200,11 @@ const SidebarShadowFC: FC = () => {
               vertical-align: center;
               margin: 0;
               display: flex;
-              line-height: 0;
               flex-direction: column;
               align-items: center;
               justify-content: center;
               font-size: small;
+              padding: 0.3em;
             `}
           >
             x
@@ -249,7 +248,6 @@ const SidebarShadowFC: FC = () => {
         >
           <AtomText
             color="white"
-            width="1.5em"
             backgroundColor="rgba(255, 255, 255, 0.20)"
             textAlign="center"
             fontWeight={"bold"}
@@ -257,11 +255,11 @@ const SidebarShadowFC: FC = () => {
               vertical-align: center;
               margin: 0;
               display: flex;
-              line-height: 0;
               flex-direction: column;
               align-items: center;
               justify-content: center;
               font-size: small;
+              padding: 0.3em;
             `}
           >
             y
