@@ -46,7 +46,7 @@ const SidebarResolutionsFC: FC = () => {
           justify-content: center;
         `}
       >
-        <AtomText color="white" fontWeight={"bold"}>
+        <AtomText color="white" fontWeight={"bold"} fontSize="small">
           Resolution
         </AtomText>
         <AtomWrapper
@@ -134,18 +134,41 @@ const SidebarResolutionsFC: FC = () => {
           width: 100%;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          grid-template-rows: 1fr !important;
-          gap: 1em;
+          grid-template-rows: repeat(3, auto);
+          gap: 0.6em;
         `}
       >
-        <AtomWrapper gap="0.4em" gridColumn="1" gridRow="1">
-          <AtomText color="white" width="1.5em">
+        <AtomWrapper
+          // gap="0.4em"
+          gridColumn="1"
+          gridRow="1"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomText
+            color="white"
+            backgroundColor="rgba(255, 255, 255, 0.20)"
+            textAlign="center"
+            fontWeight={"bold"}
+            customCSS={(css) => css`
+              vertical-align: center;
+              margin: 0;
+              line-height: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: small;
+            `}
+          >
             x
           </AtomText>
           <AtomInput
             readonly
             type="number"
-            value={SelectedChangeElement.x}
+            value={SelectedChangeElement.x?.toFixed(2)}
             onClick={() => {
               setTool("WRITING");
             }}
@@ -156,24 +179,45 @@ const SidebarResolutionsFC: FC = () => {
               });
             }}
             customCSS={(css) => css`
-              padding: 0.2em;
+              font-size: small;
               color: white;
               width: 100%;
               border: 1px solid ${themeColors.dark};
               &:hover {
-                border: 1px solid ${themeColors.white};
               }
               background-color: ${themeColors.dark};
             `}
           />
         </AtomWrapper>
-        <AtomWrapper gap="0.4em" gridColumn="2" gridRow="1">
-          <AtomText color="white" width="1.5em">
+        <AtomWrapper
+          gridColumn="2"
+          gridRow="1"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomText
+            color="white"
+            backgroundColor="rgba(255, 255, 255, 0.20)"
+            textAlign="center"
+            fontWeight={"bold"}
+            customCSS={(css) => css`
+              vertical-align: center;
+              margin: 0;
+              line-height: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: small;
+            `}
+          >
             y
           </AtomText>
           <AtomInput
             type="number"
-            value={SelectedChangeElement.y}
+            value={SelectedChangeElement.y?.toFixed(2)}
             onClick={() => {
               setTool("WRITING");
             }}
@@ -184,29 +228,39 @@ const SidebarResolutionsFC: FC = () => {
               });
             }}
             customCSS={(css) => css`
-              padding: 0.2em;
+              font-size: small;
               color: white;
               width: 100%;
               border: 1px solid ${themeColors.dark};
-              &:hover {
-                border: 1px solid ${themeColors.white};
-              }
+
               background-color: ${themeColors.dark};
             `}
           />
         </AtomWrapper>
-      </AtomWrapper>
-      <AtomWrapper
-        padding="0.5em 0.7em"
-        customCSS={(css) => css`
-          width: 100%;
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 1em;
-        `}
-      >
-        <AtomWrapper gap="0.4em" gridColumn="1" gridRow="1">
-          <AtomText color="white" width="1.5em">
+        <AtomWrapper
+          gridColumn="1"
+          gridRow="2"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomText
+            color="white"
+            backgroundColor="rgba(255, 255, 255, 0.20)"
+            textAlign="center"
+            fontWeight={"bold"}
+            customCSS={(css) => css`
+              vertical-align: center;
+              margin: 0;
+              line-height: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: small;
+            `}
+          >
             w
           </AtomText>
           <AtomInput
@@ -222,6 +276,7 @@ const SidebarResolutionsFC: FC = () => {
               });
             }}
             customCSS={(css) => css`
+              font-size: small;
               padding: 0.2em;
               color: white;
               width: 100%;
@@ -233,8 +288,30 @@ const SidebarResolutionsFC: FC = () => {
             `}
           />
         </AtomWrapper>
-        <AtomWrapper gap="0.4em" gridColumn="2" gridRow="1">
-          <AtomText color="white" width="1.5em">
+        <AtomWrapper
+          gridColumn="2"
+          gridRow="2"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomText
+            color="white"
+            backgroundColor="rgba(255, 255, 255, 0.20)"
+            textAlign="center"
+            fontWeight={"bold"}
+            customCSS={(css) => css`
+              vertical-align: center;
+              margin: 0;
+              line-height: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: small;
+            `}
+          >
             h
           </AtomText>
           <AtomInput
@@ -250,6 +327,7 @@ const SidebarResolutionsFC: FC = () => {
               });
             }}
             customCSS={(css) => css`
+              font-size: small;
               padding: 0.2em;
               color: white;
               width: 100%;
@@ -261,19 +339,30 @@ const SidebarResolutionsFC: FC = () => {
             `}
           />
         </AtomWrapper>
-      </AtomWrapper>
-      <AtomWrapper
-        padding="0.5em 0.7em"
-        customCSS={(css) => css`
-          width: 100%;
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          grid-template-rows: 1fr !important;
-          gap: 1em;
-        `}
-      >
-        <AtomWrapper gap="0.4em" gridColumn="1" gridRow="1">
-          <AtomText color="white" width="1.5em">
+        <AtomWrapper
+          gridColumn="1"
+          gridRow="3"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomText
+            color="white"
+            backgroundColor="rgba(255, 255, 255, 0.20)"
+            textAlign="center"
+            fontWeight={"bold"}
+            customCSS={(css) => css`
+              vertical-align: center;
+              margin: 0;
+              line-height: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: small;
+            `}
+          >
             R
           </AtomText>
           <AtomInput
@@ -289,6 +378,7 @@ const SidebarResolutionsFC: FC = () => {
               });
             }}
             customCSS={(css) => css`
+              font-size: small;
               padding: 0.2em;
               color: white;
               width: 100%;
@@ -322,6 +412,7 @@ const SidebarResolutionsFC: FC = () => {
               padding: 0.2em;
               color: white;
               width: 100%;
+              font-size: small;
               border: 1px solid ${themeColors.dark};
               &:hover {
                 border: 1px solid ${themeColors.white};
@@ -329,7 +420,12 @@ const SidebarResolutionsFC: FC = () => {
               background-color: ${themeColors.dark};
             `}
           />
-          <AtomText color="white" as={"label"} htmlFor="isBlocked">
+          <AtomText
+            color="white"
+            as={"label"}
+            htmlFor="isBlocked"
+            fontSize="small"
+          >
             {SelectedChangeElement?.isBlocked ? "Blocked" : "Unblocked"}
           </AtomText>
         </AtomWrapper>

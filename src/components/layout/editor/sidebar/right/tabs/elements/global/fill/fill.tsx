@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { IParamsElement } from "@/editor/core/elements/type";
 import { useElement, useTool } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
 import useGroups from "@/editor/core/hooks/groups/hook";
@@ -7,10 +6,10 @@ import useSelect from "@/editor/core/hooks/select";
 import useCallStkcTime from "@/hooks/useCallTime";
 import themeColors from "@/themes";
 import { AtomInput, AtomText, AtomWrapper } from "@whil/ui";
-import { FC, useCallback } from "react";
+import { FC, useState } from "react";
 
 const SidebarFillFC: FC = () => {
-  const { SelectedChangeElement, handleSelectedChangeElement } = useSelect();
+  const { SelectedChangeElement } = useSelect();
   const { handleSetElement } = useElement();
   const { handleSetElements } = useElements();
   const { setTool } = useTool();
@@ -18,25 +17,29 @@ const SidebarFillFC: FC = () => {
 
   const { style } = SelectedChangeElement;
 
+  const [color, setColor] = useState(
+    style?.backgroundColor ?? style?.colorText ?? "#000000"
+  );
+
   const { setTimer } = useCallStkcTime({
     callback: () => {
-      handleSetElement(SelectedChangeElement);
+      const element = {
+        ...SelectedChangeElement,
+        style: {
+          ...SelectedChangeElement.style,
+          backgroundColor: color,
+        },
+      };
+      handleSetElement(element);
 
-      if (SelectedChangeElement?.tool === "GROUP") {
-        handleAddGroup(SelectedChangeElement);
+      if (element?.tool === "GROUP") {
+        handleAddGroup(element);
       } else {
-        handleSetElements(SelectedChangeElement);
+        handleSetElements(element);
       }
     },
-    ms: 250,
+    ms: 100,
   });
-
-  const handle = useCallback((params?: IParamsElement) => {
-    setTimer(0);
-    handleSelectedChangeElement({
-      ...params,
-    });
-  }, []);
 
   return (
     <AtomWrapper display="flex" flexDirection="column" width="100%">
@@ -47,7 +50,7 @@ const SidebarFillFC: FC = () => {
           justify-content: flex-start;
         `}
       >
-        <AtomText color="white" fontWeight={"bold"}>
+        <AtomText color="white" fontWeight={"bold"} fontSize="small">
           Fill
         </AtomText>
       </AtomWrapper>
@@ -79,12 +82,8 @@ const SidebarFillFC: FC = () => {
             `}
             value={style?.backgroundColor}
             onChange={(event) => {
-              handle({
-                style: {
-                  ...SelectedChangeElement.style,
-                  backgroundColor: event.target.value,
-                },
-              });
+              setTimer(0);
+              setColor(event.target.value);
             }}
           />
           <AtomText
@@ -92,37 +91,33 @@ const SidebarFillFC: FC = () => {
             htmlFor="backgroundStage"
             customCSS={(css) => css`
               background-color: ${style?.backgroundColor};
-              border: 1px solid white;
-              height: 1.7rem;
-              border-radius: 0.4rem;
-              width: 1.7rem;
+              /* border: 1px solid white; */
+              height: 1.3rem;
+              border-radius: 0.2rem;
+              width: 1.3rem;
             `}
           ></AtomText>
         </AtomWrapper>
         <AtomInput
           readonly
           type="text"
-          value={`#${style?.backgroundColor?.replace(/#/, "")}`}
+          value={`#${style?.backgroundColor?.toUpperCase()?.replace(/#/, "")}`}
           onClick={() => {
             setTool("WRITING");
           }}
           onChange={(event) => {
+            setTimer(0);
             setTool("WRITING");
-            handle({
-              style: {
-                ...SelectedChangeElement.style,
-                backgroundColor: event.target.value,
-              },
-            });
+            setColor(event.target.value);
           }}
+          disabled
           customCSS={(css) => css`
+            font-size: small;
             padding: 0.2em;
             color: white;
             width: 100%;
-            border: 1px solid ${themeColors.dark};
-            &:hover {
-              border: 1px solid ${themeColors.white};
-            }
+            border: 0px;
+
             background-color: ${themeColors.dark};
           `}
         />

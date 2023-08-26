@@ -53,7 +53,7 @@ const ElementsList: FC<Props> = () => {
       `}
     >
       <AtomWrapper padding="0.5em 0.7em" justifyContent="space-between">
-        <AtomText color="white" fontWeight="bold" fontSize="16px">
+        <AtomText color="white" fontWeight={"bold"} fontSize="small">
           Elements
         </AtomText>
       </AtomWrapper>

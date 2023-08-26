@@ -3,7 +3,6 @@ import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomWrapper } from "@whil/ui";
 import { FC } from "react";
-import SidebarRightBox from "./tabs/elements/BOX/sidebar-box";
 import SidebarIMG from "./tabs/elements/IMG/sidebar-img";
 import SidebarText from "./tabs/elements/TEXT/sidebar-text";
 import SidebarBorderFC from "./tabs/elements/global/border/border";
@@ -18,7 +17,7 @@ type LayoutsTabs = {
   [key in IKeyTool]?: FC;
 };
 const layoutTabs: LayoutsTabs = {
-  BOX: SidebarRightBox,
+  // BOX: SidebarRightBox,
   IMAGE: SidebarIMG,
   TEXT: SidebarText,
 };
@@ -94,13 +93,7 @@ const LayoutEditorSidebarRight: FC = () => {
                 {Component ? (
                   <>
                     <Component />
-                    <AtomWrapper
-                      width="100%"
-                      height="auto"
-                      customCSS={(css) => css`
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                      `}
-                    ></AtomWrapper>
+                    <AtomWrapper width="100%" height="auto"></AtomWrapper>
                   </>
                 ) : null}
               </>
