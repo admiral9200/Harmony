@@ -66,10 +66,14 @@ const SidebarExportFC: FC = () => {
         layer.add(thread as Threads);
       }
     } else {
-      const thread = threads?.[element?.tool as IKeyTool]?.(element);
+      const thread = threads?.[element?.tool as IKeyTool]?.({
+        ...element,
+        x: 0,
+        y: 0,
+      });
       layer.add(thread as Threads);
     }
-    setUrl(stage.toDataURL({ pixelRatio: 5 }));
+    setUrl(stage.toDataURL({ pixelRatio: 3.5 }));
   }, [element, elements, pipeline]);
 
   return (
@@ -129,7 +133,7 @@ const SidebarExportFC: FC = () => {
           padding: 0.5em 0.7em;
         `}
       >
-        <AtomImage src={url} width="100%" height="100%" objectFit="contain" />
+        <AtomImage src={url} width="100%" height="100%" objectFit="cover" />
         <AtomWrapper
           id="viewer-layout"
           customCSS={(css) => css`
