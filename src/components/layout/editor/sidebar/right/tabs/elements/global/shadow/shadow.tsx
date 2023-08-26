@@ -97,7 +97,7 @@ const SidebarShadowFC: FC = () => {
               as={"label"}
               htmlFor="shadowColor"
               customCSS={(css) => css`
-                background-color: ${style?.shadowColor};
+                background-color: ${style?.shadowColor ?? "#ffffff"};
                 height: 1.3rem;
                 border-radius: 0.2rem;
                 width: 1.3rem;
@@ -160,7 +160,7 @@ const SidebarShadowFC: FC = () => {
           </AtomText>
           <AtomInput
             type="number"
-            value={SelectedChangeElement?.style?.shadowBlur}
+            value={SelectedChangeElement?.style?.shadowBlur || 0}
             onClick={() => {
               setTool("WRITING");
             }}
@@ -170,6 +170,117 @@ const SidebarShadowFC: FC = () => {
                 style: {
                   ...SelectedChangeElement.style,
                   shadowBlur: Number(event.target.value),
+                },
+              });
+            }}
+            customCSS={(css) => css`
+              font-size: small;
+              color: white;
+              width: 100%;
+              border: 1px solid ${themeColors.dark};
+              background-color: ${themeColors.dark};
+            `}
+          />
+        </AtomWrapper>
+        <AtomWrapper
+          gap="0.4em"
+          gridColumn="1"
+          gridRow="2"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomText
+            color="white"
+            width="1.5em"
+            backgroundColor="rgba(255, 255, 255, 0.20)"
+            textAlign="center"
+            fontWeight={"bold"}
+            customCSS={(css) => css`
+              vertical-align: center;
+              margin: 0;
+              display: flex;
+              line-height: 0;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: small;
+            `}
+          >
+            x
+          </AtomText>
+          <AtomInput
+            readonly
+            type="number"
+            value={SelectedChangeElement.style?.shadowOffset?.x || 0}
+            onClick={() => {
+              setTool("WRITING");
+            }}
+            onChange={(event) => {
+              setTool("WRITING");
+              handle({
+                style: {
+                  ...SelectedChangeElement.style,
+                  shadowOffset: {
+                    ...SelectedChangeElement.style?.shadowOffset,
+                    x: Number(event.target.value),
+                  },
+                },
+              });
+            }}
+            customCSS={(css) => css`
+              font-size: small;
+              color: white;
+              width: 100%;
+              border: 1px solid ${themeColors.dark};
+              background-color: ${themeColors.dark};
+            `}
+          />
+        </AtomWrapper>
+        <AtomWrapper
+          gap="0.4em"
+          gridColumn="2"
+          gridRow="2"
+          customCSS={(css) => css`
+            display: grid;
+            grid-template-columns: 1.5em 1fr;
+          `}
+        >
+          <AtomText
+            color="white"
+            width="1.5em"
+            backgroundColor="rgba(255, 255, 255, 0.20)"
+            textAlign="center"
+            fontWeight={"bold"}
+            customCSS={(css) => css`
+              vertical-align: center;
+              margin: 0;
+              display: flex;
+              line-height: 0;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: small;
+            `}
+          >
+            y
+          </AtomText>
+          <AtomInput
+            type="number"
+            value={SelectedChangeElement.style?.shadowOffset?.y || 0}
+            onClick={() => {
+              setTool("WRITING");
+            }}
+            onChange={(event) => {
+              setTool("WRITING");
+              handle({
+                style: {
+                  ...SelectedChangeElement.style,
+                  shadowOffset: {
+                    ...SelectedChangeElement.style?.shadowOffset,
+                    y: Number(event.target.value),
+                  },
                 },
               });
             }}
@@ -193,75 +304,8 @@ const SidebarShadowFC: FC = () => {
           gap: 1em;
         `}
       >
-        <AtomWrapper gap="0.4em" gridColumn="1" gridRow="1">
-          <AtomText color="white" width="1.5em">
-            x
-          </AtomText>
-          <AtomInput
-            readonly
-            type="number"
-            value={SelectedChangeElement.style?.shadowOffset?.x}
-            onClick={() => {
-              setTool("WRITING");
-            }}
-            onChange={(event) => {
-              setTool("WRITING");
-              handle({
-                style: {
-                  ...SelectedChangeElement.style,
-                  shadowOffset: {
-                    ...SelectedChangeElement.style?.shadowOffset,
-                    x: Number(event.target.value),
-                  },
-                },
-              });
-            }}
-            customCSS={(css) => css`
-              padding: 0.2em;
-              color: white;
-              width: 100%;
-              border: 1px solid ${themeColors.dark};
-              &:hover {
-                border: 1px solid ${themeColors.white};
-              }
-              background-color: ${themeColors.dark};
-            `}
-          />
-        </AtomWrapper>
-        <AtomWrapper gap="0.4em" gridColumn="2" gridRow="1">
-          <AtomText color="white" width="1.5em">
-            y
-          </AtomText>
-          <AtomInput
-            type="number"
-            value={SelectedChangeElement.style?.shadowOffset?.y}
-            onClick={() => {
-              setTool("WRITING");
-            }}
-            onChange={(event) => {
-              setTool("WRITING");
-              handle({
-                style: {
-                  ...SelectedChangeElement.style,
-                  shadowOffset: {
-                    ...SelectedChangeElement.style?.shadowOffset,
-                    y: Number(event.target.value),
-                  },
-                },
-              });
-            }}
-            customCSS={(css) => css`
-              padding: 0.2em;
-              color: white;
-              width: 100%;
-              border: 1px solid ${themeColors.dark};
-              &:hover {
-                border: 1px solid ${themeColors.white};
-              }
-              background-color: ${themeColors.dark};
-            `}
-          />
-        </AtomWrapper>
+       
+      
       </AtomWrapper> */}
     </AtomWrapper>
   );
