@@ -142,7 +142,7 @@ const SidebarExportFC: FC = () => {
         <AtomImage
           src={url?.toDataURL()}
           width="100%"
-          height="100%"
+          maxHeight="150px"
           objectFit="cover"
         />
         <AtomWrapper
