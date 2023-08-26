@@ -21,10 +21,6 @@ const layoutTabs: LayoutsTabs = {
   BOX: SidebarRightBox,
   IMAGE: SidebarIMG,
   TEXT: SidebarText,
-  // CIRCLE: <LayoutSidebarRightStageTabElementCircle />,
-  // LINE: <LayoutSidebarRightStageTabElementLine />,
-  // IMAGE: <LayoutSidebarRightStageTabElementImage />,
-  // TEXT: <LayoutSidebarRightStageTabElementText />,
 };
 
 const propertiesElements = (tool: IKeyTool) => [
@@ -102,7 +98,7 @@ const LayoutEditorSidebarRight: FC = () => {
                       width="100%"
                       height="auto"
                       customCSS={(css) => css`
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                       `}
                     ></AtomWrapper>
                   </>

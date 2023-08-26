@@ -3,11 +3,12 @@ import { isPartialBorderRadius } from "@/editor/core/elements/BOX";
 import { IFCElement } from "@/editor/core/elements/type";
 import { useElement } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
+import usePipe from "@/editor/core/hooks/pipe/hook";
 import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
-import { AtomButton, AtomText, AtomWrapper } from "@whil/ui";
+import { AtomButton, AtomImage, AtomText, AtomWrapper } from "@whil/ui";
 import Konva from "konva";
-import { FC, useCallback, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import threads, { Threads } from "./threads/threads";
 
 function downloadURI(uri: string, name: string) {
@@ -22,9 +23,10 @@ function downloadURI(uri: string, name: string) {
 const SidebarExportFC: FC = () => {
   const { element } = useElement();
   const { elements } = useElements();
-  // const [typeExport, setTypeExport] = useState("IMG");
+  const { pipeline } = usePipe();
+  const [url, setUrl] = useState("");
 
-  const handleExport = useCallback(() => {
+  useEffect(() => {
     const stage = new Konva.Stage({
       container: "viewer-layout",
       width: element?.width,
@@ -67,13 +69,8 @@ const SidebarExportFC: FC = () => {
       const thread = threads?.[element?.tool as IKeyTool]?.(element);
       layer.add(thread as Threads);
     }
-
-    return stage;
-  }, [element, elements]);
-
-  useEffect(() => {
-    handleExport();
-  }, [element, elements]);
+    setUrl(stage.toDataURL({ pixelRatio: 1 }));
+  }, [element, elements, pipeline]);
 
   return (
     <AtomWrapper display="flex" flexDirection="column" width="100%">
@@ -98,24 +95,6 @@ const SidebarExportFC: FC = () => {
         `}
         alignItems="center"
       >
-        {/* <AtomWrapper
-          as={"select"}
-          customCSS={(css) => css`
-            padding: 0em;
-            color: white;
-            width: 100%;
-            height: 2rem;
-            border: 1px solid ${themeColors.dark};
-            &:hover {
-              border: 1px solid ${themeColors.primary};
-            }
-
-            background-color: ${themeColors.dark};
-          `}
-        >
-          <AtomWrapper as={"option"}>IMG</AtomWrapper>
-          <AtomWrapper as={"option"}>PDF</AtomWrapper>
-        </AtomWrapper> */}
         <AtomButton
           customCSS={(css) => css`
             height: 1rem;
@@ -134,10 +113,8 @@ const SidebarExportFC: FC = () => {
             }
           `}
           onClick={() => {
-            const stage = handleExport();
-            const dataURL = stage.toDataURL({ pixelRatio: 1 });
             downloadURI(
-              dataURL,
+              url,
               `${element?.tool?.toLowerCase()}_${element?.id?.slice(0, 4)}.png`
             );
           }}
@@ -152,22 +129,24 @@ const SidebarExportFC: FC = () => {
           padding: 0.5em 0.7em;
         `}
       >
+        <AtomImage src={url} width="100%" height="100%" objectFit="contain" />
         <AtomWrapper
           id="viewer-layout"
           customCSS={(css) => css`
-            width: 215px;
-            height: 220px;
+            width: 0px;
+            height: 0px;
             display: flex;
             justify-content: center;
             align-items: center;
+            display: none;
             background-color: white;
             div {
-              width: 215px !important;
-              height: 220px !important;
+              width: 0px !important;
+              height: 0px !important;
             }
             canvas {
-              width: 215px !important;
-              height: 220px !important;
+              width: 0px !important;
+              height: 0px !important;
             }
           `}
         ></AtomWrapper>
