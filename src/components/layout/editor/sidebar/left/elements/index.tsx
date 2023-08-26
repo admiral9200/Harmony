@@ -49,7 +49,7 @@ const ElementsList: FC<Props> = () => {
       display="flex"
       flexDirection="column"
       customCSS={(css) => css`
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
       `}
     >
       <AtomWrapper padding="0.5em 0.7em" justifyContent="space-between">
