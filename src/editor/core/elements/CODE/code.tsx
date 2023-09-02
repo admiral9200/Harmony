@@ -1,6 +1,6 @@
 import Konva from "konva";
 import { LegacyRef, MutableRefObject, useEffect, useRef } from "react";
-import { Group, Rect, Text, Transformer } from "react-konva";
+import { Group, Rect, Transformer } from "react-konva";
 import { IFCElement } from "../type";
 
 const AtomCodeElement = (item: IFCElement) => {
@@ -120,14 +120,6 @@ const AtomCodeElement = (item: IFCElement) => {
           width={13}
           height={13}
           cornerRadius={10}
-        />
-
-        <Text
-          text={item?.text}
-          fill="white"
-          x={17}
-          y={50}
-          width={Number(item?.width) - 17}
         />
       </Group>
       {isSelected && (

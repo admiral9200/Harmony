@@ -19,6 +19,7 @@ import {
   useStage,
   useZoom,
 } from "../core/hooks";
+import useGroups from "../core/hooks/groups/hook";
 
 type Props = {
   children: ReactNode;
@@ -30,7 +31,7 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
     useEvent();
 
   const { config } = useStage();
-  const { handleEmptyElement } = useElement();
+  const { handleEmptyElement, element } = useElement();
   const {
     setSelected,
     selectionRefsState: { trRef },
@@ -81,6 +82,8 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
     };
   }, []);
 
+  const { handleAddGroup } = useGroups();
+
   return (
     <>
       <Modal />
@@ -119,6 +122,12 @@ const AtomEditorScreen: FC<Props> = ({ children }) => {
             onMousemove={handleMouseMove}
             onMouseup={handleMouseUp}
             onDblClick={() => {
+              if (element?.tool === "GROUP") {
+                handleAddGroup({
+                  ...element,
+                  isBlocked: false,
+                });
+              }
               handleEmptyElement();
               setSelected(false);
               trRef.current.nodes([]);

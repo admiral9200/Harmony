@@ -14,7 +14,7 @@ const AtomElementImage = (item: IFCElement) => {
     dataImage.src =
       item?.src?.includes("https") || item?.src?.includes("data:image")
         ? (item.src as string)
-        : "https://picsum.photos/200/300";
+        : "/logoharmony.png";
 
     return dataImage;
   }, [item]);

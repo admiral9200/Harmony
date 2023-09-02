@@ -56,8 +56,6 @@ const AtomEditorMapper = memo(() => {
     });
   }, []);
 
-  console.log(mapped);
-
   return (
     <>
       <Layer ref={layerRef as MutableRefObject<Konva.Layer>}>

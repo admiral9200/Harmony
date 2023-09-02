@@ -42,7 +42,7 @@ const imageElementStart = (
       borderRadiusTopRight: 0,
     },
     view_position: count + 1,
-    src: params?.image ?? "https://picsum.photos/200/300",
+    src: params?.image ?? "/logoharmony.png",
     rotate: 0,
     height: params?.height ?? 100,
     width: params?.width ?? 100,

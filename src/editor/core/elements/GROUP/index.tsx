@@ -44,19 +44,18 @@ const AtomGroupElement = (item: IFCElement) => {
         y={item?.y}
         width={item?.width}
         height={item?.height}
-        draggable={item?.isBlocked === true ? false : draggable}
+        draggable={item?.isBlocked}
         ref={groupRef as LegacyRef<Konva.Group>}
-        onClick={() => {
-          if (item?.isBlocked) return;
-
-          onSelect(item);
-        }}
-        onTap={() => {
-          if (item?.isBlocked) return;
-          onSelect(item);
-        }}
+        // onClick={() => {
+        //   if (item?.isBlocked) return;
+        //   onSelect(item);
+        // }}
+        // onTap={() => {
+        //   if (item?.isBlocked) return;
+        //   onSelect(item);
+        // }}
         onDragEnd={(e) => {
-          if (item?.isBlocked) return;
+          if (!item?.isBlocked) return;
           onChange({
             ...item,
             x: e.target.x(),
@@ -87,8 +86,17 @@ const AtomGroupElement = (item: IFCElement) => {
           y={0}
           width={item?.width}
           height={70}
-          cornerRadius={12}
+          cornerRadius={8}
           fill="#151414"
+          stroke={"white"}
+          strokeWidth={1}
+          onClick={() => {
+            onSelect(item);
+            onChange({
+              ...item,
+              isBlocked: true,
+            });
+          }}
         />
         <Text
           text="Group"
@@ -110,7 +118,7 @@ const AtomGroupElement = (item: IFCElement) => {
           shadowOffsetY={item?.style?.shadowOffset?.y}
           shadowBlur={item?.style?.shadowBlur}
           id={"group-style-background"}
-          cornerRadius={12}
+          cornerRadius={8}
           fill={item.style?.backgroundColor}
           stroke={item?.style?.stroke}
           strokeWidth={item?.style?.strokeWidth}
