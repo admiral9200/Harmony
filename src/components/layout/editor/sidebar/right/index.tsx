@@ -3,6 +3,7 @@ import { IKeyTool } from "@/editor/core/hooks/tool/types";
 import themeColors from "@/themes";
 import { AtomWrapper } from "@whil/ui";
 import { FC } from "react";
+import SideBarCode from "./tabs/elements/CODE/CODE";
 import SidebarIMG from "./tabs/elements/IMG/sidebar-img";
 import SidebarText from "./tabs/elements/TEXT/sidebar-text";
 import SidebarBorderFC from "./tabs/elements/global/border/border";
@@ -20,6 +21,7 @@ const layoutTabs: LayoutsTabs = {
   // BOX: SidebarRightBox,
   IMAGE: SidebarIMG,
   TEXT: SidebarText,
+  CODE: SideBarCode,
 };
 
 const propertiesElements = (tool: IKeyTool) => [

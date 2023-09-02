@@ -8,4 +8,5 @@ export type IKeyTool =
   | "FRAME"
   | "GROUP"
   | "DRAW"
-  | "WRITING";
+  | "WRITING"
+  | "CODE";

@@ -34,7 +34,6 @@ const AtomGroupElement = (item: IFCElement) => {
       onRef?.(groupRef);
     }
   }, [isRef, groupRef, onRef]);
-  console.log(item, "item");
 
   return (
     <>

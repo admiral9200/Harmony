@@ -21,6 +21,7 @@
     "eslint-config-next": "13.3.0",
     "graphql": "^16.6.0",
     "jotai": "^2.0.4",
+    "js-beautify": "^1.14.9",
     "jspdf": "^2.5.1",
     "konva": "^9.0.1",
     "lucy-nxtjs": "^0.0.73",
@@ -40,6 +41,7 @@
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
-    "@types/uuid": "^9.0.1"
+    "@types/uuid": "^9.0.1",
+    "prettier": "^3.0.3"
   }
 }

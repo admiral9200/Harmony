@@ -39,6 +39,10 @@ const METHODS: Methods[] = [
     icon: icons.text,
     keyMethod: "TEXT",
   },
+  {
+    icon: icons.code,
+    keyMethod: "CODE",
+  },
   // {
   //   icon: icons.peentool,
   //   keyMethod: "DRAW",

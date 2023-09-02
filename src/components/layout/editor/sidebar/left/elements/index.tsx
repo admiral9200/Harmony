@@ -26,6 +26,7 @@ const ElementsIcons: IElementsIcons = {
   MOVE: icons.cursor,
   GROUP: icons.group,
   DRAW: icons.peentool,
+  CODE: icons.code,
 };
 
 const ElementsList: FC<Props> = () => {

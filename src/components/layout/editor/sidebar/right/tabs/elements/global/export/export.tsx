@@ -72,7 +72,7 @@ const SidebarExportFC: FC = () => {
         x: 0,
         y: 0,
       });
-      layer.add(thread as Threads);
+      layer?.add(thread as Threads);
     }
     setUrl(stage as any);
   }, [element, elements, pipeline]);

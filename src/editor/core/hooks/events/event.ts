@@ -1,11 +1,13 @@
 import boxElementProgress from "./progress/BOX";
 import circleElementProgress from "./progress/CIRCLE";
+import codeProgressElement from "./progress/CODE";
 import drawElementProgress from "./progress/DRAW";
 import imageElementProgress from "./progress/IMAGE";
 import lineElementProgress from "./progress/LINE";
 import textElementProgress from "./progress/TEXT";
 import boxElementStart from "./start/BOX";
 import circleElementStart from "./start/CIRCLE";
+import codeStartInitial from "./start/CODE";
 import drawElementStart from "./start/DRAW";
 import groupStart from "./start/GROUP";
 import imageElementStart from "./start/IMAGE";
@@ -41,6 +43,10 @@ const eventElements: IEventElement = {
   TEXT: {
     start: textElementStart,
     progress: textElementProgress,
+  },
+  CODE: {
+    start: codeStartInitial,
+    progress: codeProgressElement,
   },
 };
 
