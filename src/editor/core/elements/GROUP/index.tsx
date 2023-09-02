@@ -1,6 +1,6 @@
 import Konva from "konva";
 import { LegacyRef, MutableRefObject, useEffect, useRef } from "react";
-import { Group, Rect, Transformer } from "react-konva";
+import { Group, Rect, Text, Transformer } from "react-konva";
 import { IKeyTool } from "../../hooks/tool/types";
 import { MapEls } from "../mp_el";
 import { FCE, IFCElement } from "../type";
@@ -22,12 +22,12 @@ const AtomGroupElement = (item: IFCElement) => {
 
   useEffect(() => {
     if (isSelected) {
-      if (trRef.current && shapeRef.current) {
-        trRef.current.nodes([shapeRef.current]);
+      if (trRef.current && groupRef.current) {
+        trRef.current.nodes([groupRef.current]);
         trRef.current?.getLayer()?.batchDraw();
       }
     }
-  }, [isSelected, item, trRef, shapeRef]);
+  }, [isSelected, item, trRef, groupRef]);
 
   useEffect(() => {
     if (isRef) {
@@ -37,103 +37,6 @@ const AtomGroupElement = (item: IFCElement) => {
 
   return (
     <>
-      <Rect
-        x={item?.x}
-        y={Number(item?.y) - 80}
-        width={item?.width}
-        height={70}
-        cornerRadius={12}
-        fill="#151414"
-        onClick={() => {
-          if (item?.isBlocked) return;
-
-          onSelect(item);
-        }}
-        onTap={() => {
-          if (item?.isBlocked) return;
-          onSelect(item);
-        }}
-        onDragEnd={(e) => {
-          if (item?.isBlocked) return;
-          onChange({
-            ...item,
-            x: e.target.x(),
-            y: e.target.y(),
-          });
-        }}
-        onTransformEnd={(e) => {
-          const rotate = e.target.rotation();
-          if (shapeRef?.current) {
-            const node = shapeRef.current;
-            const scaleX = node.scaleX();
-            const scaleY = node.scaleY();
-            node.scaleX(1);
-            node.scaleY(1);
-            onChange({
-              ...item,
-              x: node.x(),
-              y: node.y(),
-              rotate,
-              width: Math.max(5, node.width() * scaleX),
-              height: Math.max(node.height() * scaleY),
-            });
-          }
-        }}
-      />
-      <Rect
-        x={item?.x}
-        y={item?.y}
-        width={item?.width}
-        height={item?.height}
-        rotationDeg={item?.rotate}
-        shadowColor={item?.style?.shadowColor}
-        shadowOpacity={item?.style?.shadowOpacity}
-        shadowOffsetX={item?.style?.shadowOffset?.x}
-        shadowOffsetY={item?.style?.shadowOffset?.y}
-        shadowBlur={item?.style?.shadowBlur}
-        id={"group-style-background"}
-        cornerRadius={12}
-        fill={item.style?.backgroundColor}
-        draggable={item?.isBlocked === true ? false : draggable}
-        stroke={item?.style?.stroke}
-        ref={shapeRef as MutableRefObject<Konva.Rect>}
-        strokeWidth={item?.style?.strokeWidth}
-        onClick={() => {
-          if (item?.isBlocked) return;
-
-          onSelect(item);
-        }}
-        onTap={() => {
-          if (item?.isBlocked) return;
-          onSelect(item);
-        }}
-        onDragEnd={(e) => {
-          if (item?.isBlocked) return;
-          onChange({
-            ...item,
-            x: e.target.x(),
-            y: e.target.y(),
-          });
-        }}
-        onTransformEnd={(e) => {
-          const rotate = e.target.rotation();
-          if (shapeRef?.current) {
-            const node = shapeRef.current;
-            const scaleX = node.scaleX();
-            const scaleY = node.scaleY();
-            node.scaleX(1);
-            node.scaleY(1);
-            onChange({
-              ...item,
-              x: node.x(),
-              y: node.y(),
-              rotate,
-              width: Math.max(5, node.width() * scaleX),
-              height: Math.max(node.height() * scaleY),
-            });
-          }
-        }}
-      />
       <Group
         {...item}
         id={item?.id}
@@ -143,7 +46,75 @@ const AtomGroupElement = (item: IFCElement) => {
         height={item?.height}
         draggable={item?.isBlocked === true ? false : draggable}
         ref={groupRef as LegacyRef<Konva.Group>}
+        onClick={() => {
+          if (item?.isBlocked) return;
+
+          onSelect(item);
+        }}
+        onTap={() => {
+          if (item?.isBlocked) return;
+          onSelect(item);
+        }}
+        onDragEnd={(e) => {
+          if (item?.isBlocked) return;
+          onChange({
+            ...item,
+            x: e.target.x(),
+            y: e.target.y(),
+          });
+        }}
+        onTransformEnd={(e) => {
+          const rotate = e.target.rotation();
+          if (groupRef?.current) {
+            const node = groupRef.current;
+            const scaleX = node.scaleX();
+            const scaleY = node.scaleY();
+            node.scaleX(1);
+            node.scaleY(1);
+            onChange({
+              ...item,
+              x: node.x(),
+              y: node.y(),
+              rotate,
+              width: Math.max(5, node.width() * scaleX),
+              height: Math.max(node.height() * scaleY),
+            });
+          }
+        }}
       >
+        <Rect
+          x={0}
+          y={0}
+          width={item?.width}
+          height={70}
+          cornerRadius={12}
+          fill="#151414"
+        />
+        <Text
+          text="Group"
+          fill="white"
+          fontSize={21}
+          fontStyle="bold"
+          x={20}
+          y={30}
+        />
+        <Rect
+          x={0}
+          y={80}
+          width={item?.width}
+          height={item?.height}
+          rotationDeg={item?.rotate}
+          shadowColor={item?.style?.shadowColor}
+          shadowOpacity={item?.style?.shadowOpacity}
+          shadowOffsetX={item?.style?.shadowOffset?.x}
+          shadowOffsetY={item?.style?.shadowOffset?.y}
+          shadowBlur={item?.style?.shadowBlur}
+          id={"group-style-background"}
+          cornerRadius={12}
+          fill={item.style?.backgroundColor}
+          stroke={item?.style?.stroke}
+          strokeWidth={item?.style?.strokeWidth}
+        />
         {elements?.map((elementsItem) => {
           const Component = MapEls?.[
             `${elementsItem?.tool}` as IKeyTool
