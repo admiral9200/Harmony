@@ -6,8 +6,8 @@ import useSelect from "@/editor/core/hooks/select";
 import useCallStkcTime from "@/hooks/useCallTime";
 import themeColors from "@/themes";
 import { AtomInput, AtomText, AtomWrapper } from "@whil/ui";
-import js_beautify from "js-beautify";
 import { FC, useCallback } from "react";
+
 const fonts = {
   Roboto: {
     label: "Roboto",
@@ -25,21 +25,8 @@ const SideBarCode: FC = () => {
 
   const { setTimer } = useCallStkcTime({
     callback: () => {
-      const options = { indent_size: 2, space_in_empty_paren: true };
-
-      const dataObj = {
-        completed: false,
-        id: 1,
-        title: "delectus aut autem",
-        userId: 1,
-      };
-
-      const ned = {
-        ...SelectedChangeElement,
-        text: js_beautify(SelectedChangeElement?.text, options),
-      };
-      handleSetElement(ned);
-      handleSetElements(ned);
+      handleSetElement(SelectedChangeElement);
+      handleSetElements(SelectedChangeElement);
     },
     ms: 250,
   });

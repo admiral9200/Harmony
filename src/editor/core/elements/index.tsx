@@ -32,7 +32,7 @@ const AtomEditorMapper = memo(() => {
     layerRef,
     setSelected,
   } = useSelection();
-  const { listGroups, handleAddGroup } = useGroups();
+  const { listGroups, handleAddGroup, group } = useGroups();
 
   const onChange = useCallback(
     (element: IElement | IParamsElement) => {
@@ -56,6 +56,14 @@ const AtomEditorMapper = memo(() => {
     });
   }, []);
 
+  useEffect(() => {
+    if (groupSelectId) {
+      handleAddGroup({
+        ...group,
+        isBlocked: false,
+      });
+    }
+  }, [element?.id, groupSelectId]);
   return (
     <>
       <Layer ref={layerRef as MutableRefObject<Konva.Layer>}>
