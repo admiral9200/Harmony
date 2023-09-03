@@ -12,16 +12,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.12",
     "@emotion/react": "11.10.6",
-    "@hookform/resolvers": "^3.1.0",
     "@whil/ui": "^0.0.6",
     "canvas": "2.11.2",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
-    "graphql": "^16.6.0",
     "jotai": "^2.0.4",
-    "js-beautify": "^1.14.9",
     "jspdf": "^2.5.1",
     "konva": "^9.0.1",
     "lucy-nxtjs": "^0.0.73",
