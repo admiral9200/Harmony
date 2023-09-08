@@ -1,14 +1,15 @@
-import { useStage } from "@/editor/core/hooks";
+import { useStage, useTool } from "@/editor/core/hooks";
 import useElements from "@/editor/core/hooks/elements/hook";
 import usePages from "@/editor/core/hooks/pages/hook";
 import { pageIdDefault } from "@/editor/core/hooks/pages/jotai";
+import themeColors from "@/themes";
 import { AtomButton, AtomInput, AtomText, AtomWrapper } from "@whil/ui";
 import { FC } from "react";
 
 const StageSidebarRight: FC = () => {
   const { config, handleConfig } = useStage();
   const { page, handleDeletePage, pages } = usePages();
-
+  const { setTool } = useTool();
   const { handleDeleteElementsByPage } = useElements();
 
   return (
@@ -21,6 +22,17 @@ const StageSidebarRight: FC = () => {
       <AtomText color="white" fontWeight="bold" padding="0.5em 0.7em">
         Page
       </AtomText>
+      <AtomText
+        color="white"
+        fontSize="medium"
+        fontWeight={"bold"}
+        padding="0.5em 0.7em"
+      >
+        Styles
+      </AtomText>
+      <AtomText color="white" padding="0.5em 0.7em" fontSize="small">
+        Backgorund Color
+      </AtomText>
       <AtomWrapper
         padding="0.5em 0.7em"
         customCSS={(css) => css`
@@ -28,7 +40,6 @@ const StageSidebarRight: FC = () => {
           align-items: center;
           justify-content: center;
           grid-template-columns: 2rem 1fr;
-          gap: 1em;
         `}
       >
         <AtomWrapper>
@@ -36,7 +47,6 @@ const StageSidebarRight: FC = () => {
             type="color"
             id="backgroundStage"
             customCSS={(css) => css`
-              background-color: blue;
               margin: 0%;
               outline: none;
               padding: 0%;
@@ -57,34 +67,41 @@ const StageSidebarRight: FC = () => {
             as={"label"}
             htmlFor="backgroundStage"
             customCSS={(css) => css`
-              background-color: ${config.backgroundColor};
+              background-color: ${config?.backgroundColor ?? "#ffffff"};
+              height: 1.3rem;
+              border-radius: 0.2rem;
               border: 1px solid white;
-              height: 2rem;
-              border-radius: 0.4rem;
-              width: 2rem;
+              width: 1.3rem;
             `}
           ></AtomText>
         </AtomWrapper>
-        <AtomText as={"label"} htmlFor="backgroundStage" color="white">
-          {config.backgroundColor}
-        </AtomText>
+        <AtomInput
+          readonly
+          type="text"
+          value={`#${config?.backgroundColor?.replace(/#/, "") ?? "ffffff"}`}
+          onClick={() => {
+            setTool("WRITING");
+          }}
+          onChange={(event) => {
+            setTool("WRITING");
+            handleConfig({
+              backgroundColor: event.target.value,
+            });
+          }}
+          customCSS={(css) => css`
+            font-size: small;
+            color: white;
+            width: 100%;
+            border: 1px solid ${themeColors.dark};
+            background-color: ${themeColors.dark};
+          `}
+        />
       </AtomWrapper>
-      <AtomWrapper
-        width="100%"
-        height="auto"
-        customCSS={(css) => css`
-          border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-        `}
-      ></AtomWrapper>
-      <AtomText color="white" fontWeight="bold" padding="0.5em 0.7em">
-        Config
-      </AtomText>
+
       {page !== pageIdDefault ? (
-        <AtomWrapper flexDirection="column" padding="0.5em 0.7em">
-          <AtomText color="white" fontWeight="bold" textAlign="left">
-            {pages?.length > 1
-              ? "Do you want delete this page?"
-              : "The current page"}
+        <AtomWrapper flexDirection="column" padding="0.5em 0.7em" gap="1em">
+          <AtomText color="white" fontSize="medium" fontWeight={"bold"}>
+            {pages?.length > 1 ? "Settings" : "The current page"}
           </AtomText>
           <AtomWrapper
             customCSS={(css) => css`
@@ -93,9 +110,6 @@ const StageSidebarRight: FC = () => {
               gap: 1em;
             `}
           >
-            <AtomText color="white" fontWeight="bold">
-              {page?.slice(0, 14)}
-            </AtomText>
             {pages?.length > 1 ? (
               <AtomButton
                 onClick={() => {
@@ -104,15 +118,20 @@ const StageSidebarRight: FC = () => {
                   handleDeleteElementsByPage(page);
                 }}
                 customCSS={(css) => css`
-                  background-color: transparent;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background-color: red;
                   border: 0px;
-                  color: red;
-                  padding: 1em;
+                  /* padding: 0.4em 1em; */
                   cursor: pointer;
-                  border: 1px solid red;
+                  width: 100%;
+                  height: 40px;
+                  border-radius: 0.3em;
+                  color: white;
                 `}
               >
-                Delete
+                Delete page
               </AtomButton>
             ) : null}
           </AtomWrapper>

@@ -71,9 +71,9 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           />
           <meta property="og:url" content="https://harmony.whil.online/" />
           <meta property="og:site_name" content="Harmony Web Editor Design" />
-          <meta property="og:image" content="/coverseo2.png" />
+          <meta property="og:image" content="/coverd.png" />
 
-          <meta property="og:image:secure_url" content="/coverseo2.png" />
+          <meta property="og:image:secure_url" content="/coverd.png" />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
           <meta property="og:image:alt" content="Harmony Web Editor Design" />
@@ -84,10 +84,10 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
             content="Harmony offers an innovative solution for React projects that require image editing, PDF creation, and dynamic web design capabilities, similar to popular tools like Figma, Adobe XD, and Adobe Photoshop"
           />
           <meta name="twitter:title" content="Harmony Web Editor Design" />
-          <meta name="twitter:image" content="/coverseo2.png" />
+          <meta name="twitter:image" content="/coverd.png" />
 
-          <meta property="og:image" itemProp="image" content="/coverseo2.png" />
-          <meta property="og:image:secure_url" content="/coverseo2.png" />
+          <meta property="og:image" itemProp="image" content="/coverd.png" />
+          <meta property="og:image:secure_url" content="/coverd.png" />
           <meta property="og:image:type" content="image/png" />
           <meta property="og:image:width" content="300" />
           <meta property="og:image:height" content="300" />

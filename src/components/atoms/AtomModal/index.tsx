@@ -1,14 +1,17 @@
-import { AtomButton, AtomModal, AtomText, AtomWrapper } from "lucy-nxtjs";
-import { FC, useLayoutEffect, useState } from "react";
+/* eslint-disable react/no-unescaped-entities */
+import { AtomButton, AtomModal, AtomWrapper } from "lucy-nxtjs";
+import { FC, useState } from "react";
+import StepOneModal from "../steps/one/one";
+import StepTwoModal from "../steps/two/two";
+
+const stepd = {
+  1: <StepOneModal />,
+  2: <StepTwoModal />,
+};
 
 const Modal: FC = () => {
-  const [mounted, setMounted] = useState(false);
-
-  useLayoutEffect(() => {
-    setMounted(
-      JSON.parse(localStorage.getItem("harmony_modal") as string) ?? true
-    );
-  }, []);
+  const [mounted, setMounted] = useState(true);
+  const [steps, setSteps] = useState(1);
 
   return (
     <>
@@ -17,54 +20,49 @@ const Modal: FC = () => {
         onCloseShow={() => {}}
         customCSS={(css) => css`
           background-color: #fff;
-          height: 217px;
-          width: 420px;
-          padding: 30px 20px;
-          gap: 10px;
+          height: auto;
+          max-height: 695px;
+          max-width: 620px;
+          padding: 2em;
+          gap: 1em;
+          /* gap: 10px; */
           z-index: 99999999999999999999999999999999999999999999999999999999 !important;
         `}
       >
+        {stepd[steps as keyof typeof stepd]}
         <AtomWrapper
-          height="100%"
-          justifyContent="space-between"
-          customCSS={(css) => css`
-            flex: 1;
-            width: -webkit-fill-available;
-            gap: 10px;
-          `}
+          flexDirection="row"
+          height="auto"
+          justifyContent="center"
+          gap="20px"
         >
-          <AtomText fontSize="16px" fontWeight="bold">
-            Harmony Editor
-          </AtomText>
-          <AtomWrapper
-            customCSS={(css) => css`
-              background-color: black;
-              height: 1px;
-            `}
-          >
-            {" "}
-          </AtomWrapper>{" "}
-          <AtomText fontSize="12px">
-            Hello!, I remember you that this is only a beta project. If you find
-            a error tell me in my social media please.
-          </AtomText>
-          <AtomWrapper
-            flexDirection="row"
-            height="auto"
-            justifyContent="flex-end"
-            gap="20px"
-          >
+          {steps !== 1 ? (
             <AtomButton
               onClick={() => {
-                localStorage.setItem("harmony_modal", "false");
-                setMounted(false);
+                // setMounted(false);
+                setSteps((prev) => (prev === 1 ? 1 : prev - 1));
               }}
               isFocus
-              backgroundColor="#0496ff"
+              backgroundColor="#c0c0c0"
             >
-              Ok I understoond
+              Back
             </AtomButton>
-          </AtomWrapper>
+          ) : null}
+          <AtomButton
+            onClick={() => {
+              // setMounted(false);
+              if (steps === 2) {
+                setMounted(false);
+              } else {
+                setSteps((prev) => prev + 1);
+              }
+            }}
+            isFocus
+            backgroundColor="#0496ff"
+          >
+            {steps === 2 ? "OK" : "Next"}
+            {/* Next */}
+          </AtomButton>
         </AtomWrapper>
       </AtomModal>
     </>

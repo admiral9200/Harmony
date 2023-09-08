@@ -59,7 +59,7 @@ const useEvent = () => {
   const [elementsIds, setElementsIds] = useState<string[]>([]);
 
   const updateSelectionRect = useCallback(() => {
-    if (selectionRectRef.current) {
+    if (selectionRectRef?.current) {
       const node = selectionRectRef.current;
       if (node) {
         node.setAttrs({

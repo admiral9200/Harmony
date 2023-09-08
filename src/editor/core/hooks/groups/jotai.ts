@@ -47,10 +47,11 @@ export const listGroupsAtom = atom((get) =>
 export const groupoSelectedIdAtom = atomWithDefault(
   (get) => get(listGroupsAtom)?.[0]?.groupId
 );
-export const groupAtom = atom((get) =>
-  get(listGroupsAtom)?.find(
-    (dataItem) => dataItem?.groupId === get(groupoSelectedIdAtom)
-  )
+export const groupAtom = atom(
+  (get) =>
+    get(listGroupsAtom)?.find(
+      (dataItem) => dataItem?.groupId === get(groupoSelectedIdAtom)
+    )
 );
 
 export const groupRefAtom = atom<Group>({} as Group);

@@ -68,7 +68,7 @@ const LayoutEditorTop: FC = () => {
         align-items: center;
         justify-content: space-between;
         gap: 1em;
-        z-index: 999999999999999999999;
+        z-index: 999999999;
         position: absolute;
         padding: 0.4em;
         border-radius: 12px;
