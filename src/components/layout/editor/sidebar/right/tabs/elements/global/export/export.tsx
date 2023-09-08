@@ -30,8 +30,8 @@ const SidebarExportFC: FC = () => {
   const handleExportd = useCallback(() => {
     const stage = new Konva.Stage({
       container: "viewer-layout",
-      width: element?.width,
-      height: element?.height,
+      width: element?.width ?? 100,
+      height: element?.height ?? 100,
     });
 
     const layer = new Konva.Layer();
@@ -64,7 +64,9 @@ const SidebarExportFC: FC = () => {
 
       for (const iterator of groupElements) {
         const thread = threads?.[iterator?.tool as IKeyTool]?.(iterator);
-        layer.add(thread as Threads);
+        if (thread) {
+          layer.add(thread as Threads);
+        }
       }
     } else {
       const thread = threads?.[element?.tool as IKeyTool]?.({
@@ -72,7 +74,9 @@ const SidebarExportFC: FC = () => {
         x: 0,
         y: 0,
       });
-      layer?.add(thread as Threads);
+      if (thread) {
+        layer.add(thread as Threads);
+      }
     }
     setUrl(stage as any);
   }, [element, elements, pipeline]);
@@ -139,12 +143,19 @@ const SidebarExportFC: FC = () => {
           padding: 0.5em 0.7em;
         `}
       >
-        <AtomImage
-          src={url?.toDataURL()}
-          width="100%"
-          maxHeight="150px"
-          objectFit="cover"
-        />
+        {element?.tool !== "LINE" ? (
+          <>
+            {url ? (
+              <AtomImage
+                src={url?.toDataURL?.()}
+                width="100%"
+                maxHeight="150px"
+                objectFit="cover"
+              />
+            ) : null}
+          </>
+        ) : null}
+
         <AtomWrapper
           id="viewer-layout"
           customCSS={(css) => css`
@@ -156,12 +167,12 @@ const SidebarExportFC: FC = () => {
             display: none;
             background-color: white;
             div {
-              width: 0px !important;
-              height: 0px !important;
+              width: 1px !important;
+              height: 1px !important;
             }
             canvas {
-              width: 0px !important;
-              height: 0px !important;
+              width: 1px !important;
+              height: 1px !important;
             }
           `}
         ></AtomWrapper>

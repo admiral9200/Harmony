@@ -1,23 +1,8 @@
-import { isPartialBorderRadius } from "@/editor/core/elements/BOX";
-import { IElement, IFCElement } from "@/editor/core/elements/type";
-import Konva from "konva";
+import { IElement } from "@/editor/core/elements/type";
+import { Rect } from "konva/lib/shapes/Rect";
 
 const ThreadLine = (element: IElement | Partial<IElement>) => {
-  const line = new Konva.Rect({
-    id: element?.id,
-    x: element?.x,
-    y: element?.y,
-    fill: element?.style?.stroke,
-    height: element?.height,
-    width: element?.width,
-    shadowBlur: element?.style?.shadowBlur,
-    shadowColor: element?.style?.shadowColor,
-    shadowOpacity: element?.style?.shadowOpacity,
-    shadowOffsetX: element?.style?.shadowOffset?.x,
-    shadowOffsetY: element?.style?.shadowOffset?.y,
-    cornerRadius: isPartialBorderRadius(element as IFCElement)?.cornerRadius,
-  });
-  return line;
+  return null as unknown as Rect;
 };
 
 export default ThreadLine;

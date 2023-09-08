@@ -19,6 +19,7 @@ const StepOneModal: FC<Props> = (props) => {
       <AtomText fontSize="large" fontWeight="bold">
         Harmony Web Editor - Message
       </AtomText>
+
       <AtomText fontSize="medium">
         Hello, Thank you very much for your interest in this great project.
         <br />

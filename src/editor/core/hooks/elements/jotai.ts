@@ -1,17 +1,15 @@
+import { elements } from "@/assets/default";
 import { atom } from "jotai";
 import { IElement, IPELMT, IParamsElement } from "../../elements/type";
 import elementSelectedAtom from "../element/jotai";
 import { groupoSelectedIdAtom } from "../groups/jotai";
 import { pageSelectedAtom } from "../pages/jotai";
-import JSONPORTFOLIO from "./hydrated";
 
 type IOBCElement = {
   [key: string]: IElement | IParamsElement;
 };
 
-const elementsAtom = atom<IOBCElement>(
-  JSON.parse(JSONPORTFOLIO) as IOBCElement
-);
+const elementsAtom = atom(elements as unknown as IOBCElement);
 
 export const dragStateAtom = atom({
   start: {} as IPELMT,
