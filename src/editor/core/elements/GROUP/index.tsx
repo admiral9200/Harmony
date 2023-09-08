@@ -1,6 +1,6 @@
 import Konva from "konva";
 import { LegacyRef, MutableRefObject, useEffect, useRef } from "react";
-import { Group, Rect, Text, Transformer } from "react-konva";
+import { Group, Image as KonvaImg, Rect, Transformer } from "react-konva";
 import { IKeyTool } from "../../hooks/tool/types";
 import { MapEls } from "../mp_el";
 import { FCE, IFCElement } from "../type";
@@ -34,6 +34,10 @@ const AtomGroupElement = (item: IFCElement) => {
       onRef?.(groupRef);
     }
   }, [isRef, groupRef, onRef]);
+
+  const dataImage = new Image();
+
+  dataImage.src = "/dragdrop.svg";
 
   return (
     <>
@@ -87,9 +91,22 @@ const AtomGroupElement = (item: IFCElement) => {
           width={item?.width}
           height={70}
           cornerRadius={8}
-          fill="#151414"
+          onMouseEnter={(e) => {
+            // style stage container:
+            const container = e.target.getStage()?.container();
+            if (container) {
+              container.style.cursor = "pointer";
+            }
+          }}
+          onMouseLeave={(e) => {
+            const container = e.target.getStage()?.container();
+            if (container) {
+              container.style.cursor = `url("/cursors/default.png"), auto`;
+            }
+          }}
+          fill="black"
           stroke={"white"}
-          strokeWidth={1}
+          strokeWidth={2}
           onClick={() => {
             onSelect(item);
             onChange({
@@ -98,14 +115,7 @@ const AtomGroupElement = (item: IFCElement) => {
             });
           }}
         />
-        <Text
-          text="Group"
-          fill="white"
-          fontSize={21}
-          fontStyle="bold"
-          x={20}
-          y={30}
-        />
+        <KonvaImg x={10} y={17} width={42} height={42} image={dataImage} />
         <Rect
           x={0}
           y={80}

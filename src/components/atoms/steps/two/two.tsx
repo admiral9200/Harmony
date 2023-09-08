@@ -28,10 +28,10 @@ const StepTwoModal: FC<Props> = (props) => {
       <AtomWrapper flexDirection="column" gap="0.4em">
         {controls.map((item) => (
           <AtomWrapper key={item.label} flexDirection="column">
-            <AtomText>
+            <AtomText fontSize="small">
               <strong>{item.label}</strong>
             </AtomText>
-            <AtomText>{item.value}</AtomText>
+            <AtomText fontSize="small">{item.value}</AtomText>
           </AtomWrapper>
         ))}
       </AtomWrapper>

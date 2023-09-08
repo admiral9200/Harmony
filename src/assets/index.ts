@@ -74,6 +74,12 @@ const icons = {
 </svg>
 
   `,
+  groupdrag: `
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 3H3V5H5V3ZM19 7H21V13H19V9H9V19H13V21H7V7H19ZM7 3H9V5H7V3ZM5 7H3V9H5V7ZM3 11H5V13H3V11ZM5 15H3V17H5V15ZM11 3H13V5H11V3ZM17 3H15V5H17V3ZM15 17V15H21V17H19V19H17V21H15V17ZM19 19V21H21V19H19Z" fill="black"/>
+</svg>
+
+  `,
 };
 
 export default icons;
